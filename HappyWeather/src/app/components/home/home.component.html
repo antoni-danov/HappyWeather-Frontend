@@ -1,7 +1,13 @@
-<mat-card style="text-align: center;">
-  <mat-card-content>
+<div class="container">
+  <form [formGroup]="form" (click)="getCurrentCity(form.value)">
     <mat-form-field>
-      <input type="search" placeholder="Enter city name" />
+      <input matInput placeholder="Search" formControlName="cityName" />
+      <!-- <mat-error *ngIf="form.get('cityName').required>
+        <span>
+          City name or country name is required.
+        </span>
+      </mat-error> -->
     </mat-form-field>
-  </mat-card-content>
-</mat-card>
+    <button type="button">Search</button>
+  </form>
+</div>
