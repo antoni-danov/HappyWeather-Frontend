@@ -1,0 +1,21 @@
+h1 {
+  text-align: center;
+  margin-top: 5%;
+  font-size: xxx-large;
+}
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 25vh;
+}
+.mat-mdc-form-field {
+  width: 35%;
+}
+.searchButton {
+  background: none;
+  border: none;
+  cursor: pointer;
+  outline: none;
+  color: gray; /* Change the color to match your design */
+}

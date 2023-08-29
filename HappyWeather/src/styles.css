@@ -1,1 +1,6 @@
 @import "~font-awesome/css/font-awesome.css";
+@import "https://fonts.googleapis.com/icon?family=Material+Icons";
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+}

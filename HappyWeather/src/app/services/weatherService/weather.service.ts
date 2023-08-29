@@ -9,6 +9,8 @@ export class WeatherService {
   constructor(private http: HttpClient) { }
 
   getCurrentCity(cityName: string) {
-    return this.http.get(environment.localhost);
+    console.log(cityName);
+    console.log(environment.localhost + `/cityName`);
+    return this.http.get(`environment.localhost/${cityName}`);
   }
 }

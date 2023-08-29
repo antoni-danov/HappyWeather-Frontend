@@ -1,13 +1,21 @@
+<h1>Happy Weather</h1>
 <div class="container">
-  <form [formGroup]="form" (click)="getCurrentCity(form.value)">
-    <mat-form-field>
-      <input matInput placeholder="Search" formControlName="cityName" />
-      <!-- <mat-error *ngIf="form.get('cityName').required>
-        <span>
-          City name or country name is required.
-        </span>
-      </mat-error> -->
-    </mat-form-field>
-    <button type="button">Search</button>
-  </form>
+  <mat-form-field>
+    <input
+      type="text"
+      matInput
+      placeholder="Search"
+      [(ngModel)]="userInput"
+      (keyup.enter)="currentCityOnEnter()"
+    />
+    <button
+      class="searchButton"
+      mat-button
+      matSuffix
+      (click)="currentCityOnClick()"
+    >
+      <mat-icon>search</mat-icon>
+    </button>
+  </mat-form-field>
+  <!-- <button (click)="currentCityOnClick()">Search</button> -->
 </div>

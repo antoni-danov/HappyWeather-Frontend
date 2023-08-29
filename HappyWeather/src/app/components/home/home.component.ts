@@ -9,20 +9,24 @@ import { WeatherService } from 'src/app/services/weatherService/weather.service'
 })
 export class HomeComponent implements OnInit {
 
-  form!: FormGroup;
+  userInput: string = '';
   constructor(private service: WeatherService) {
   }
 
   ngOnInit() {
-    this.form = new FormGroup({
-      cityName: new FormControl('', Validators.required)
-    });
   }
+  currentCityOnEnter() {
+    console.log('User pressed Enter. Value entered:', this.userInput);
+    this.userInput = '';
+    // this.service.getCurrentCity(cityName).subscribe(data => {
+    //   console.log(data);
+    //   this.weatherData = data;
+    // });
 
-  getCurrentCity(cityName: string) {
-    console.log(cityName);
-
-    //this.service.getCurrentCity('Sofia').subscribe(data => console.log(data));
   }
+  currentCityOnClick() {
+    console.log('User clicked. Value entered:', this.userInput);
+    this.userInput = '';
 
+  }
 }

@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { MaterialModule } from './modules/material.module';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppComponent } from './app.component';
@@ -20,6 +20,7 @@ import { MatIconRegistry } from '@angular/material/icon';
     AppRoutingModule,
     HttpClientModule,
     MaterialModule,
+    FormsModule,
     ReactiveFormsModule,
     BrowserAnimationsModule
   ],
