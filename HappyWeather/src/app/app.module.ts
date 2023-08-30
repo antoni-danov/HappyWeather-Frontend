@@ -9,11 +9,13 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.component';
 import { MatIconRegistry } from '@angular/material/icon';
+import { WeatherResultComponent } from './components/weather-result/weather-result.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent
+    HomeComponent,
+    WeatherResultComponent
   ],
   imports: [
     BrowserModule,
@@ -22,7 +24,7 @@ import { MatIconRegistry } from '@angular/material/icon';
     MaterialModule,
     FormsModule,
     ReactiveFormsModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
