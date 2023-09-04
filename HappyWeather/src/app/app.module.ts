@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
@@ -10,12 +10,14 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.component';
 import { MatIconRegistry } from '@angular/material/icon';
 import { WeatherResultComponent } from './components/weather-result/weather-result.component';
+import { WeatherSearchComponent } from './components/weather-search/weather-search.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    WeatherResultComponent
+    WeatherResultComponent,
+    WeatherSearchComponent
   ],
   imports: [
     BrowserModule,

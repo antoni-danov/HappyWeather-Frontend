@@ -1,0 +1,19 @@
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 25vh;
+}
+.mat-mdc-form-field {
+  width: 35%;
+  background-color: white;
+  border-style: 15px;
+  opacity: 0.7;
+}
+.searchButton {
+  background: none;
+  border: none;
+  cursor: pointer;
+  outline: none;
+  color: gray;
+}
