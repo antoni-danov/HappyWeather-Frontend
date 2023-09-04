@@ -1,22 +1,2 @@
 <h1>Happy Weather</h1>
-<div class="container">
-  <mat-form-field>
-    <input
-      type="text"
-      matInput
-      placeholder="Search"
-      [(ngModel)]="userInput"
-      (keyup.enter)="currentCityOnEnter()"
-    />
-    <button
-      class="searchButton"
-      mat-button
-      matSuffix
-      (click)="currentCityOnClick()"
-    >
-      <mat-icon>search</mat-icon>
-    </button>
-  </mat-form-field>
-  <!-- <button (click)="currentCityOnClick()">Search</button> -->
-</div>
-<app-weather-result></app-weather-result>
+<app-weather-search></app-weather-search>
