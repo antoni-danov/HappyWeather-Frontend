@@ -6,3 +6,4 @@ Weather real time data project using Angular 16, .NET 7 and Weatherstack API
 - Angular Material
 - WeatherStack API
 - Animated icons - Lottie files
+- Google maps autocomplete
