@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { WeatherService } from 'src/app/services/weatherService/weather.service';
+import { WeatherSearchComponent } from '../weather-search/weather-search.component';
 
 @Component({
   selector: 'app-home',
@@ -7,10 +7,18 @@ import { WeatherService } from 'src/app/services/weatherService/weather.service'
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-
-  constructor(private service: WeatherService) {
+  receivedData: any;
+  constructor() {
   }
 
   ngOnInit() {
+  }
+
+  receiveData(data: any) {
+    console.log("Home component " + data);
+
+    this.receivedData = data;
+    console.log("Home component " + this.receivedData);
+
   }
 }

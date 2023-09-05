@@ -1,4 +1,5 @@
-import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, ViewChild, Output, EventEmitter } from '@angular/core';
+import { WeatherService } from 'src/app/services/weatherService/weather.service';
 
 @Component({
   selector: 'app-weather-search',
@@ -6,28 +7,36 @@ import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
   styleUrls: ['./weather-search.component.css']
 })
 export class WeatherSearchComponent implements AfterViewInit {
+  @Output() dataEmitter = new EventEmitter<any>();
+
   @ViewChild('inputField') inputField!: ElementRef;
   autocomplete: google.maps.places.Autocomplete | undefined;
-  userInput: string = '';
   options = {
     types: ['(cities)'],
   };
+  result: boolean = true;
 
+  constructor(private service: WeatherService) {
+  }
 
   ngAfterViewInit() {
     this.autocomplete = new google.maps.places.Autocomplete(this.inputField.nativeElement, this.options);
   }
+
   currentCityOnEnter() {
-    console.log('User pressed Enter. Value entered:', this.autocomplete?.getPlace());
+    this.service.getCurrentCity(this.inputField.nativeElement.value).subscribe(data => {
+      this.dataEmitter.emit(data);
+      console.log(data);
+    });
+
     this.inputField.nativeElement.value = '';
+
+  }
+  currentCityOnClick() {
     // this.service.getCurrentCity(cityName).subscribe(data => {
     //   console.log(data);
     //   this.weatherData = data;
     // });
-
-  }
-  currentCityOnClick() {
-    console.log('User clicked. Value entered:', this.autocomplete?.getPlace());
     this.inputField.nativeElement.value = '';
 
 
