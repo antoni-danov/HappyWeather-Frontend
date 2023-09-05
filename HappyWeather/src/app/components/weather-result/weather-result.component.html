@@ -1,4 +1,7 @@
 <div class="weather-container">
+  <div *ngIf="sharedData">
+    <div>{{sharedData.current.observation_time}}</div>
+  </div>
   <div class="row" style="margin-top: 5px;">24</div>
   <div class="row" style="font-size: 12px;">Sunny</div>
   <div class="row" style="font-size: 12px;">Humidity:</div>
