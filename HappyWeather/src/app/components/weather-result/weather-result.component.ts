@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { weatherResultDto } from 'src/app/interfaces/weatherResultDto';
 
 @Component({
   selector: 'app-weather-result',
@@ -6,5 +7,5 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./weather-result.component.css']
 })
 export class WeatherResultComponent {
-  @Input() sharedData: any;
+  @Input() sharedData!: weatherResultDto;
 }

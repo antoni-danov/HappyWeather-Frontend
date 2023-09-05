@@ -1,4 +1,5 @@
 import { AfterViewInit, Component, ElementRef, ViewChild, Output, EventEmitter } from '@angular/core';
+import { weatherResultDto } from 'src/app/interfaces/weatherResultDto';
 import { WeatherService } from 'src/app/services/weatherService/weather.service';
 
 @Component({
@@ -7,7 +8,7 @@ import { WeatherService } from 'src/app/services/weatherService/weather.service'
   styleUrls: ['./weather-search.component.css']
 })
 export class WeatherSearchComponent implements AfterViewInit {
-  @Output() dataEmitter = new EventEmitter<any>();
+  @Output() dataEmitter = new EventEmitter<weatherResultDto>();
 
   @ViewChild('inputField') inputField!: ElementRef;
   autocomplete: google.maps.places.Autocomplete | undefined;
@@ -26,7 +27,6 @@ export class WeatherSearchComponent implements AfterViewInit {
   currentCityOnEnter() {
     this.service.getCurrentCity(this.inputField.nativeElement.value).subscribe(data => {
       this.dataEmitter.emit(data);
-      console.log(data);
     });
 
     this.inputField.nativeElement.value = '';
