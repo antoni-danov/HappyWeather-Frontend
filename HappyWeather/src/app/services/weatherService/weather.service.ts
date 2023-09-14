@@ -1,6 +1,6 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import { environement } from 'src/app/environements/environement';
 import { weatherResultDto } from 'src/app/interfaces/weatherResultDto';
 
@@ -8,9 +8,17 @@ import { weatherResultDto } from 'src/app/interfaces/weatherResultDto';
   providedIn: 'root'
 })
 export class WeatherService {
-  constructor(private http: HttpClient) { }
+  weatherData!: weatherResultDto;
 
-  getCurrentCity(cityName: string): Observable<weatherResultDto> {
-    return this.http.get<weatherResultDto>(environement.localhost + `/${cityName.split(',')[0]}`);
+  private dataBehaviorSubject = new BehaviorSubject<weatherResultDto>(this.weatherData);
+  public data$ = this.dataBehaviorSubject.asObservable();
+
+  constructor(private http: HttpClient) {
+  }
+
+  getCurrentCity(cityName: string) {
+    this.http.get<weatherResultDto>(environement.localhost + `/${cityName.split(',')[0]}`).subscribe(data => {
+      this.dataBehaviorSubject.next(data);
+    });
   }
 }

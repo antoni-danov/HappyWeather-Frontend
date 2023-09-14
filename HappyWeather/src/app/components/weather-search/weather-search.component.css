@@ -2,13 +2,16 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 25vh;
 }
 .mat-mdc-form-field {
-  width: 35%;
   background-color: white;
-  border-style: 15px;
-  opacity: 0.7;
+  color: black;
+  opacity: 0.8;
+  border-radius: 15px;
+
+  margin: 1% 0%;
+  padding: 1%;
+  width: 60%;
 }
 .searchButton {
   background: none;
@@ -16,4 +19,10 @@
   cursor: pointer;
   outline: none;
   color: gray;
+}
+.mat-mdc-input-element {
+  padding-top: 5px;
+}
+.mat-icon {
+  display: block;
 }

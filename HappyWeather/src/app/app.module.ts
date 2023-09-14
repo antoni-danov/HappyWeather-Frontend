@@ -11,13 +11,16 @@ import { HomeComponent } from './components/home/home.component';
 import { MatIconRegistry } from '@angular/material/icon';
 import { WeatherResultComponent } from './components/weather-result/weather-result.component';
 import { WeatherSearchComponent } from './components/weather-search/weather-search.component';
+import { NavbarComponent } from './components/navbar/navbar.component';
+import { DatePipe } from '@angular/common';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     WeatherResultComponent,
-    WeatherSearchComponent
+    WeatherSearchComponent,
+    NavbarComponent
   ],
   imports: [
     BrowserModule,
@@ -28,7 +31,7 @@ import { WeatherSearchComponent } from './components/weather-search/weather-sear
     ReactiveFormsModule,
     BrowserAnimationsModule,
   ],
-  providers: [],
+  providers: [DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule {

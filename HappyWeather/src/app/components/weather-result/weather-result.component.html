@@ -1,11 +1,33 @@
-<div class="weather-container">
-  <div *ngIf="sharedData">
-    <div>{{sharedData.current.temperature}}</div>
-  </div>
-  <div class="row" style="margin-top: 5px;">24</div>
-  <div class="row" style="font-size: 12px;">Sunny</div>
-  <div class="row" style="font-size: 12px;">Humidity:</div>
-  <div class="row"></div>
-  <div class="row"></div>
-  <div class="row"></div>
+<div *ngIf="sharedData" class="weather-container">
+  <section class="mainInfo">
+    <div id="dateFormat">{{dateFormat}}</div>
+    <div id="temperature">
+      {{sharedData.current.temperature}}&deg;
+    </div>
+    <span>Latitude: {{sharedData.location.latitude}}</span>
+    <div></div>
+    <span>Longitude: {{sharedData.location.longitude}}</span>
+    <div></div>
+  </section>
+  <section class="weatherDetails">
+    <section class="weatherDescription" [ngStyle]="setBackgroundImage()">
+      <div>
+        <mat-icon>place</mat-icon> {{sharedData.location.name}},
+        {{sharedData.location.country}}
+      </div>
+      <div>{{sharedData.current.observationTime}}</div>
+      <div>{{sharedData.current.weatherDescription[0]}}</div>
+      <div *ngIf="weatherIndex == 0"><i class="wi wi-day-sunny"></i></div>
+    </section>
+    <section class="otherInfos">
+      <div>{{sharedData.current.windSpeed}}</div>
+      <div>{{sharedData.current.windDirection}}</div>
+      <!-- <div>{{sharedData.current.pressure}}</div>
+    <div>{{sharedData.current.precipitations}}</div>
+    <div>{{sharedData.current.humidity}}</div>
+    <div>{{sharedData.current.cloudCover}}</div>
+    <div>{{sharedData.current.uvIndex}}</div>
+    <div>{{sharedData.current.visibility}}</div> -->
+    </section>
+  </section>
 </div>
