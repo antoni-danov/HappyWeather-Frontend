@@ -8,14 +8,12 @@ import { WeatherService } from 'src/app/services/weatherService/weather.service'
   styleUrls: ['./weather-search.component.css']
 })
 export class WeatherSearchComponent implements AfterViewInit {
-  @Output() dataEmitter = new EventEmitter<weatherResultDto>();
 
   @ViewChild('inputField') inputField!: ElementRef;
   autocomplete: google.maps.places.Autocomplete | undefined;
   options = {
     types: ['(cities)'],
   };
-  result: boolean = true;
 
   constructor(private service: WeatherService) {
   }
@@ -24,21 +22,12 @@ export class WeatherSearchComponent implements AfterViewInit {
     this.autocomplete = new google.maps.places.Autocomplete(this.inputField.nativeElement, this.options);
   }
 
-  currentCityOnEnter() {
-    this.service.getCurrentCity(this.inputField.nativeElement.value).subscribe(data => {
-      this.dataEmitter.emit(data);
-    });
-
+  currentCityOnEnter(event: any) {
+    this.service.getCurrentCity(this.inputField.nativeElement.value);
     this.inputField.nativeElement.value = '';
-
   }
   currentCityOnClick() {
-    // this.service.getCurrentCity(cityName).subscribe(data => {
-    //   console.log(data);
-    //   this.weatherData = data;
-    // });
+    this.service.getCurrentCity(this.inputField.nativeElement.value);
     this.inputField.nativeElement.value = '';
-
-
   }
 }
