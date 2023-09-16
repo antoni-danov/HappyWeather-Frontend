@@ -13,6 +13,7 @@ import { WeatherResultComponent } from './components/weather-result/weather-resu
 import { WeatherSearchComponent } from './components/weather-search/weather-search.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { DatePipe } from '@angular/common';
+import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,11 @@ import { DatePipe } from '@angular/common';
     ReactiveFormsModule,
     BrowserAnimationsModule,
   ],
-  providers: [DatePipe],
+  providers: [DatePipe,
+    {
+      provide: MAT_FORM_FIELD_DEFAULT_OPTIONS,
+      useValue: { floatLabel: 'always' },
+    }],
   bootstrap: [AppComponent]
 })
 export class AppModule {

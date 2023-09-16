@@ -1,5 +1,4 @@
-import { AfterViewInit, Component, ElementRef, ViewChild, Output, EventEmitter } from '@angular/core';
-import { weatherResultDto } from 'src/app/interfaces/weatherResultDto';
+import { AfterViewInit, Component, ElementRef, ViewChild, Renderer2 } from '@angular/core';
 import { WeatherService } from 'src/app/services/weatherService/weather.service';
 
 @Component({
@@ -15,10 +14,12 @@ export class WeatherSearchComponent implements AfterViewInit {
     types: ['(cities)'],
   };
 
-  constructor(private service: WeatherService) {
+  constructor(private service: WeatherService,
+    private renderer2: Renderer2) {
   }
 
   ngAfterViewInit() {
+    this.renderer2.selectRootElement(this.inputField.nativeElement).focus();
     this.autocomplete = new google.maps.places.Autocomplete(this.inputField.nativeElement, this.options);
   }
 
