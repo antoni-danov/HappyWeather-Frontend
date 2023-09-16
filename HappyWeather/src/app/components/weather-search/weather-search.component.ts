@@ -7,8 +7,8 @@ import { WeatherService } from 'src/app/services/weatherService/weather.service'
   styleUrls: ['./weather-search.component.css']
 })
 export class WeatherSearchComponent implements AfterViewInit {
-
   @ViewChild('inputField') inputField!: ElementRef;
+  showClearButton: boolean = false;
   autocomplete: google.maps.places.Autocomplete | undefined;
   options = {
     types: ['(cities)'],
@@ -17,7 +17,9 @@ export class WeatherSearchComponent implements AfterViewInit {
   constructor(private service: WeatherService,
     private renderer2: Renderer2) {
   }
-
+  onInputChange(event: any) {
+    this.showClearButton = event.target.value ? true : false;
+  }
   ngAfterViewInit() {
     this.renderer2.selectRootElement(this.inputField.nativeElement).focus();
     this.autocomplete = new google.maps.places.Autocomplete(this.inputField.nativeElement, this.options);
@@ -25,10 +27,14 @@ export class WeatherSearchComponent implements AfterViewInit {
 
   currentCityOnEnter(event: any) {
     this.service.getCurrentCity(this.inputField.nativeElement.value);
-    this.inputField.nativeElement.value = '';
+    this.clearCityOnClick()
   }
   currentCityOnClick() {
     this.service.getCurrentCity(this.inputField.nativeElement.value);
+    this.clearCityOnClick()
+  }
+  clearCityOnClick() {
     this.inputField.nativeElement.value = '';
+    this.showClearButton = false;
   }
 }
