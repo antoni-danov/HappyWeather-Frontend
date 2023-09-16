@@ -13,15 +13,24 @@
   padding: 1%;
   width: 60%;
 }
-.searchButton {
+.searchButton,
+.clearButton {
   background: none;
   border: none;
   cursor: pointer;
   outline: none;
   color: gray;
 }
-.mat-mdc-input-element {
-  padding-top: 5px;
+.inputContainer,
+.clearSection {
+  display: flex;
+  flex-direction: row;
+  -ms-flex-align: center;
+}
+.verticalLine {
+  width: 1px;
+  height: 20px;
+  background-color: gainsboro;
 }
 .mat-icon {
   display: block;
