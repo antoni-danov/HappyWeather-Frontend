@@ -4,6 +4,7 @@ export interface currentWeather {
     weatherIcon: string[];
     weatherDescription: string[];
     windSpeed: number;
+    windDegree: number;
     windDirection: string;
     pressure: number;
     precipitations: number;

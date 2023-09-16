@@ -8,5 +8,10 @@ export enum WeatherState {
     Rainy = 6,
     Sunny = 7,
     Thunderandlightning = 8,
-    Windy = 9
+    Windy = 9,
+    Showerinvicinity = 10,
+    Rainwiththunderstorm = 11,
+    Lightpatchyrainpossible = 12,
+    Thunderstorm = 13,
+    Mist = 14
 }

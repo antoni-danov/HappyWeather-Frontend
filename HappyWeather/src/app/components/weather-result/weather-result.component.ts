@@ -13,6 +13,7 @@ export class WeatherResultComponent implements OnInit {
   sharedData!: weatherResultDto;
   dateFormat!: string | null;
   timeFormat!: string | null;
+  observationTime!: string | null;
   weatherIndex!: number;
   weatherDescription!: string;
   backgroundImage: string = '../../../assets/images/';
@@ -30,14 +31,13 @@ export class WeatherResultComponent implements OnInit {
 
       if (this.sharedData) {
         this.dateFormat = this.datePipe.transform(this.sharedData.location.localTime, 'EEEE, dd MMMM');
-        this.timeFormat = this.datePipe.transform(this.sharedData.location.localTime, 'HH:mm');
-        // this.weatherIcon = this.sharedData.current.weatherIcon[0];
+        this.timeFormat = this.sharedData.location.localTime;
+        this.observationTime = this.sharedData.current.observationTime;
         this.weatherDescription = this.sharedData.current.weatherDescription[0].replace(/\s/g, '').trim().toLowerCase() + '.jpg';
       }
     });
   }
   setBackgroundImage() {
-
     this.weatherIndex = Object.values(WeatherState).indexOf(this.sharedData.current.weatherDescription[0].replace(/\s/g, '').trim());
 
     return Object.values(WeatherState).includes(this.sharedData.current.weatherDescription[0].replace(/\s/g, '').trim()) ?
