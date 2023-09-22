@@ -1,4 +1,4 @@
-<div *ngIf="sharedData" class="weather-container">
+<!-- <div *ngIf="sharedData" class="weather-container">
   <section class="mainInfo">
     <div id="dateFormat">{{dateFormat}}</div>
     <div id="temperature">
@@ -9,15 +9,15 @@
         ><i class="wi wi-strong-wind"></i>
         <br />
         <br />
-        <span>Wind speed: {{sharedData.current.windSpeed}} km/h</span>
-        <br />
-        <span
-          >Wind direction: {{sharedData.current.windDirection}}
-          <i
+        <!-- <span>Wind speed: {{sharedData.current.windSpeed}} km/h</span> -->
+<br />
+<!-- <span *ngIf="sharedData.current.windSpeed > 0" -->
+<!-- >Wind direction: {{sharedData.current.windDirection}} -->
+<!-- <i
             class="wi wi-wind towards-{{sharedData.current.windDegree}}-deg"
-          ></i
-        ></span>
-        <br />
+          ></i        ></span
+      >
+      <br />
       </span>
     </div>
 
@@ -41,7 +41,7 @@
         <br />
         <div class="weatherForecast">
           <div>
-            {{sharedData.current.weatherDescription[0]}}
+             {{sharedData.current.weatherDescription[0]}}
           </div>
           <div id="weatherIcon" *ngIf="weatherIndex">
             <i *ngIf="weatherIndex === 0" class="wi wi-day-sunny"></i>
@@ -58,26 +58,25 @@
             <i *ngIf="weatherIndex == 11" class="wi wi-thunderstorm"></i>
             <i *ngIf="weatherIndex == 12" class="wi wi-raindrops"></i>
             <i *ngIf="weatherIndex == 13" class="wi wi-thunderstorm"></i>
-            <i *ngIf="weatherIndex == 13" class="wi wi-day-haze"></i>
+            <i *ngIf="weatherIndex == 14" class="wi wi-day-haze"></i>
+            <i *ngIf="weatherIndex == 15" class="wi wi-day-haze"></i>
+            <i *ngIf="weatherIndex == 16" class="wi wi-raindrops"></i>
           </div>
         </div>
       </div>
       <div class="localTime">
-        <span>Local time: </span>{{timeFormat | date:'hh:mm a'}}
-      </div>
-      <div class="observationTime">
-        Last observation time: {{observationTime}}
+        <span>Local time: </span>{{localTime | date:'HH:mm'}}
       </div>
     </section>
     <section class="otherInfos">
       <div>{{sharedData.current.windSpeed}}</div>
       <div>{{sharedData.current.windDirection}}</div>
-      <!-- <div>{{sharedData.current.pressure}}</div>
+       <div>{{sharedData.current.pressure}}</div>
     <div>{{sharedData.current.precipitations}}</div>
     <div>{{sharedData.current.humidity}}</div>
     <div>{{sharedData.current.cloudCover}}</div>
     <div>{{sharedData.current.uvIndex}}</div>
-    <div>{{sharedData.current.visibility}}</div> -->
+    <div>{{sharedData.current.visibility}}</div>
     </section>
   </section>
-</div>
+</div> -->

@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { WeatherSearchComponent } from '../weather-search/weather-search.component';
 
 @Component({
   selector: 'app-home',
