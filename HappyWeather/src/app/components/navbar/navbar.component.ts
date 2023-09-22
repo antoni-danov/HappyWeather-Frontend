@@ -1,5 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
-import { weatherResultDto } from 'src/app/interfaces/weatherResultDto';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-navbar',
@@ -7,5 +6,11 @@ import { weatherResultDto } from 'src/app/interfaces/weatherResultDto';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent {
+  units: string = "metric";
+  isChoosed: boolean = false;
 
+  unitChoice() {
+    this.isChoosed = !this.isChoosed;
+    this.units = this.isChoosed === false ? "metric" : "imperial";
+  }
 }

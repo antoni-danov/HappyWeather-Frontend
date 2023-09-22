@@ -3,9 +3,13 @@
     <h1><a class="nav-icon" href="/">Happy Weather</a></h1>
   </section>
   <section class="search">
-    <app-weather-search></app-weather-search>
+    <app-weather-search [units]="units"></app-weather-search>
   </section>
-  <section class="rightSection">Right</section>
+  <section class="rightSection">
+    <span>C&deg;</span
+    ><mat-slide-toggle (change)="unitChoice()"></mat-slide-toggle
+    ><span>F&deg;</span>
+  </section>
 </nav>
 <div class="timePeriod">
   <div><button mat-button>5 days</button></div>

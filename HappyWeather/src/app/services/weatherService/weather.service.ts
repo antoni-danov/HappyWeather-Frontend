@@ -2,23 +2,27 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import { environement } from 'src/app/environements/environement';
-import { weatherResultDto } from 'src/app/interfaces/weatherResultDto';
+import { WeatherResult } from 'src/app/interfaces/weatherResult';
 
 @Injectable({
   providedIn: 'root'
 })
 export class WeatherService {
-  weatherData!: weatherResultDto;
+  weatherData!: WeatherResult;
 
-  private dataBehaviorSubject = new BehaviorSubject<weatherResultDto>(this.weatherData);
+  private dataBehaviorSubject = new BehaviorSubject<WeatherResult>(this.weatherData);
   public data$ = this.dataBehaviorSubject.asObservable();
 
   constructor(private http: HttpClient) {
+
   }
 
-  getCurrentCity(cityName: string) {
-    this.http.get<weatherResultDto>(environement.localhost + `/${cityName.split(',')[0]}`).subscribe(data => {
-      this.dataBehaviorSubject.next(data);
+  realTimeCurrentCity(cityName: string, units: string) {
+    // this.http.get<weatherResultDto>(environement.localhost + `/${cityName.split(',')[0]}?units=${units}`).subscribe(data => {
+    return this.http.get<WeatherResult>(environement.localhost + `/${cityName.split(',')[0]}`).subscribe(data => {
+      if (data) {
+        this.dataBehaviorSubject.next(data);
+      }
     });
   }
 }

@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, ViewChild, Renderer2 } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, ViewChild, Renderer2, Input, ChangeDetectorRef } from '@angular/core';
 import { WeatherService } from 'src/app/services/weatherService/weather.service';
 
 @Component({
@@ -7,6 +7,8 @@ import { WeatherService } from 'src/app/services/weatherService/weather.service'
   styleUrls: ['./weather-search.component.css']
 })
 export class WeatherSearchComponent implements AfterViewInit {
+  @Input() units!: string;
+
   @ViewChild('inputField') inputField!: ElementRef;
   showClearButton: boolean = false;
   autocomplete: google.maps.places.Autocomplete | undefined;
@@ -15,7 +17,8 @@ export class WeatherSearchComponent implements AfterViewInit {
   };
 
   constructor(private service: WeatherService,
-    private renderer2: Renderer2) {
+    private renderer2: Renderer2,
+    private cdref: ChangeDetectorRef) {
   }
   onInputChange(event: any) {
     this.showClearButton = event.target.value ? true : false;
@@ -23,14 +26,15 @@ export class WeatherSearchComponent implements AfterViewInit {
   ngAfterViewInit() {
     this.renderer2.selectRootElement(this.inputField.nativeElement).focus();
     this.autocomplete = new google.maps.places.Autocomplete(this.inputField.nativeElement, this.options);
-  }
+    this.cdref.detectChanges();
 
+  }
   currentCityOnEnter(event: any) {
-    this.service.getCurrentCity(this.inputField.nativeElement.value);
+    this.service.realTimeCurrentCity(this.inputField.nativeElement.value, this.units);
     this.clearCityOnClick()
   }
   currentCityOnClick() {
-    this.service.getCurrentCity(this.inputField.nativeElement.value);
+    this.service.realTimeCurrentCity(this.inputField.nativeElement.value, this.units);
     this.clearCityOnClick()
   }
   clearCityOnClick() {
