@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import { environement } from 'src/app/environements/environement';
@@ -18,8 +18,10 @@ export class WeatherService {
   }
 
   realTimeCurrentCity(cityName: string, units: string) {
-    // this.http.get<weatherResultDto>(environement.localhost + `/${cityName.split(',')[0]}?units=${units}`).subscribe(data => {
-    return this.http.get<WeatherResult>(environement.localhost + `/${cityName.split(',')[0]}`).subscribe(data => {
+    var convertCityName = cityName.replaceAll(',', '');
+    var params = new HttpParams().set('unit', units);
+
+    return this.http.get<WeatherResult>(environement.localhost + `/${convertCityName}`, { params }).subscribe(data => {
       if (data) {
         this.dataBehaviorSubject.next(data);
       }

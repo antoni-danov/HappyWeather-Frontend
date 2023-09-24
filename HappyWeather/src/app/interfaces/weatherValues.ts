@@ -1,4 +1,4 @@
-import { WeatherCode } from "../weatherCode";
+import { WeatherCode } from "../enums/weatherCode";
 
 export interface WeatherValues {
     //Kilometers
