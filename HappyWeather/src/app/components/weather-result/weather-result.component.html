@@ -1,34 +1,37 @@
-<!-- <div *ngIf="sharedData" class="weather-container">
+<div *ngIf="sharedData" class="weather-container">
   <section class="mainInfo">
     <div id="dateFormat">{{dateFormat}}</div>
     <div id="temperature">
-      {{sharedData.current.temperature}}&deg;
+      {{temperature}}&deg;
     </div>
-    <div class="windInformation">
-      <span
-        ><i class="wi wi-strong-wind"></i>
-        <br />
-        <br />
-        <!-- <span>Wind speed: {{sharedData.current.windSpeed}} km/h</span> -->
-<br />
-<!-- <span *ngIf="sharedData.current.windSpeed > 0" -->
-<!-- >Wind direction: {{sharedData.current.windDirection}} -->
-<!-- <i
-            class="wi wi-wind towards-{{sharedData.current.windDegree}}-deg"
-          ></i        ></span
-      >
-      <br />
-      </span>
+    <div id="feelsLike">
+      <span>Feels like: {{feelsLike}}&deg;</span>
     </div>
-
     <hr />
+    <div class="windInformation">
+      <div>
+        <i class="wi wi-strong-wind"></i>
+        <br />
+        <br />
+        <span>Wind speed: {{this.sharedData.data.values.windSpeed}} m/s</span>
+        <br />
+        <span>Wind gust: {{this.sharedData.data.values.windGust}} m/s</span>
+        <br />
+        <span *ngIf="this.sharedData.data.values.windSpeed > 0">
+          Wind direction: {{this.windDirection}}
+        </span>
+      </div>
+      <div class="windIcon">
+        <i class="wi wi-wind towards-{{this.windDegree}}-deg"></i>
+      </div>
+    </div>
+    <!-- <hr />
     <span>Latitude: {{sharedData.location.latitude}}</span>
     <div></div>
-    <span>Longitude: {{sharedData.location.longitude}}</span>
-    <div></div>
+    <span>Longitude: {{sharedData.location.longitude}}</span> -->
   </section>
   <section class="weatherDetails">
-    <section class="weatherDescription" [ngStyle]="setBackgroundImage()">
+    <!-- <section class="weatherDescription" [ngStyle]="setBackgroundImage()">
       <section class="location">
         <div>
           <mat-icon>place</mat-icon
@@ -63,12 +66,13 @@
             <i *ngIf="weatherIndex == 16" class="wi wi-raindrops"></i>
           </div>
         </div>
-      </div>
-      <div class="localTime">
-        <span>Local time: </span>{{localTime | date:'HH:mm'}}
-      </div>
-    </section>
-    <section class="otherInfos">
+      </div> -->
+    <!-- <div id="timeFormat">
+      <i id="wi-time" class="wi wi-time-{{hour}}"></i>
+      <span id="time">{{timeFormat}}</span>
+    </div> -->
+  </section>
+  <!-- <section class="otherInfos">
       <div>{{sharedData.current.windSpeed}}</div>
       <div>{{sharedData.current.windDirection}}</div>
        <div>{{sharedData.current.pressure}}</div>
@@ -78,5 +82,5 @@
     <div>{{sharedData.current.uvIndex}}</div>
     <div>{{sharedData.current.visibility}}</div>
     </section>
-  </section>
-</div> -->
+  </section> -->
+</div>

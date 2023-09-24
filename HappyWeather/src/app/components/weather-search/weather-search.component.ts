@@ -30,6 +30,8 @@ export class WeatherSearchComponent implements AfterViewInit {
 
   }
   currentCityOnEnter(event: any) {
+    console.log(this.inputField.nativeElement.value, this.units);
+
     this.service.realTimeCurrentCity(this.inputField.nativeElement.value, this.units);
     this.clearCityOnClick()
   }

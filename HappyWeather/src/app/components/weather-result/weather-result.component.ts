@@ -11,8 +11,12 @@ import { WeatherService } from 'src/app/services/weatherService/weather.service'
 export class WeatherResultComponent implements OnInit {
   sharedData!: WeatherResult;
   dateFormat!: string | null;
-  localTime!: string | null;
-  observationTime!: string | null;
+  timeFormat!: string | null;
+  hour!: string | undefined;
+  temperature!: number;
+  feelsLike!: number;
+  windDegree!: number;
+  windDirection!: string;
   weatherIndex!: number;
   weatherDescription!: string;
   backgroundImage: string = '../../../assets/images/';
@@ -30,8 +34,12 @@ export class WeatherResultComponent implements OnInit {
       console.log(this.sharedData);
 
       if (this.sharedData) {
-        // this.localTime = this.sharedData.location.localTime;
-        // this.observationTime = this.sharedData.current.observationTime;
+        this.dateFormat = this.datePipe.transform(this.sharedData.data.weatherDateTime.split('T')[0], 'EEEE, dd MMMM');
+        // this.iconHour();
+        this.temperature = this.convertTemperature(this.sharedData.data.values.temperature);
+        this.feelsLike = this.convertTemperature(this.sharedData.data.values.temperatureApparent);
+        this.getWindDegree(this.sharedData.data.values.windDirection);
+        this.getWindDirection(this.sharedData.data.values.windDirection);
         // this.weatherDescription = this.sharedData.current.weatherDescription[0].replace(/\s/g, '').trim().toLowerCase() + '.jpg';
         // this.timeOfTheDay();
       }
@@ -50,6 +58,22 @@ export class WeatherResultComponent implements OnInit {
 
     // this.backgroundImage = this.sharedData.current.isDay === 'no' ? this.backgroundImage.concat('', 'night/') : this.backgroundImage.concat('', 'day/');
   }
+  private convertTemperature(data: number): number {
+    return (data % 1) < 50 ? Math.ceil(data) : Math.floor(data);
+  }
+  private getWindDegree(data: number) {
+    this.windDegree = Math.floor(data);
+  }
+  private getWindDirection(data: number) {
+    var directions = ['North', 'North-East', 'East', 'South-East', 'South', 'South-West', 'West', 'North-West'];
+    var index = Math.round(((data %= 360) < 0 ? data + 360 : data) / 45) % 8;
+    this.windDirection = directions[index];
+    console.log(this.windDirection);
 
+  }
+  // private iconHour() {
+  //   var hours = parseInt(this.timeFormat!.split(':')[0], 10);
+  //   var singleHour = new Date().setHours(hours);
+  //   this.hour = this.datePipe.transform(singleHour, 'h')?.toString();
+  // }
 }
-

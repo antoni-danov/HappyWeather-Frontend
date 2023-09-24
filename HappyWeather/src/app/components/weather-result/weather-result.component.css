@@ -78,7 +78,8 @@
   font-size: 500%;
   margin: 20% 30%;
 }
-#dateFormat {
+#dateFormat,
+#timeFormat {
   font-size: x-large;
 }
 .wi {
@@ -91,4 +92,26 @@
 .wi-wind {
   font-size: 25px;
   margin-left: 20px;
+}
+#time {
+  vertical-align: 5px;
+}
+#wi-time {
+  font-size: 35px;
+  margin-right: 15px;
+}
+#feelsLike {
+  font-size: x-large;
+  margin-bottom: 5%;
+}
+.windInformation {
+  margin: 5% 0%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+.windIcon i {
+  font-size: 50px;
+  padding-top: 60px;
+  padding-left: 30px;
 }
