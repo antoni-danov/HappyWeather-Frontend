@@ -1,4 +1,5 @@
-import { WeatherCode } from "../enums/weatherCode";
+import { weatherCode } from "../enums/weatherCode";
+import { weatherCodeFullDay } from "../enums/weatherCodeFullDay";
 
 export interface WeatherValues {
     //Kilometers
@@ -17,7 +18,7 @@ export interface WeatherValues {
     uvIndex: number;
     //Kilometers
     visibility: number;
-    weatherCode: WeatherCode;
+    weatherCode: weatherCode;
     //Degree
     windDirection: number;
     //Meters per second

@@ -52,7 +52,7 @@ testem.log
 /typings
 /reports
 /src/translations/template.*
-/src/app/environements/*.ts
+HappyWeather/src/app/environements/*.ts
 
 # System Files
 .DS_Store

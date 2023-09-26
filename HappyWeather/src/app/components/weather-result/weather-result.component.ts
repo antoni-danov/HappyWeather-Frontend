@@ -1,5 +1,8 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { weatherCode } from 'src/app/enums/weatherCode';
+import { weatherCodeFullDay } from 'src/app/enums/weatherCodeFullDay';
+import { environement } from 'src/app/environements/environement';
 import { WeatherResult } from 'src/app/interfaces/weatherResult';
 import { WeatherService } from 'src/app/services/weatherService/weather.service';
 
@@ -10,16 +13,26 @@ import { WeatherService } from 'src/app/services/weatherService/weather.service'
 })
 export class WeatherResultComponent implements OnInit {
   sharedData!: WeatherResult;
+
   dateFormat!: string | null;
   timeFormat!: string | null;
   hour!: string | undefined;
+
   temperature!: number;
   feelsLike!: number;
+
   windDegree!: number;
   windDirection!: string;
+
+  country!: string;
+  city!: string;
+
   weatherIndex!: number;
   weatherDescription!: string;
-  backgroundImage: string = '../../../assets/images/';
+  weatherIcon!: string;
+  backgroundImage: string = '../../../assets/images/day/';
+  weatherIconPath: string = '../../../assets/icons/tomorrow-weather-codes-master/V2_icons/large/png/';
+  externalLink: any;
 
   constructor(private weatherService: WeatherService,
     private datePipe: DatePipe) {
@@ -31,35 +44,34 @@ export class WeatherResultComponent implements OnInit {
   currentCityWeatherData() {
     this.weatherService.data$.subscribe(data => {
       this.sharedData = data;
-      console.log(this.sharedData);
 
       if (this.sharedData) {
         this.dateFormat = this.datePipe.transform(this.sharedData.data.weatherDateTime.split('T')[0], 'EEEE, dd MMMM');
-        // this.iconHour();
         this.temperature = this.convertTemperature(this.sharedData.data.values.temperature);
         this.feelsLike = this.convertTemperature(this.sharedData.data.values.temperatureApparent);
         this.getWindDegree(this.sharedData.data.values.windDirection);
         this.getWindDirection(this.sharedData.data.values.windDirection);
-        // this.weatherDescription = this.sharedData.current.weatherDescription[0].replace(/\s/g, '').trim().toLowerCase() + '.jpg';
+        this.transformLocationName(this.sharedData.location.name)
+        this.getWeatherDescription(this.sharedData.data.values.weatherCode.toString())
         // this.timeOfTheDay();
       }
     });
   }
   setBackgroundImage() {
 
-    // this.weatherIndex = Object.values(WeatherCode).indexOf(this.sharedData.current.weatherDescription[0].replace(/\s/g, '').trim());
+    this.weatherIndex = Object.keys(weatherCodeFullDay).indexOf(this.sharedData.data.values.weatherCode.toString());
 
-    // return Object.values(WeatherCode).includes(this.sharedData.weatherData.WeatherValues.weatherCode) ?
-    //   { 'background-image': 'url(' + this.backgroundImage + this.weatherDescription + ')' } :
-    //   { 'background': 'linear-gradient(351deg, rgba(9,17,121,0.9948354341736695) 0%, rgba(25,173,112,1) 51%, rgba(0,186,230,1) 100%)' };
+    return Object.values(weatherCode).includes(this.sharedData.data.values.weatherCode) ?
+      { 'background-image': 'url(' + this.backgroundImage + this.weatherDescription.replace(' ', '').toLowerCase() + '.jpg)' } :
+      { 'background': 'linear-gradient(351deg, rgba(9,17,121,0.9948354341736695) 0%, rgba(25,173,112,1) 51%, rgba(0,186,230,1) 100%)' };
   }
-  timeOfTheDay() {
-    this.backgroundImage = '../../../assets/images/';
+  // timeOfTheDay() {
+  //   this.backgroundImage = '../../../assets/images/';
 
-    // this.backgroundImage = this.sharedData.current.isDay === 'no' ? this.backgroundImage.concat('', 'night/') : this.backgroundImage.concat('', 'day/');
-  }
+  //   // this.backgroundImage = this.sharedData.current.isDay === 'no' ? this.backgroundImage.concat('', 'night/') : this.backgroundImage.concat('', 'day/');
+  // }
   private convertTemperature(data: number): number {
-    return (data % 1) < 50 ? Math.ceil(data) : Math.floor(data);
+    return (data % 1) < 0.50 ? Math.floor(data) : Math.ceil(data);
   }
   private getWindDegree(data: number) {
     this.windDegree = Math.floor(data);
@@ -68,12 +80,41 @@ export class WeatherResultComponent implements OnInit {
     var directions = ['North', 'North-East', 'East', 'South-East', 'South', 'South-West', 'West', 'North-West'];
     var index = Math.round(((data %= 360) < 0 ? data + 360 : data) / 45) % 8;
     this.windDirection = directions[index];
-    console.log(this.windDirection);
+  }
+  private transformLocationName(data: string) {
+    let splittedData = data.split(', ');
+    this.city = splittedData[0];
+    this.country = splittedData[splittedData.length - 1];
+    this.externalLink = environement.locationSearch + this.city + ' ' + this.country;
 
   }
-  // private iconHour() {
-  //   var hours = parseInt(this.timeFormat!.split(':')[0], 10);
-  //   var singleHour = new Date().setHours(hours);
-  //   this.hour = this.datePipe.transform(singleHour, 'h')?.toString();
-  // }
+  private getWeatherDescription(data: string) {
+    //Weather index
+    this.weatherIndex = Object.keys(weatherCode).indexOf(data);
+
+    if (this.weatherIndex) {
+      //Weather description
+      this.weatherDescription = Object.values(weatherCode)[this.weatherIndex].toString().replace('_', ' ');
+      this.weatherDescription === 'Clear Sunny' ? this.setWeatherIcon(this.weatherDescription.split(' ')[0]) : this.setWeatherIcon(this.weatherDescription);
+    }
+  }
+  private setWeatherIcon(data: string) {
+    var currentTime = new Date().getHours();
+
+    this.weatherService.getIconFileNames().subscribe(files => {
+
+      var currentIconNames = files.map((file, index) => (file.substring(5)
+        .replaceAll('_', ' ')
+        .trimStart().startsWith(data.toLocaleLowerCase()) ? index : -1))
+        .filter(index => index !== -1);
+
+      if (currentTime > 6 && currentTime < 19) {
+        this.weatherIcon = this.weatherIconPath + files[currentIconNames[0]];
+      } else {
+        this.weatherIcon = this.weatherIconPath + files[currentIconNames[1]];
+      }
+
+    });
+
+  }
 }
