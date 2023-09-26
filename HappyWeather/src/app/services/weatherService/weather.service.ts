@@ -27,4 +27,7 @@ export class WeatherService {
       }
     });
   }
+  getIconFileNames() {
+    return this.http.get<string[]>(environement.jsonIconsList);
+  }
 }
