@@ -1,11 +1,11 @@
 <div *ngIf="sharedData" class="weather-container">
   <section class="mainInfo">
-    <div id="dateFormat">{{dateFormat}}</div>
+    <div id="dateFormat"><strong>{{dateFormat}}</strong></div>
     <div id="temperature">
       {{temperature}}&deg;
     </div>
     <div id="feelsLike">
-      <span>Feels like: {{feelsLike}}&deg;</span>
+      <span><strong>Feels like:</strong> {{feelsLike}}&deg;</span>
     </div>
     <hr />
     <div class="windInformation">
@@ -13,12 +13,18 @@
         <i class="wi wi-strong-wind"></i>
         <br />
         <br />
-        <span>Wind speed: {{this.sharedData.data.values.windSpeed}} m/s</span>
+        <span
+          ><strong>Wind speed:</strong>
+          {{this.sharedData.data.values.windSpeed}} m/s</span
+        >
         <br />
-        <span>Wind gust: {{this.sharedData.data.values.windGust}} m/s</span>
+        <span
+          ><strong>Wind gust:</strong> {{this.sharedData.data.values.windGust}}
+          m/s</span
+        >
         <br />
         <span *ngIf="this.sharedData.data.values.windSpeed > 0">
-          Wind direction: {{this.windDirection}}
+          <strong>Wind direction:</strong> {{this.windDirection}}
         </span>
       </div>
       <div class="windIcon">

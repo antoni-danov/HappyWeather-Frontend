@@ -23,6 +23,7 @@ export class WeatherService {
 
     return this.http.get<WeatherResult>(environement.localhost + `/${convertCityName}`, { params }).subscribe(data => {
       if (data) {
+        this.weatherData = data;
         this.dataBehaviorSubject.next(data);
       }
     });
