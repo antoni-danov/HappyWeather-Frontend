@@ -3,7 +3,7 @@
   justify-content: center;
   align-items: center;
 }
-.mat-mdc-form-field {
+.formField {
   background-color: white;
   color: black;
   opacity: 0.8;
@@ -12,6 +12,7 @@
   margin: 1% 0%;
   padding: 1%;
   width: 60%;
+  height: 30px;
 }
 .searchButton,
 .clearButton {
@@ -34,4 +35,7 @@
 }
 .mat-icon {
   display: block;
+}
+#windSpeed {
+  display: flex;
 }
