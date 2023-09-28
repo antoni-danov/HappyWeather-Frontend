@@ -1,5 +1,5 @@
 nav {
-  background-color: rgb(16 16 135 / 52%);
+  background-color: rgba(13, 31, 58, 255);
   color: white;
 
   display: flex;
@@ -21,7 +21,12 @@ nav {
   text-align: center;
 }
 .timePeriod {
-  background-color: gold;
+  background: rgb(244, 172, 43);
+  background: radial-gradient(
+    circle,
+    rgba(244, 172, 43, 1) 37%,
+    rgba(230, 93, 11, 1) 98%
+  );
   color: white;
 
   display: flex;
@@ -43,4 +48,7 @@ mat-slide-toggle {
 }
 .mdc-switch {
   width: 63px;
+}
+.mdc-switch__track::after {
+  background-color: rgba(244, 172, 43, 1);
 }

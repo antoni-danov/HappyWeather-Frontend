@@ -1,11 +1,12 @@
 import { weatherCode } from "../enums/weatherCode";
 
 export class WeatherUtilities {
-    static convertTemperature(data: number): number {
+    static roundValue(data: number): number {
         return (data % 1) < 0.50 ? Math.floor(data) : Math.ceil(data);
     }
-    static getWindDegree(data: number): number {
-        return Math.floor(data);
+    static temepratureConversion(data: string, temperature: number) {
+        var convertTemperature = data === 'metric' ? (temperature - 32) * 5 / 9 : (temperature * 9 / 5) + 32;
+        return this.roundValue(convertTemperature);
     }
     static getWindDirection(data: number): string {
         var directions = ['North', 'North-East', 'East', 'South-East', 'South', 'South-West', 'West', 'North-West'];
@@ -28,4 +29,5 @@ export class WeatherUtilities {
 
         return { index, description };
     }
+
 }

@@ -14,6 +14,7 @@ import { WeatherUtilities } from 'src/app/shared/weatherUtilities';
 })
 export class WeatherResultComponent implements OnInit {
   sharedData!: WeatherResult;
+  unit!: string;
 
   dateFormat!: string | null;
   timeFormat!: string | null;
@@ -23,6 +24,8 @@ export class WeatherResultComponent implements OnInit {
   feelsLike!: number;
 
   windDegree!: number;
+  windSpeed!: number;
+  windGust!: number;
   windDirection!: string;
 
   country!: string;
@@ -39,19 +42,21 @@ export class WeatherResultComponent implements OnInit {
     private datePipe: DatePipe) {
   }
   ngOnInit() {
-    this.crealTimeCityWeatherData();
+    this.timeCityWeatherData();
+    this.temperatureUnit();
   }
 
-  crealTimeCityWeatherData() {
+  timeCityWeatherData() {
     this.weatherService.data$.subscribe(data => {
       this.sharedData = data;
 
       if (this.sharedData) {
         this.dateFormat = this.datePipe.transform(this.sharedData.data.weatherDateTime.split('T')[0], 'EEEE, dd MMMM');
-
-        this.temperature = WeatherUtilities.convertTemperature(this.sharedData.data.values.temperature);
-        this.feelsLike = WeatherUtilities.convertTemperature(this.sharedData.data.values.temperatureApparent);
-        this.windDegree = WeatherUtilities.getWindDegree(this.sharedData.data.values.windDirection);
+        this.temperature = WeatherUtilities.roundValue(this.sharedData.data.values.temperature);
+        this.feelsLike = WeatherUtilities.roundValue(this.sharedData.data.values.temperatureApparent);
+        this.windSpeed = WeatherUtilities.roundValue(this.sharedData.data.values.windSpeed);
+        this.windGust = WeatherUtilities.roundValue(this.sharedData.data.values.windGust);
+        this.windDegree = WeatherUtilities.roundValue(this.sharedData.data.values.windDirection);
         this.windDirection = WeatherUtilities.getWindDirection(this.sharedData.data.values.windDirection);
         this.city = WeatherUtilities.transformLocationName(this.sharedData.location.name).city;
         this.country = WeatherUtilities.transformLocationName(this.sharedData.location.name).country;
@@ -87,6 +92,14 @@ export class WeatherResultComponent implements OnInit {
         this.weatherIcon = this.weatherIconPath + files[currentIconNames[1]];
       }
 
+    });
+
+  }
+  private temperatureUnit() {
+    this.weatherService.unitChoice$.subscribe(data => {
+      this.unit = data;
+      this.temperature = WeatherUtilities.temepratureConversion(data, this.temperature);
+      this.feelsLike = WeatherUtilities.temepratureConversion(data, this.feelsLike);
     });
 
   }

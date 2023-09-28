@@ -3,9 +3,21 @@
     <div id="dateFormat"><strong>{{dateFormat}}</strong></div>
     <div id="temperature">
       {{temperature}}&deg;
+      <span
+        *ngIf="unit === undefined || unit === 'metric' || unit === null || unit === 'Nan'"
+        >C</span
+      >
+      <span *ngIf="unit === 'imperial'">F</span>
     </div>
     <div id="feelsLike">
-      <span><strong>Feels like:</strong> {{feelsLike}}&deg;</span>
+      <span
+        ><strong>Feels like:</strong> {{feelsLike}}&deg;
+        <span
+          *ngIf="unit === undefined || unit === 'metric' || unit === null || unit === 'Nan'"
+          >C</span
+        >
+        <span *ngIf="unit === 'imperial'">F</span>
+      </span>
     </div>
     <hr />
     <div class="windInformation">
@@ -15,13 +27,10 @@
         <br />
         <span
           ><strong>Wind speed: </strong>
-          <span>{{this.sharedData.data.values.windSpeed}} m/s</span></span
+          <span>{{this.windSpeed}} m/s</span></span
         >
         <br />
-        <span
-          ><strong>Wind gust:</strong> {{this.sharedData.data.values.windGust}}
-          m/s</span
-        >
+        <span><strong>Wind gust:</strong> {{this.windGust}} m/s</span>
         <br />
         <span *ngIf="this.sharedData.data.values.windSpeed > 0">
           <strong>Wind direction:</strong> {{this.windDirection}}
