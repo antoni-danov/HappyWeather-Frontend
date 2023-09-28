@@ -1,5 +1,6 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Subject } from 'rxjs';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import { environement } from 'src/app/environements/environement';
 import { WeatherResult } from 'src/app/interfaces/weatherResult';
@@ -9,12 +10,13 @@ import { WeatherResult } from 'src/app/interfaces/weatherResult';
 })
 export class WeatherService {
   weatherData!: WeatherResult;
+  unitChoice: Subject<string> = new Subject<string>();
+  unitChoice$ = this.unitChoice.asObservable();
 
   private dataBehaviorSubject = new BehaviorSubject<WeatherResult>(this.weatherData);
   public data$ = this.dataBehaviorSubject.asObservable();
 
   constructor(private http: HttpClient) {
-
   }
 
   realTimeCurrentCity(cityName: string, units: string) {
@@ -30,5 +32,8 @@ export class WeatherService {
   }
   getIconFileNames() {
     return this.http.get<string[]>(environement.jsonIconsList);
+  }
+  setUnitChoice(value: string) {
+    this.unitChoice.next(value);
   }
 }
