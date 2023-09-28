@@ -33,6 +33,14 @@ a {
   text-decoration: none;
   color: white;
 }
+.rightSection {
+  font-size: large;
+}
 mat-slide-toggle {
-  background-color: red;
+  margin-top: 7.5%;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+.mdc-switch {
+  width: 63px;
 }
