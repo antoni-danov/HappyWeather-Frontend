@@ -26,7 +26,7 @@
   border-bottom-left-radius: 10px;
 
   background: black;
-  background: linear-gradient(180deg, rgb(207 206 206) 0%, rgba(30 30 56));
+  background: linear-gradient(220deg, rgb(207 206 206) 0%, rgba(30 30 56));
 }
 .weatherDescription {
   margin-bottom: 1%;

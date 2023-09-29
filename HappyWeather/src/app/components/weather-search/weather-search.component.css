@@ -2,6 +2,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-right: 2%;
+  margin-left: -2%;
 }
 .formField {
   background-color: white;
@@ -13,6 +15,7 @@
   padding: 1%;
   width: 60%;
   height: 30px;
+  flex-grow: 0.5;
 }
 .searchButton,
 .clearButton {
