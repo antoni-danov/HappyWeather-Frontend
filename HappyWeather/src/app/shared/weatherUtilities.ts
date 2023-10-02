@@ -13,17 +13,9 @@ export class WeatherUtilities {
         var index = Math.round(((data %= 360) < 0 ? data + 360 : data) / 45) % 8;
         return directions[index];
     }
-    static transformLocationName(data: string): { city: string; country: string; } {
-        let splittedData = data.split(', ');
-        var city = splittedData[0];
-        var country = splittedData[splittedData.length - 1];
-
-        return { city, country };
-    }
     static getWeatherDescription(data: string): { index: number; description: string } {
         //Weather index
         var index = Object.keys(weatherCode).indexOf(data);
-
         //Weather description
         var description = Object.values(weatherCode)[index].toString().replace('_', ' ');
 
