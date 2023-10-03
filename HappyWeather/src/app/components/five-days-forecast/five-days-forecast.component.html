@@ -1,0 +1,9 @@
+<div class="daysContainer" *ngIf="this.fivedaysForecast">
+  <div *ngFor="let day of this.fivedaysForecast.timeLines.daily">
+    <div class="day">
+      <div>{{day.time}}</div>
+      <div>{{day.values.minTemperature}}</div>
+      <div>{{day.values.maxTemperature}}</div>
+    </div>
+  </div>
+</div>

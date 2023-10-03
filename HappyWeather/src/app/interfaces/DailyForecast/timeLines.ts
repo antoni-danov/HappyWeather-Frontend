@@ -1,5 +1,5 @@
-import { dayUnit } from "./dayUnit";
+import { DayUnit } from "./dayUnit";
 
-export interface timeLines {
-    daily: dayUnit[];
+export interface TimeLines extends Array<DayUnit> {
+    daily: DayUnit[];
 }

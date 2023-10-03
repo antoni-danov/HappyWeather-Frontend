@@ -19,6 +19,9 @@ export class WeatherService {
   private dataBehaviorSubject = new BehaviorSubject<WeatherResult>(this.weatherData);
   public data$ = this.dataBehaviorSubject.asObservable();
 
+  private fiveDaysSubject = new BehaviorSubject<DailyWeatherForecast>(this.fiveDaysWeather);
+  public fiveDaysData$ = this.fiveDaysSubject.asObservable();
+
   location!: string;
 
   constructor(private http: HttpClient) {
@@ -27,7 +30,6 @@ export class WeatherService {
   realTimeCurrentCity(cityName: string, units: string) {
     this.location = cityName.replace(',', '');
     var params = new HttpParams().set('unit', units);
-
     this.fiveDaysForecast(this.location, units);
 
     return this.http.get<WeatherResult>(environement.localhost + `/${this.location}`, { params }).subscribe(data => {
@@ -39,16 +41,9 @@ export class WeatherService {
   }
 
   fiveDaysForecast(cityName: string, units: string) {
-    var params = new HttpParams().set('unit', units).set('timeStep', '1d'); //TODO five days interface
-
-
-    return this.http.get<any>(environement.localhost + `/${cityName}/days`, { params }).subscribe(data => {
-      if (data) {
-        this.fiveDaysWeather = data;
-        console.log(this.fiveDaysWeather);
-
-        // this.dataBehaviorSubject.next(data);
-      }
+    var params = new HttpParams().set('unit', units).set('timeStep', '1d');
+    return this.http.get<DailyWeatherForecast>(environement.localhost + `/${cityName}/days`, { params }).subscribe(data => {
+      this.fiveDaysSubject.next(data);
     });
   }
   getIconFileNames() {

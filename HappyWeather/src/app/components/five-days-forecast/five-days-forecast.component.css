@@ -1,0 +1,16 @@
+.daysContainer {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+
+  box-sizing: border-box;
+}
+.day {
+  border: 1px solid red;
+  border-radius: 15px;
+
+  width: auto;
+
+  margin: 0% 5%;
+  padding: 8%;
+}

@@ -1,7 +1,7 @@
 import { weatherLocation } from "../weatherLocation";
-import { timeLines } from "./timeLines";
+import { TimeLines } from "./timeLines";
 
 export interface DailyWeatherForecast {
-    timelines: timeLines;
+    timeLines: TimeLines;
     location: weatherLocation;
 }

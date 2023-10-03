@@ -1,6 +1,6 @@
-import { dayValues } from "./dayValues";
+import { DayValues } from "./dayValues";
 
-export interface dayUnit {
+export interface DayUnit {
     time: string;
-    values: dayValues;
+    values: DayValues;
 }

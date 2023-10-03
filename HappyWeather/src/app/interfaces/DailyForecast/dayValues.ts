@@ -1,6 +1,6 @@
 import { weatherCode } from "src/app/enums/weatherCode";
 
-export interface dayValues {
+export interface DayValues {
     cloudCoverAverage: number;
     averageHumidity: number;
     moonRise: string;
