@@ -28,8 +28,9 @@ export class WeatherService {
   }
 
   realTimeCurrentCity(cityName: string, units: string) {
-    this.location = cityName.replace(',', '');
+    this.location = cityName.replaceAll(',', '');
     var params = new HttpParams().set('unit', units);
+
     this.fiveDaysForecast(this.location, units);
 
     return this.http.get<WeatherResult>(environement.localhost + `/${this.location}`, { params }).subscribe(data => {
