@@ -40,10 +40,12 @@
         <i class="wi wi-wind towards-{{this.windDegree}}-deg"></i>
       </div>
     </div>
-    <!-- <hr />
-    <span>Latitude: {{sharedData.location.latitude}}</span>
-    <div></div>
-    <span>Longitude: {{sharedData.location.longitude}}</span> -->
+    <hr />
+    <section class="fiveDaysForecast">
+      <span><strong>Five days forecast</strong></span>
+      <br />
+      <app-five-days-forecast></app-five-days-forecast>
+    </section>
   </section>
   <section class="weatherDetails">
     <section class="weatherDescription" [ngStyle]="setBackgroundImage()">
@@ -74,8 +76,6 @@
     </div> -->
     </section>
     <section class="otherInfos">
-      <app-five-days-forecast></app-five-days-forecast>
-
       <!--  <div>{{sharedData.current.windSpeed}}</div>
       <div>{{sharedData.current.windDirection}}</div>
        <div>{{sharedData.current.pressure}}</div>

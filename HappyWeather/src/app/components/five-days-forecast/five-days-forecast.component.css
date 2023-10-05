@@ -1,8 +1,10 @@
-.daysContainer {
+.daysContainer,
+.day {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   flex-wrap: nowrap;
-
+}
+.daysContainer {
   box-sizing: border-box;
 }
 .day {

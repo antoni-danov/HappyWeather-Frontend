@@ -76,8 +76,8 @@
   box-sizing: border-box;
 }
 #temperature {
-  font-size: 500%;
-  margin: 20% 10%;
+  font-size: 65px;
+  margin: 10% 15%;
 }
 #dateFormat,
 #timeFormat {
@@ -118,4 +118,7 @@
 }
 #hyperlink {
   color: white;
+}
+.fiveDaysForecast {
+  text-align: center;
 }
