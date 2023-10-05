@@ -1,7 +1,6 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { weatherCode } from 'src/app/enums/weatherCode';
-import { weatherCodeFullDay } from 'src/app/enums/weatherCodeFullDay';
 import { environement } from 'src/app/environements/environement';
 import { WeatherResult } from 'src/app/interfaces/weatherResult';
 import { WeatherService } from 'src/app/services/weatherService/weather.service';

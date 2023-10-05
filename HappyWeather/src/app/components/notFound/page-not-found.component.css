@@ -1,0 +1,17 @@
+.message {
+  text-align: center;
+  font-size: xx-large;
+  margin-top: 5%;
+}
+img {
+  position: absolute;
+  top: 65%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.redirectMessage {
+  position: absolute;
+  top: 90%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}

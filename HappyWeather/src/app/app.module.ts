@@ -1,4 +1,4 @@
-import { APP_INITIALIZER, NgModule } from '@angular/core';
+import { APP_INITIALIZER, ErrorHandler, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
@@ -15,6 +15,8 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { DatePipe } from '@angular/common';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 import { FiveDaysForecastComponent } from './components/five-days-forecast/five-days-forecast.component';
+import { GlobalErrorHandling } from './shared/globalErrorHandler';
+import { PageNotFoundComponent } from './components/notFound/page-not-found.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +25,8 @@ import { FiveDaysForecastComponent } from './components/five-days-forecast/five-
     WeatherResultComponent,
     WeatherSearchComponent,
     NavbarComponent,
-    FiveDaysForecastComponent
+    FiveDaysForecastComponent,
+    PageNotFoundComponent
   ],
   imports: [
     BrowserModule,
@@ -35,6 +38,10 @@ import { FiveDaysForecastComponent } from './components/five-days-forecast/five-
     BrowserAnimationsModule,
   ],
   providers: [DatePipe,
+    {
+      provide: ErrorHandler,
+      useClass: GlobalErrorHandling
+    },
     {
       provide: MAT_FORM_FIELD_DEFAULT_OPTIONS,
       useValue: { floatLabel: 'always' },
