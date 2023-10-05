@@ -27,7 +27,6 @@ export class WeatherSearchComponent implements AfterViewInit {
     this.renderer2.selectRootElement(this.inputField.nativeElement).focus();
     this.autocomplete = new google.maps.places.Autocomplete(this.inputField.nativeElement, this.options);
     this.cdref.detectChanges();
-
   }
   currentCityOnEnter(event: any) {
     this.service.realTimeCurrentCity(this.inputField.nativeElement.value, this.units);

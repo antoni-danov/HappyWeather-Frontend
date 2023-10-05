@@ -30,6 +30,7 @@ export class WeatherResultComponent implements OnInit {
 
   country!: string;
   city!: string;
+  location!: string;
 
   weatherIndex!: number;
   weatherDescription!: string;
@@ -58,9 +59,8 @@ export class WeatherResultComponent implements OnInit {
         this.windGust = WeatherUtilities.roundValue(this.sharedData.data.values.windGust);
         this.windDegree = WeatherUtilities.roundValue(this.sharedData.data.values.windDirection);
         this.windDirection = WeatherUtilities.getWindDirection(this.sharedData.data.values.windDirection);
-        this.city = WeatherUtilities.transformLocationName(this.sharedData.location.name).city;
-        this.country = WeatherUtilities.transformLocationName(this.sharedData.location.name).country;
-        this.externalLink = environement.locationSearch + this.city + ' ' + this.country;
+        this.location = this.weatherService.location.replace('/\s+/g', ', ');
+        this.externalLink = environement.locationSearch + this.weatherService.location;
         this.weatherIndex = WeatherUtilities.getWeatherDescription(this.sharedData.data.values.weatherCode.toString()).index;
         this.weatherDescription = WeatherUtilities.getWeatherDescription(this.sharedData.data.values.weatherCode.toString()).description;
         this.weatherDescription === 'Clear Sunny' ? this.setWeatherIcon(this.weatherDescription.split(' ')[0]) : this.setWeatherIcon(this.weatherDescription);
@@ -69,9 +69,7 @@ export class WeatherResultComponent implements OnInit {
     });
   }
   setBackgroundImage() {
-
-    this.weatherIndex = Object.keys(weatherCodeFullDay).indexOf(this.sharedData.data.values.weatherCode.toString());
-
+    this.weatherIndex = Object.keys(weatherCode).indexOf(this.sharedData.data.values.weatherCode.toString());
     return Object.values(weatherCode).includes(this.sharedData.data.values.weatherCode) ?
       { 'background-image': 'url(' + this.backgroundImage + this.weatherDescription.replace(' ', '').toLowerCase() + '.jpg)' } :
       { 'background': 'linear-gradient(351deg, rgba(9,17,121,0.9948354341736695) 0%, rgba(25,173,112,1) 51%, rgba(0,186,230,1) 100%)' };

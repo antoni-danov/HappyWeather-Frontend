@@ -40,19 +40,22 @@
         <i class="wi wi-wind towards-{{this.windDegree}}-deg"></i>
       </div>
     </div>
-    <!-- <hr />
-    <span>Latitude: {{sharedData.location.latitude}}</span>
-    <div></div>
-    <span>Longitude: {{sharedData.location.longitude}}</span> -->
+    <hr />
+    <section class="fiveDaysForecast">
+      <span><strong>Five days forecast</strong></span>
+      <br />
+      <app-five-days-forecast></app-five-days-forecast>
+    </section>
   </section>
   <section class="weatherDetails">
     <section class="weatherDescription" [ngStyle]="setBackgroundImage()">
       <section class="location">
         <div>
           <mat-icon>place</mat-icon
-          ><a id="hyperlink" [href]="externalLink" target="_blank"
-            ><strong>{{city}}</strong>, {{country}}</a
-          >
+          ><a id="hyperlink" [href]="externalLink" target="_blank">
+            <!-- <strong>{{city}}</strong>, {{country}} -->
+            <strong>{{location}}</strong>
+          </a>
         </div>
       </section>
       <div class="weatherState">
@@ -72,15 +75,15 @@
       <span id="time">{{timeFormat}}</span>
     </div> -->
     </section>
-    <!-- <section class="otherInfos">
-      <div>{{sharedData.current.windSpeed}}</div>
+    <section class="otherInfos">
+      <!--  <div>{{sharedData.current.windSpeed}}</div>
       <div>{{sharedData.current.windDirection}}</div>
        <div>{{sharedData.current.pressure}}</div>
     <div>{{sharedData.current.precipitations}}</div>
     <div>{{sharedData.current.humidity}}</div>
     <div>{{sharedData.current.cloudCover}}</div>
     <div>{{sharedData.current.uvIndex}}</div>
-    <div>{{sharedData.current.visibility}}</div>
-    </section>-->
+    <div>{{sharedData.current.visibility}}</div>-->
+    </section>
   </section>
 </div>

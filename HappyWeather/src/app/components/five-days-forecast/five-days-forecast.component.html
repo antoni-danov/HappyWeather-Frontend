@@ -1,0 +1,14 @@
+<div class="daysContainer" *ngIf="this.fivedaysForecast">
+  <div *ngFor="let day of this.fivedaysForecast.timeLines.daily">
+    <div class="day" *ngFor="let currentDate of date">
+      <section class="dayInfo">
+        <i>ICON</i>
+        <div>{{currentDate.day}}</div>
+      </section>
+      <section class="mainInfo">
+        <div>{{day.values.minTemperature}}</div>
+        <div>{{day.values.maxTemperature}}</div>
+      </section>
+    </div>
+  </div>
+</div>

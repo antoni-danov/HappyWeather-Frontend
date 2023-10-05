@@ -13,6 +13,7 @@
   background-color: gainsboro;
 }
 .weatherDetails {
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
 
@@ -72,10 +73,11 @@
   background-color: cadetblue;
   border-radius: 5px;
   height: 100px;
+  box-sizing: border-box;
 }
 #temperature {
-  font-size: 500%;
-  margin: 20% 15%;
+  font-size: 65px;
+  margin: 10% 15%;
 }
 #dateFormat,
 #timeFormat {
@@ -116,4 +118,7 @@
 }
 #hyperlink {
   color: white;
+}
+.fiveDaysForecast {
+  text-align: center;
 }

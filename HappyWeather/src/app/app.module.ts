@@ -14,6 +14,7 @@ import { WeatherSearchComponent } from './components/weather-search/weather-sear
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { DatePipe } from '@angular/common';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
+import { FiveDaysForecastComponent } from './components/five-days-forecast/five-days-forecast.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
     HomeComponent,
     WeatherResultComponent,
     WeatherSearchComponent,
-    NavbarComponent
+    NavbarComponent,
+    FiveDaysForecastComponent
   ],
   imports: [
     BrowserModule,
