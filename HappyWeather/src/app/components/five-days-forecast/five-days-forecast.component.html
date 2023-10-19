@@ -1,13 +1,40 @@
 <div class="daysContainer" *ngIf="this.fivedaysForecast">
   <div *ngFor="let day of this.fivedaysForecast.timeLines.daily">
-    <div class="day" *ngFor="let currentDate of date">
+    <div class="day">
       <section class="dayInfo">
-        <i>ICON</i>
-        <div>{{currentDate.day}}</div>
+        <div id="weatherIcon">
+          {{day.values.weatherCode}}
+          <img
+            *ngIf="weatherIcon"
+            [ngStyle]="setIcon(day.values.weatherCode)"
+            [src]="weatherIcon"
+            alt="weather icon"
+          />
+          {{weatherIcon}}
+        </div>
+        <div>{{day.time | dateFormat}}</div>
+        <span>{{unit}}</span>
       </section>
       <section class="mainInfo">
-        <div>{{day.values.minTemperature}}</div>
-        <div>{{day.values.maxTemperature}}</div>
+        <div id="temperature">
+          <span
+            >{{day.values.minTemperature | tempConversion: unit | number }}&deg;
+          </span>
+          <span
+            *ngIf="unit === undefined || unit === 'metric' || unit === null || unit === 'Nan'"
+            >C</span
+          >
+          <span *ngIf="unit === 'imperial'">F</span>
+          |
+          <span
+            >{{day.values.maxTemperature | tempConversion: unit | number }}&deg;
+          </span>
+          <span
+            *ngIf="unit === undefined || unit === 'metric' || unit === null || unit === 'Nan'"
+            >C</span
+          >
+          <span *ngIf="unit === 'imperial'">F</span>
+        </div>
       </section>
     </div>
   </div>

@@ -10,12 +10,8 @@ export class GlobalErrorHandling implements ErrorHandler {
     }
 
     handleError(error: any): void {
-        if (!(error instanceof HttpErrorResponse)) {
-            error = error.rejection;
-        }
-        this.zone.run(() => {
-            this.router.navigate(['/error']);
-        });
+        // this.zone.run(() => {
+        //     this.router.navigate(['/error']);
+        // });
     }
-
 }

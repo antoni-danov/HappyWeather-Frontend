@@ -16,3 +16,9 @@
   margin: 0% 5%;
   padding: 8%;
 }
+.mainInfo {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: center;
+}
