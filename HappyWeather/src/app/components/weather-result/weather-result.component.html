@@ -1,59 +1,10 @@
 <div *ngIf="sharedData" class="weather-container">
-  <section class="mainInfo">
-    <div id="dateFormat"><strong>{{dateFormat}}</strong></div>
-    <div id="temperature">
-      {{temperature}}&deg;
-      <span
-        *ngIf="unit === undefined || unit === 'metric' || unit === null || unit === 'Nan'"
-        >C</span
-      >
-      <span *ngIf="unit === 'imperial'">F</span>
-    </div>
-    <div id="feelsLike">
-      <span
-        ><strong>Feels like:</strong> {{feelsLike}}&deg;
-        <span
-          *ngIf="unit === undefined || unit === 'metric' || unit === null || unit === 'Nan'"
-          >C</span
-        >
-        <span *ngIf="unit === 'imperial'">F</span>
-      </span>
-    </div>
-    <hr />
-    <div class="windInformation">
-      <div>
-        <i class="wi wi-strong-wind"></i>
-        <br />
-        <br />
-        <span
-          ><strong>Wind speed: </strong>
-          <span>{{this.windSpeed}} m/s</span></span
-        >
-        <br />
-        <span><strong>Wind gust:</strong> {{this.windGust}} m/s</span>
-        <br />
-        <span *ngIf="this.sharedData.data.values.windSpeed > 0">
-          <strong>Wind direction:</strong> {{this.windDirection}}
-        </span>
-      </div>
-      <div class="windIcon">
-        <i class="wi wi-wind towards-{{this.windDegree}}-deg"></i>
-      </div>
-    </div>
-    <hr />
-    <section class="fiveDaysForecast">
-      <span><strong>Five days forecast</strong></span>
-      <br />
-      <app-five-days-forecast></app-five-days-forecast>
-    </section>
-  </section>
   <section class="weatherDetails">
     <section class="weatherDescription" [ngStyle]="setBackgroundImage()">
       <section class="location">
         <div>
           <mat-icon>place</mat-icon
           ><a id="hyperlink" [href]="externalLink" target="_blank">
-            <!-- <strong>{{city}}</strong>, {{country}} -->
             <strong>{{location}}</strong>
           </a>
         </div>
@@ -84,6 +35,55 @@
     <div>{{sharedData.current.cloudCover}}</div>
     <div>{{sharedData.current.uvIndex}}</div>
     <div>{{sharedData.current.visibility}}</div>-->
+    </section>
+  </section>
+  <section class="mainInfo">
+    <div id="dateFormat"><strong>{{dateFormat | dateFormat}}</strong></div>
+    <div id="temperature">
+      <span>{{temperature | tempConversion: unit | number }}&deg; </span>
+      <span
+        *ngIf="unit === undefined || unit === 'metric' || unit === null || unit === 'Nan'"
+        >C</span
+      >
+      <span *ngIf="unit === 'imperial'">F</span>
+    </div>
+    <div id="feelsLike">
+      <span
+        ><strong>Feels like:</strong> {{feelsLike | tempConversion: unit |
+        number }}&deg;
+        <span
+          *ngIf="unit === undefined || unit === 'metric' || unit === null || unit === 'Nan'"
+          >C</span
+        >
+        <span *ngIf="unit === 'imperial'">F</span>
+      </span>
+    </div>
+    <hr />
+    <div class="windInformation">
+      <div>
+        <i class="wi wi-strong-wind"></i>
+        <br />
+        <br />
+        <span
+          ><strong>Wind speed: </strong>
+          <span>{{this.windSpeed | number}} m/s</span></span
+        >
+        <br />
+        <span><strong>Wind gust:</strong> {{this.windGust | number}} m/s</span>
+        <br />
+        <span *ngIf="this.sharedData.data.values.windSpeed > 0">
+          <strong>Wind direction:</strong> {{this.windDirection}}
+        </span>
+      </div>
+      <div class="windIcon">
+        <i class="wi wi-wind towards-{{this.windDegree | number}}-deg"></i>
+      </div>
+    </div>
+    <hr />
+    <section class="fiveDaysForecast">
+      <span><strong>Five days forecast</strong></span>
+      <br />
+      <app-five-days-forecast></app-five-days-forecast>
     </section>
   </section>
 </div>

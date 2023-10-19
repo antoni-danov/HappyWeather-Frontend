@@ -1,6 +1,6 @@
-import { APP_INITIALIZER, ErrorHandler, NgModule } from '@angular/core';
+import { ErrorHandler, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { MaterialModule } from './modules/material.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -17,6 +17,11 @@ import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 import { FiveDaysForecastComponent } from './components/five-days-forecast/five-days-forecast.component';
 import { GlobalErrorHandling } from './shared/globalErrorHandler';
 import { PageNotFoundComponent } from './components/notFound/page-not-found.component';
+import { TechincalErrorComponent } from './components/techincal-error/techincal-error.component';
+import { ErrorInterceptor } from './interceptors/errorInterceptor/error.interceptor';
+import { DateFormatPipe } from './pipes/stringSplit/date-format.pipe';
+import { NumberPipe } from './pipes/roundNumber/number.pipe';
+import { TemperatureConversionPipe } from './pipes/temperature/temperature-conversion.pipe';
 
 @NgModule({
   declarations: [
@@ -26,7 +31,11 @@ import { PageNotFoundComponent } from './components/notFound/page-not-found.comp
     WeatherSearchComponent,
     NavbarComponent,
     FiveDaysForecastComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    TechincalErrorComponent,
+    DateFormatPipe,
+    NumberPipe,
+    TemperatureConversionPipe,
   ],
   imports: [
     BrowserModule,
@@ -38,9 +47,17 @@ import { PageNotFoundComponent } from './components/notFound/page-not-found.comp
     BrowserAnimationsModule,
   ],
   providers: [DatePipe,
+    DateFormatPipe,
+    NumberPipe,
+    TemperatureConversionPipe,
     {
       provide: ErrorHandler,
       useClass: GlobalErrorHandling
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: ErrorInterceptor,
+      multi: true,
     },
     {
       provide: MAT_FORM_FIELD_DEFAULT_OPTIONS,
