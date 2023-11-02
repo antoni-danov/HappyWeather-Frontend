@@ -40,14 +40,11 @@ export class WeatherResultComponent implements OnInit {
   constructor(private weatherService: WeatherService) {
   }
   ngOnInit() {
-    if (this.weatherService.weatherData) {
-      console.log('Success');
-
-    }
     this.timeCityWeatherData();
     this.temperatureUnit();
   }
 
+  //Recieve and extract weather data
   timeCityWeatherData() {
     this.weatherService.data$.subscribe(data => {
       this.sharedData = data;
@@ -69,6 +66,7 @@ export class WeatherResultComponent implements OnInit {
       }
     });
   }
+  //Set background day or night image 
   setBackgroundImage() {
     try {
       this.weatherIndex = Object.keys(weatherCode).indexOf(this.sharedData.data.values.weatherCode.toString());
@@ -83,6 +81,7 @@ export class WeatherResultComponent implements OnInit {
     }
 
   }
+  //Set weather icon
   private setWeatherIcon(data: string) {
     var currentTime = this.timeOfTheDay();
 
@@ -97,12 +96,14 @@ export class WeatherResultComponent implements OnInit {
     });
 
   }
+  //Set weather temperature in celsius or farenheit
   private temperatureUnit() {
     this.weatherService.unitChoice$.subscribe(data => {
       this.unit = data;
     });
 
   }
+  //Set time of the day for background choice
   private timeOfTheDay(): string {
     var currentTime = new Date().getHours();
     return currentTime > 19 || (currentTime > 0 && currentTime < 6) ? 'night' : 'day';
