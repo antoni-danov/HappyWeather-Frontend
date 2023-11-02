@@ -7,11 +7,6 @@
         alt=""
       />
       <span>Happy weather</span>
-      <!-- <img
-        id="icontext"
-        src="../../../assets/icons/weatherIcon/icon-text.png"
-        alt=""
-      /> -->
     </a>
   </section>
   <section class="search">
@@ -19,8 +14,11 @@
   </section>
   <section class="rightSection">
     <span>C&deg;</span
-    ><mat-slide-toggle (change)="unitChoice()"></mat-slide-toggle
-    ><span>F&deg;</span>
+    ><label class="switch">
+      <input type="checkbox" (change)="unitChoice()" />
+      <span class="slider round"></span>
+    </label>
+    <span>F&deg;</span>
   </section>
 </nav>
 <div class="timePeriod">

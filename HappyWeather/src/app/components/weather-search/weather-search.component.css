@@ -29,7 +29,7 @@
 .clearSection {
   display: flex;
   flex-direction: row;
-  -ms-flex-align: center;
+  margin-top: 1%;
 }
 .verticalLine {
   width: 1px;
