@@ -33,13 +33,17 @@ export class WeatherResultComponent implements OnInit {
   weatherIndex!: number;
   weatherDescription!: string;
   weatherIcon!: string;
-  backgroundImage: string = '../../../assets/images/day/';
+  backgroundImage: string = '../../../assets/images/';
   weatherIconPath: string = '../../../assets/icons/tomorrow-weather-codes-master/V2_icons/large/png/';
   externalLink: any;
 
   constructor(private weatherService: WeatherService) {
   }
   ngOnInit() {
+    if (this.weatherService.weatherData) {
+      console.log('Success');
+
+    }
     this.timeCityWeatherData();
     this.temperatureUnit();
   }
@@ -68,8 +72,11 @@ export class WeatherResultComponent implements OnInit {
   setBackgroundImage() {
     try {
       this.weatherIndex = Object.keys(weatherCode).indexOf(this.sharedData.data.values.weatherCode.toString());
+      var currentTime = this.timeOfTheDay();
       return Object.values(weatherCode).includes(this.sharedData.data.values.weatherCode) ?
-        { 'background-image': 'url(' + this.backgroundImage + this.weatherDescription.replace(' ', '').toLowerCase() + '.jpg)' } :
+        {
+          'background-image': 'url(' + this.backgroundImage + currentTime + '/' + this.weatherDescription.replace(' ', '').toLowerCase() + '.jpg)'
+        } :
         { 'background': 'linear-gradient(351deg, rgba(9,17,121,0.9948354341736695) 0%, rgba(25,173,112,1) 51%, rgba(0,186,230,1) 100%)' };
     } catch (error) {
       return;
@@ -77,7 +84,7 @@ export class WeatherResultComponent implements OnInit {
 
   }
   private setWeatherIcon(data: string) {
-    var currentTime = new Date().getHours();
+    var currentTime = this.timeOfTheDay();
 
     this.weatherService.getIconFileNames().subscribe(files => {
 
@@ -86,12 +93,7 @@ export class WeatherResultComponent implements OnInit {
         .trimStart().startsWith(data.toLocaleLowerCase()) ? index : -1))
         .filter(index => index !== -1);
 
-      if (currentTime > 6 && currentTime < 19) {
-        this.weatherIcon = this.weatherIconPath + files[currentIconNames[0]];
-      } else {
-        this.weatherIcon = this.weatherIconPath + files[currentIconNames[1]];
-      }
-
+      this.weatherIcon = currentTime === 'day' ? this.weatherIconPath + files[currentIconNames[0]] : this.weatherIconPath + files[currentIconNames[1]];
     });
 
   }
@@ -100,5 +102,9 @@ export class WeatherResultComponent implements OnInit {
       this.unit = data;
     });
 
+  }
+  private timeOfTheDay(): string {
+    var currentTime = new Date().getHours();
+    return currentTime > 19 || (currentTime > 0 && currentTime < 6) ? 'night' : 'day';
   }
 }
