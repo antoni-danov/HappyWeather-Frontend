@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { weatherCode } from 'src/app/enums/weatherCode';
 import { environement } from 'src/app/environements/environement';
+import { weatherLocation } from 'src/app/interfaces/weatherLocation';
 import { WeatherResult } from 'src/app/interfaces/weatherResult';
 import { WeatherService } from 'src/app/services/weatherService/weather.service';
 import { WeatherUtilities } from 'src/app/shared/weatherUtilities';
@@ -29,6 +30,7 @@ export class WeatherResultComponent implements OnInit {
   country!: string;
   city!: string;
   location!: string;
+  locationTime!: string;
 
   weatherIndex!: number;
   weatherDescription!: string;
@@ -50,6 +52,8 @@ export class WeatherResultComponent implements OnInit {
       this.sharedData = data;
 
       if (this.sharedData) {
+        this.getLocationTime(this.sharedData.location);
+
         this.dateFormat = this.sharedData.data.weatherDateTime.split('T')[0];
         this.temperature = this.sharedData.data.values.temperature;
         this.feelsLike = this.sharedData.data.values.temperatureApparent;
@@ -105,7 +109,18 @@ export class WeatherResultComponent implements OnInit {
   }
   //Set time of the day for background choice
   private timeOfTheDay(): string {
-    var currentTime = new Date().getHours();
-    return currentTime > 19 || (currentTime > 0 && currentTime < 6) ? 'night' : 'day';
+    const hour = parseInt(this.locationTime.split(':')[0]);
+    return hour > 19 || (hour > 0 && hour < 6) ? 'night' : 'day';
+  }
+  //Get location real time
+  private getLocationTime(coordinates: weatherLocation) {
+    this.weatherService.getLocationTime(coordinates).subscribe((timezoneData: any) => {
+      const timeZoneId = timezoneData.timeZoneId;
+      const currentUTC = new Date();
+      const localTime = new Date(currentUTC.toLocaleString('en-US', { timeZone: timeZoneId }));
+      const minutes = localTime.getMinutes() < 10 ? '0' + `${localTime.getMinutes()}` : localTime.getMinutes();
+      const hours = localTime.getHours() < 10 ? '0' + `${localTime.getHours()}` : localTime.getHours();
+      this.locationTime = `${hours}:${minutes}`;
+    });
   }
 }

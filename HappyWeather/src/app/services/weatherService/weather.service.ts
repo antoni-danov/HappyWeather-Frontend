@@ -4,6 +4,7 @@ import { Subject } from 'rxjs';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import { environement } from 'src/app/environements/environement';
 import { DailyWeatherForecast } from 'src/app/interfaces/DailyForecast/dailyWeatherForecast';
+import { weatherLocation } from 'src/app/interfaces/weatherLocation';
 import { WeatherResult } from 'src/app/interfaces/weatherResult';
 
 @Injectable({
@@ -40,7 +41,6 @@ export class WeatherService {
       }
     });
   }
-
   fiveDaysForecast(cityName: string, units: string) {
     var params = new HttpParams().set('unit', units).set('timeStep', '1d');
     return this.http.get<DailyWeatherForecast>(environement.localhost + `/${cityName}/days`, { params }).subscribe(data => {
@@ -52,5 +52,8 @@ export class WeatherService {
   }
   setUnitChoice(value: string) {
     this.unitChoice.next(value);
+  }
+  getLocationTime(coordinates: weatherLocation) {
+    return this.http.get(environement.googleTimeZone + `${coordinates.latitude}%2C${coordinates.longitude}&timestamp=0&key=${environement.googleMapsApiKey}`);
   }
 }

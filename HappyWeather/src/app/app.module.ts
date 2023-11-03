@@ -22,6 +22,7 @@ import { ErrorInterceptor } from './interceptors/errorInterceptor/error.intercep
 import { DateFormatPipe } from './pipes/stringSplit/date-format.pipe';
 import { NumberPipe } from './pipes/roundNumber/number.pipe';
 import { TemperatureConversionPipe } from './pipes/temperature/temperature-conversion.pipe';
+import { LocalTimeComponent } from './components/localTime/local-time/local-time.component';
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import { TemperatureConversionPipe } from './pipes/temperature/temperature-conve
     DateFormatPipe,
     NumberPipe,
     TemperatureConversionPipe,
+    LocalTimeComponent,
   ],
   imports: [
     BrowserModule,
