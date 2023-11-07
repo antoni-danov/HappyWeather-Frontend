@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
 import { weatherCode } from 'src/app/enums/weatherCode';
 import { environement } from 'src/app/environements/environement';
+import { weatherLocation } from 'src/app/interfaces/weatherLocation';
 import { WeatherResult } from 'src/app/interfaces/weatherResult';
 import { WeatherService } from 'src/app/services/weatherService/weather.service';
 import { WeatherUtilities } from 'src/app/shared/weatherUtilities';
@@ -29,6 +31,7 @@ export class WeatherResultComponent implements OnInit {
   country!: string;
   city!: string;
   location!: string;
+  locationTime!: string;
 
   weatherIndex!: number;
   weatherDescription!: string;
@@ -36,6 +39,8 @@ export class WeatherResultComponent implements OnInit {
   backgroundImage: string = '../../../assets/images/';
   weatherIconPath: string = '../../../assets/icons/tomorrow-weather-codes-master/V2_icons/large/png/';
   externalLink: any;
+
+  dayState!: string;
 
   constructor(private weatherService: WeatherService) {
   }
@@ -50,6 +55,8 @@ export class WeatherResultComponent implements OnInit {
       this.sharedData = data;
 
       if (this.sharedData) {
+        this.getLocationTime(this.sharedData.location);
+
         this.dateFormat = this.sharedData.data.weatherDateTime.split('T')[0];
         this.temperature = this.sharedData.data.values.temperature;
         this.feelsLike = this.sharedData.data.values.temperatureApparent;
@@ -62,6 +69,9 @@ export class WeatherResultComponent implements OnInit {
         this.weatherIndex = WeatherUtilities.getWeatherDescription(this.sharedData.data.values.weatherCode.toString()).index;
         this.weatherDescription = WeatherUtilities.getWeatherDescription(this.sharedData.data.values.weatherCode.toString()).description;
         this.weatherDescription === 'Clear Sunny' ? this.setWeatherIcon(this.weatherDescription.split(' ')[0]) : this.setWeatherIcon(this.weatherDescription);
+        this.dayState = this.timeOfTheDay();
+        console.log('Row 73: ', this.dayState);
+
         this.setBackgroundImage();
       }
     });
@@ -70,10 +80,14 @@ export class WeatherResultComponent implements OnInit {
   setBackgroundImage() {
     try {
       this.weatherIndex = Object.keys(weatherCode).indexOf(this.sharedData.data.values.weatherCode.toString());
-      var currentTime = this.timeOfTheDay();
+      this.dayState = this.timeOfTheDay();
+      console.log(this.dayState);
+
+      console.log('url(' + this.backgroundImage + this.dayState + '/' + this.weatherDescription.replace(' ', '').toLowerCase() + '.jpg)');
+
       return Object.values(weatherCode).includes(this.sharedData.data.values.weatherCode) ?
         {
-          'background-image': 'url(' + this.backgroundImage + currentTime + '/' + this.weatherDescription.replace(' ', '').toLowerCase() + '.jpg)'
+          'background-image': 'url(' + this.backgroundImage + this.dayState + '/' + this.weatherDescription.replace(' ', '').toLowerCase() + '.jpg)'
         } :
         { 'background': 'linear-gradient(351deg, rgba(9,17,121,0.9948354341736695) 0%, rgba(25,173,112,1) 51%, rgba(0,186,230,1) 100%)' };
     } catch (error) {
@@ -83,9 +97,12 @@ export class WeatherResultComponent implements OnInit {
   }
   //Set weather icon
   private setWeatherIcon(data: string) {
-    var currentTime = this.timeOfTheDay();
+    console.log(data);
+
+    const currentTime = this.timeOfTheDay();
 
     this.weatherService.getIconFileNames().subscribe(files => {
+      console.log(files);
 
       var currentIconNames = files.map((file, index) => (file.substring(5)
         .replaceAll('_', ' ')
@@ -93,6 +110,10 @@ export class WeatherResultComponent implements OnInit {
         .filter(index => index !== -1);
 
       this.weatherIcon = currentTime === 'day' ? this.weatherIconPath + files[currentIconNames[0]] : this.weatherIconPath + files[currentIconNames[1]];
+      console.log(files[currentIconNames[0]]);
+
+      console.log(this.weatherIcon);
+
     });
 
   }
@@ -105,7 +126,20 @@ export class WeatherResultComponent implements OnInit {
   }
   //Set time of the day for background choice
   private timeOfTheDay(): string {
-    var currentTime = new Date().getHours();
-    return currentTime > 19 || (currentTime > 0 && currentTime < 6) ? 'night' : 'day';
+    const hour = parseInt(this.locationTime.split(':')[0]);
+    this.dayState = hour > 19 || (hour > 0 && hour < 6) ? 'night' : 'day';
+
+    return this.dayState;
+  }
+  //Get location real time
+  private getLocationTime(coordinates: weatherLocation) {
+    this.weatherService.getLocationTime(coordinates).subscribe((timezoneData: any) => {
+      const timeZoneId = timezoneData.timeZoneId;
+      const currentUTC = new Date();
+      const localTime = new Date(currentUTC.toLocaleString('en-US', { timeZone: timeZoneId }));
+      const minutes = localTime.getMinutes() < 10 ? '0' + `${localTime.getMinutes()}` : localTime.getMinutes();
+      const hours = localTime.getHours() < 10 ? '0' + `${localTime.getHours()}` : localTime.getHours();
+      this.locationTime = `${hours}:${minutes}`;
+    });
   }
 }
