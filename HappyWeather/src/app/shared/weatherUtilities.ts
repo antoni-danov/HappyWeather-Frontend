@@ -13,7 +13,6 @@ export class WeatherUtilities {
         var index = Object.keys(weatherCode).indexOf(data);
         //Weather description
         var description = Object.values(weatherCode)[index].toString().replace('_', ' ');
-
         return { index, description };
     }
 

@@ -24,6 +24,7 @@ export class WeatherService {
   public fiveDaysData$ = this.fiveDaysSubject.asObservable();
 
   location!: string;
+  requestCount!: number;
 
   constructor(private http: HttpClient) {
   }
@@ -31,6 +32,7 @@ export class WeatherService {
   realTimeCurrentCity(cityName: string, units: string) {
     this.location = cityName.replaceAll(',', '');
     var params = new HttpParams().set('unit', units);
+    this.requestCount++;
 
     this.fiveDaysForecast(this.location, units);
 
@@ -42,6 +44,7 @@ export class WeatherService {
     });
   }
   fiveDaysForecast(cityName: string, units: string) {
+
     var params = new HttpParams().set('unit', units).set('timeStep', '1d');
     return this.http.get<DailyWeatherForecast>(environement.localhost + `/${cityName}/days`, { params }).subscribe(data => {
       this.fiveDaysSubject.next(data);
