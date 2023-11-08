@@ -24,7 +24,6 @@ export class WeatherService {
   public fiveDaysData$ = this.fiveDaysSubject.asObservable();
 
   location!: string;
-  requestCount!: number;
 
   constructor(private http: HttpClient) {
   }
@@ -32,7 +31,6 @@ export class WeatherService {
   realTimeCurrentCity(cityName: string, units: string) {
     this.location = cityName.replaceAll(',', '');
     var params = new HttpParams().set('unit', units);
-    this.requestCount++;
 
     this.fiveDaysForecast(this.location, units);
 
