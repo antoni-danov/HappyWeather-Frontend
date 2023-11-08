@@ -69,9 +69,7 @@ export class WeatherResultComponent implements OnInit {
         this.weatherIndex = WeatherUtilities.getWeatherDescription(this.sharedData.data.values.weatherCode.toString()).index;
         this.weatherDescription = WeatherUtilities.getWeatherDescription(this.sharedData.data.values.weatherCode.toString()).description;
         this.weatherDescription === 'Clear Sunny' ? this.setWeatherIcon(this.weatherDescription.split(' ')[0]) : this.setWeatherIcon(this.weatherDescription);
-        this.dayState = this.timeOfTheDay();
-        console.log('Row 73: ', this.dayState);
-
+        // this.dayState = this.timeOfTheDay();
         this.setBackgroundImage();
       }
     });
@@ -81,9 +79,7 @@ export class WeatherResultComponent implements OnInit {
     try {
       this.weatherIndex = Object.keys(weatherCode).indexOf(this.sharedData.data.values.weatherCode.toString());
       this.dayState = this.timeOfTheDay();
-      console.log(this.dayState);
-
-      console.log('url(' + this.backgroundImage + this.dayState + '/' + this.weatherDescription.replace(' ', '').toLowerCase() + '.jpg)');
+      this.weatherDescription = this.dayState === 'night' && this.weatherDescription === 'Clear Sunny' ? 'Clear' : this.weatherDescription;
 
       return Object.values(weatherCode).includes(this.sharedData.data.values.weatherCode) ?
         {
@@ -127,19 +123,19 @@ export class WeatherResultComponent implements OnInit {
   //Set time of the day for background choice
   private timeOfTheDay(): string {
     const hour = parseInt(this.locationTime.split(':')[0]);
-    this.dayState = hour > 19 || (hour > 0 && hour < 6) ? 'night' : 'day';
-
+    this.dayState = hour > 19 || (hour >= 0 && hour < 6) ? 'night' : 'day';
     return this.dayState;
   }
   //Get location real time
   private getLocationTime(coordinates: weatherLocation) {
-    this.weatherService.getLocationTime(coordinates).subscribe((timezoneData: any) => {
-      const timeZoneId = timezoneData.timeZoneId;
-      const currentUTC = new Date();
-      const localTime = new Date(currentUTC.toLocaleString('en-US', { timeZone: timeZoneId }));
-      const minutes = localTime.getMinutes() < 10 ? '0' + `${localTime.getMinutes()}` : localTime.getMinutes();
-      const hours = localTime.getHours() < 10 ? '0' + `${localTime.getHours()}` : localTime.getHours();
-      this.locationTime = `${hours}:${minutes}`;
-    });
+    this.weatherService.getLocationTime(coordinates)
+      .subscribe((timezoneData: any) => {
+        const timeZoneId = timezoneData.timeZoneId;
+        const currentUTC = new Date();
+        const localTime = new Date(currentUTC.toLocaleString('en-US', { timeZone: timeZoneId }));
+        const minutes = localTime.getMinutes() < 10 ? '0' + `${localTime.getMinutes()}` : localTime.getMinutes();
+        const hours = localTime.getHours() < 10 ? '0' + `${localTime.getHours()}` : localTime.getHours();
+        this.locationTime = `${hours}:${minutes}`;
+      });
   }
 }
