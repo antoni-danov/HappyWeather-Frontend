@@ -98,12 +98,12 @@ export class WeatherResultComponent implements OnInit {
     const currentTime = this.timeOfTheDay();
 
     this.weatherService.getIconFileNames().subscribe(files => {
-      console.log(files);
 
       var currentIconNames = files.map((file, index) => (file.substring(5)
         .replaceAll('_', ' ')
         .trimStart().startsWith(data.toLocaleLowerCase()) ? index : -1))
         .filter(index => index !== -1);
+      console.log(currentIconNames);
 
       this.weatherIcon = currentTime === 'day' ? this.weatherIconPath + files[currentIconNames[0]] : this.weatherIconPath + files[currentIconNames[1]];
       console.log(files[currentIconNames[0]]);

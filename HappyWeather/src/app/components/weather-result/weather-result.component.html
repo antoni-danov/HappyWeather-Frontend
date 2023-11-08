@@ -2,24 +2,23 @@
   <section class="weatherDetails">
     <section class="weatherDescription" [ngStyle]="setBackgroundImage()">
       <section class="location">
-        <div>
+        <div id="locationName">
           <mat-icon>place</mat-icon
           ><a id="hyperlink" [href]="externalLink" target="_blank">
             <strong>{{location}} </strong
             ><span class="material-icons">open_in_new</span>
           </a>
         </div>
+        <div id="localTime">
+          <app-local-time [localTime]="locationTime"></app-local-time>
+        </div>
       </section>
       <div class="weatherState">
-        <app-local-time [localTime]="locationTime"></app-local-time>
         <span id="weatherStateTitle">Weather forecast</span>
         <br />
         <div class="weatherForecast">
           <div>
             {{weatherDescription}}
-          </div>
-          <div id="weatherIcon" *ngIf="weatherIndex">
-            <img [src]="weatherIcon" alt="" />
           </div>
         </div>
       </div>
@@ -49,6 +48,9 @@
       >
       <span *ngIf="unit === 'imperial'">F</span>
     </div>
+    <p id="weatherIcon" *ngIf="weatherIndex">
+      <img [src]="weatherIcon" alt="" />
+    </p>
     <div id="feelsLike">
       <span
         ><strong>Feels like:</strong> {{feelsLike | tempConversion: unit |
@@ -82,10 +84,10 @@
       </div>
     </div>
     <hr />
-    <section class="fiveDaysForecast">
+    <!-- <section class="fiveDaysForecast">
       <span><strong>Five days forecast</strong></span>
       <br />
       <app-five-days-forecast></app-five-days-forecast>
-    </section>
+    </section> -->
   </section>
 </div>
