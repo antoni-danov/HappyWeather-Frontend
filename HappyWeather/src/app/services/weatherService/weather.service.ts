@@ -32,7 +32,7 @@ export class WeatherService {
     this.location = cityName.replaceAll(',', '');
     var params = new HttpParams().set('unit', units);
 
-    this.fiveDaysForecast(this.location, units);
+    // this.fiveDaysForecast(this.location, units);
 
     return this.http.get<WeatherResult>(environement.localhost + `/${this.location}`, { params }).subscribe(data => {
       if (data) {
