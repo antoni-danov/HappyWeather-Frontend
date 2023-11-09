@@ -19,6 +19,7 @@
 
   margin: 0.7%;
   width: -webkit-fill-available;
+  overflow: hidden;
 }
 .mainInfo {
   width: 35%;

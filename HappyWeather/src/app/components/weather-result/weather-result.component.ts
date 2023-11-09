@@ -83,7 +83,7 @@ export class WeatherResultComponent implements OnInit {
 
       return Object.values(weatherCode).includes(this.sharedData.data.values.weatherCode) ?
         {
-          'background-image': 'url(' + this.backgroundImage + this.dayState + '/' + this.weatherDescription.replace(' ', '').toLowerCase() + '.jpg)'
+          'background-image': `url(${this.backgroundImage}${this.dayState}/${this.weatherDescription.replace(' ', '').toLowerCase()}.jpg)`
         } :
         { 'background': 'linear-gradient(351deg, rgba(9,17,121,0.9948354341736695) 0%, rgba(25,173,112,1) 51%, rgba(0,186,230,1) 100%)' };
     } catch (error) {
