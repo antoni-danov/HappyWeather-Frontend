@@ -1,4 +1,5 @@
-<div *ngIf="sharedData" class="weather-container">
+@if (sharedData) {
+<div class="weather-container">
   <section class="weatherDetails">
     <section class="weatherDescription" [ngStyle]="setBackgroundImage()">
       <section class="location">
@@ -42,24 +43,34 @@
     <div id="dateFormat"><strong>{{dateFormat | dateFormat}}</strong></div>
     <div id="temperature">
       <span>{{temperature | tempConversion: unit | number }}&deg; </span>
-      <span
-        *ngIf="unit === undefined || unit === 'metric' || unit === null || unit === 'Nan'"
+      @if (unit === undefined || unit === 'metric' || unit === null || unit === 'Nan') {
+<span
+       
         >C</span
       >
-      <span *ngIf="unit === 'imperial'">F</span>
+}
+      @if (unit === 'imperial') {
+<span>F</span>
+}
     </div>
-    <p id="weatherIcon" *ngIf="weatherIndex">
+    @if (weatherIndex) {
+<p id="weatherIcon">
       <img [src]="weatherIcon" alt="" />
     </p>
+}
     <div id="feelsLike">
       <span
         ><strong>Feels like:</strong> {{feelsLike | tempConversion: unit |
         number }}&deg;
-        <span
-          *ngIf="unit === undefined || unit === 'metric' || unit === null || unit === 'Nan'"
+        @if (unit === undefined || unit === 'metric' || unit === null || unit === 'Nan') {
+<span
+         
           >C</span
         >
-        <span *ngIf="unit === 'imperial'">F</span>
+}
+        @if (unit === 'imperial') {
+<span>F</span>
+}
       </span>
     </div>
     <hr />
@@ -75,9 +86,11 @@
         <br />
         <span><strong>Wind gust:</strong> {{this.windGust | number}} m/s</span>
         <br />
-        <span *ngIf="this.sharedData.data.values.windSpeed > 0">
+        @if (this.sharedData.data.values.windSpeed > 0) {
+<span>
           <strong>Wind direction:</strong> {{this.windDirection}}
         </span>
+}
       </div>
       <div class="windIcon">
         <i class="wi wi-wind towards-{{this.windDegree | number}}-deg"></i>
@@ -91,3 +104,4 @@
     </section> -->
   </section>
 </div>
+}

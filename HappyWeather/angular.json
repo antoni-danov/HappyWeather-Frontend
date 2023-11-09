@@ -57,10 +57,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "HappyWeather:build:production"
+              "buildTarget": "HappyWeather:build:production"
             },
             "development": {
-              "browserTarget": "HappyWeather:build:development"
+              "buildTarget": "HappyWeather:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -68,7 +68,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "HappyWeather:build"
+            "buildTarget": "HappyWeather:build"
           }
         },
         "test": {
