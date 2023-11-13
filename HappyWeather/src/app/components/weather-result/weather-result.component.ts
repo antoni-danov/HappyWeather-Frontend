@@ -51,6 +51,7 @@ export class WeatherResultComponent implements OnInit {
 
   //Recieve and extract weather data
   timeCityWeatherData() {
+
     this.weatherService.data$.subscribe(data => {
       this.sharedData = data;
 
@@ -68,8 +69,8 @@ export class WeatherResultComponent implements OnInit {
         this.externalLink = environement.locationSearch + this.weatherService.location;
         this.weatherIndex = WeatherUtilities.getWeatherDescription(this.sharedData.data.values.weatherCode.toString()).index;
         this.weatherDescription = WeatherUtilities.getWeatherDescription(this.sharedData.data.values.weatherCode.toString()).description;
-        this.weatherDescription === 'Clear Sunny' ? this.setWeatherIcon(this.weatherDescription.split(' ')[0]) : this.setWeatherIcon(this.weatherDescription);
-        // this.dayState = this.timeOfTheDay();
+        this.setWeatherIcon(this.weatherDescription);
+        // this.weatherDescription === 'Clear Sunny' ? this.setWeatherIcon(this.weatherDescription.split(' ')[0]) : this.setWeatherIcon(this.weatherDescription);
         this.setBackgroundImage();
       }
     });
@@ -93,8 +94,6 @@ export class WeatherResultComponent implements OnInit {
   }
   //Set weather icon
   private setWeatherIcon(data: string) {
-    console.log(data);
-
     const currentTime = this.timeOfTheDay();
 
     this.weatherService.getIconFileNames().subscribe(files => {
@@ -103,15 +102,9 @@ export class WeatherResultComponent implements OnInit {
         .replaceAll('_', ' ')
         .trimStart().startsWith(data.toLocaleLowerCase()) ? index : -1))
         .filter(index => index !== -1);
-      console.log(currentIconNames);
 
       this.weatherIcon = currentTime === 'day' ? this.weatherIconPath + files[currentIconNames[0]] : this.weatherIconPath + files[currentIconNames[1]];
-      console.log(files[currentIconNames[0]]);
-
-      console.log(this.weatherIcon);
-
     });
-
   }
   //Set weather temperature in celsius or farenheit
   private temperatureUnit() {

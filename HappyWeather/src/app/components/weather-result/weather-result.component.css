@@ -28,7 +28,7 @@
   border-bottom-right-radius: 10px;
 
   background: black;
-  background: linear-gradient(220deg, rgb(207 206 206) 0%, rgb(102 102 221));
+  background: linear-gradient(220deg, rgb(207 206 206) 0%, rgb(15 133 114));
 }
 .weatherDescription {
   margin-bottom: 1%;
@@ -87,7 +87,7 @@
 }
 #temperature {
   font-size: 65px;
-  margin: 10% 15% 5% 15%;
+  margin: 10% 15% 5% 25%;
 }
 #dateFormat,
 #timeFormat {

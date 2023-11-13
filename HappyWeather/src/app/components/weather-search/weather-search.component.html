@@ -17,7 +17,8 @@
       >
         <mat-icon>search</mat-icon>
       </button>
-      <div class="clearSection" *ngIf="showClearButton == true">
+      @if (showClearButton == true) {
+<div class="clearSection">
         <div class="verticalLine"></div>
         <button
           class="clearButton"
@@ -28,6 +29,7 @@
           <mat-icon>close</mat-icon>
         </button>
       </div>
+}
     </section>
   </mat-form-field>
 </div>

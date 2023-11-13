@@ -1,15 +1,19 @@
-<div class="daysContainer" *ngIf="this.fivedaysForecast">
-  <div *ngFor="let day of this.fivedaysForecast.timeLines.daily">
+@if (this.fivedaysForecast) {
+<div class="daysContainer">
+  @for (day of this.fivedaysForecast.timeLines.daily; track day) {
+  <div>
     <div class="day">
       <section class="dayInfo">
         <div id="weatherIcon">
           {{day.values.weatherCode}}
-          <img
-            *ngIf="weatherIcon"
+          @if (weatherIcon) {
+<img
+           
             [ngStyle]="setIcon(day.values.weatherCode)"
             [src]="weatherIcon"
             alt="weather icon"
           />
+}
           {{weatherIcon}}
         </div>
         <div>{{day.time | dateFormat}}</div>
@@ -20,22 +24,32 @@
           <span
             >{{day.values.minTemperature | tempConversion: unit | number }}&deg;
           </span>
-          <span
-            *ngIf="unit === undefined || unit === 'metric' || unit === null || unit === 'Nan'"
+          @if (unit === undefined || unit === 'metric' || unit === null || unit === 'Nan') {
+<span
+           
             >C</span
           >
-          <span *ngIf="unit === 'imperial'">F</span>
+}
+          @if (unit === 'imperial') {
+<span>F</span>
+}
           |
           <span
             >{{day.values.maxTemperature | tempConversion: unit | number }}&deg;
           </span>
-          <span
-            *ngIf="unit === undefined || unit === 'metric' || unit === null || unit === 'Nan'"
+          @if (unit === undefined || unit === 'metric' || unit === null || unit === 'Nan') {
+<span
+           
             >C</span
           >
-          <span *ngIf="unit === 'imperial'">F</span>
+}
+          @if (unit === 'imperial') {
+<span>F</span>
+}
         </div>
       </section>
     </div>
   </div>
+}
 </div>
+}
