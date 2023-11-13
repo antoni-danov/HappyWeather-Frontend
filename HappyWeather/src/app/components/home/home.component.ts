@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { WeatherService } from 'src/app/services/weatherService/weather.service';
+import { LoadingSpinnerComponent } from '../loading-spinner/loading-spinner.component';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css']
+  styleUrls: ['./home.component.css'],
 })
 export class HomeComponent implements OnInit {
   constructor() {

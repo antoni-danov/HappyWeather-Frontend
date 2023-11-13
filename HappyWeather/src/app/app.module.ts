@@ -23,6 +23,7 @@ import { DateFormatPipe } from './pipes/stringSplit/date-format.pipe';
 import { NumberPipe } from './pipes/roundNumber/number.pipe';
 import { TemperatureConversionPipe } from './pipes/temperature/temperature-conversion.pipe';
 import { LocalTimeComponent } from './components/localTime/local-time/local-time.component';
+import { LoadingSpinnerComponent } from './components/loading-spinner/loading-spinner.component';
 
 @NgModule({
   declarations: [
@@ -47,6 +48,7 @@ import { LocalTimeComponent } from './components/localTime/local-time/local-time
     FormsModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
+    LoadingSpinnerComponent
   ],
   providers: [DatePipe,
     DateFormatPipe,
