@@ -5,16 +5,13 @@
     <div class="day">
       <section class="dayInfo">
         <div id="weatherIcon">
-          {{day.values.weatherCode}}
-          @if (weatherIcon) {
-<img
-           
+          {{day.values.weatherCode}} @if (weatherIcon) {
+          <img
             [ngStyle]="setIcon(day.values.weatherCode)"
             [src]="weatherIcon"
             alt="weather icon"
           />
-}
-          {{weatherIcon}}
+          } {{weatherIcon}}
         </div>
         <div>{{day.time | dateFormat}}</div>
         <span>{{unit}}</span>
@@ -22,34 +19,29 @@
       <section class="mainInfo">
         <div id="temperature">
           <span
-            >{{day.values.minTemperature | tempConversion: unit | number }}&deg;
+            >{{day.values.minTemperature | tempConversion: unit : converted|
+            number }}&deg;
           </span>
-          @if (unit === undefined || unit === 'metric' || unit === null || unit === 'Nan') {
-<span
-           
-            >C</span
-          >
-}
-          @if (unit === 'imperial') {
-<span>F</span>
-}
-          |
+          @if (unit === undefined || unit === 'metric' || unit === null || unit
+          === 'Nan') {
+          <span>C</span>
+          } @if (unit === 'imperial') {
+          <span>F</span>
+          } |
           <span
-            >{{day.values.maxTemperature | tempConversion: unit | number }}&deg;
+            >{{day.values.maxTemperature | tempConversion: unit : converted |
+            number }}&deg;
           </span>
-          @if (unit === undefined || unit === 'metric' || unit === null || unit === 'Nan') {
-<span
-           
-            >C</span
-          >
-}
-          @if (unit === 'imperial') {
-<span>F</span>
-}
+          @if (unit === undefined || unit === 'metric' || unit === null || unit
+          === 'Nan') {
+          <span>C</span>
+          } @if (unit === 'imperial') {
+          <span>F</span>
+          }
         </div>
       </section>
     </div>
   </div>
-}
+  }
 </div>
 }
