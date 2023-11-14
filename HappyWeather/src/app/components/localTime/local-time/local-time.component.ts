@@ -12,7 +12,5 @@ export class LocalTimeComponent implements AfterViewInit {
 
   ngAfterViewInit() {
     this.hour = this.localTime.split(':')[0];
-    console.log(this.hour);
-
   }
 }

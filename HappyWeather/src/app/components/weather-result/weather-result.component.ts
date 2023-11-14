@@ -5,6 +5,7 @@ import { weatherLocation } from 'src/app/interfaces/weatherLocation';
 import { WeatherResult } from 'src/app/interfaces/weatherResult';
 import { WeatherService } from 'src/app/services/weatherService/weather.service';
 import { WeatherUtilities } from 'src/app/shared/weatherUtilities';
+import * as iconList from '../../../assets/iconsList.json';
 
 @Component({
   selector: 'app-weather-result',
@@ -74,7 +75,6 @@ export class WeatherResultComponent implements OnInit {
         this.weatherIndex = WeatherUtilities.getWeatherDescription(this.sharedData.data.values.weatherCode.toString()).index;
         this.weatherDescription = WeatherUtilities.getWeatherDescription(this.sharedData.data.values.weatherCode.toString()).description;
         this.setWeatherIcon(this.weatherDescription);
-        // this.weatherDescription === 'Clear Sunny' ? this.setWeatherIcon(this.weatherDescription.split(' ')[0]) : this.setWeatherIcon(this.weatherDescription);
         this.setBackgroundImage();
       }
     });
@@ -101,21 +101,38 @@ export class WeatherResultComponent implements OnInit {
   private setWeatherIcon(data: string) {
     const currentTime = this.timeOfTheDay();
 
-    this.weatherService.getIconFileNames().subscribe(files => {
+    var test = Object.values(iconList).map((file, index) => (file.substring(5)));
+    // var currentIconNames = Object.values(iconList).map((file, index) => (file.substring(5)
+    //   .replaceAll('_', ' ')
+    //   .trimStart().startsWith(data.toLocaleLowerCase()) ? index : -1))
+    //   .filter(index => index !== -1);
 
-      var currentIconNames = files.map((file, index) => (file.substring(5)
-        .replaceAll('_', ' ')
-        .trimStart().startsWith(data.toLocaleLowerCase()) ? index : -1))
-        .filter(index => index !== -1);
+    console.log(typeof (test));
+    console.log('Test result: ', test);
 
-      this.weatherIcon = currentTime === 'day' ? this.weatherIconPath + files[currentIconNames[0]] : this.weatherIconPath + files[currentIconNames[1]];
-    });
+    // this.weatherIcon = currentTime === 'day' ? this.weatherIconPath + iconList[currentIconNames[0]] : this.weatherIconPath + iconList[currentIconNames[1]];
+
+
+    // this.weatherService.getIconFileNames().subscribe(files => {
+
+    //   var currentIconNames = files.map((file, index) => (file.substring(5)
+    //     .replaceAll('_', ' ')
+    //     .trimStart().startsWith(data.toLocaleLowerCase()) ? index : -1))
+    //     .filter(index => index !== -1);
+    //   console.log('Filtered collection: ', currentIconNames);
+
+    //   this.weatherIcon = currentTime === 'day' ? this.weatherIconPath + files[currentIconNames[0]] : this.weatherIconPath + files[currentIconNames[1]];
+    //   console.log('weather icon: ', this.weatherIcon);
+
+    // });
   }
   //Set weather temperature in celsius or farenheit
   private temperatureUnit() {
     this.weatherService.unitChoice$.subscribe(data => {
+      console.log(data);
+      console.log(this.unit);
 
-      if (data) {
+      if (data === this.unit) {
         this.converted = !this.converted;
         this.unit = data;
       }
@@ -132,12 +149,20 @@ export class WeatherResultComponent implements OnInit {
   private getLocationTime(coordinates: weatherLocation) {
     this.weatherService.getLocationTime(coordinates)
       .subscribe((timezoneData: any) => {
+        //Get time zone
         const timeZoneId = timezoneData.timeZoneId;
         const currentUTC = new Date();
         const localTime = new Date(currentUTC.toLocaleString('en-US', { timeZone: timeZoneId }));
+        //Get day, month and date
+        const day = new Intl.DateTimeFormat('en-US', { weekday: 'long' }).format(localTime);
+        const month = new Intl.DateTimeFormat('en-US', { month: 'long' }).format(localTime);
+        const date = localTime.getDate();
+        //Get hour and minutes
         const minutes = localTime.getMinutes() < 10 ? '0' + `${localTime.getMinutes()}` : localTime.getMinutes();
         const hours = localTime.getHours() < 10 ? '0' + `${localTime.getHours()}` : localTime.getHours();
+        //Add values to variables
         this.locationTime = `${hours}:${minutes}`;
+        this.dateFormat = `${day}, ${date} ${month}`;
       });
   }
 }
