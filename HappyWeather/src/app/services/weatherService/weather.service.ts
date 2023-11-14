@@ -13,6 +13,7 @@ import { WeatherResult } from 'src/app/interfaces/weatherResult';
 export class WeatherService {
   weatherData!: WeatherResult;
   fiveDaysWeather!: DailyWeatherForecast;
+  private isLoading = new Subject<boolean>();
 
   unitChoice: Subject<string> = new Subject<string>();
   unitChoice$ = this.unitChoice.asObservable();
@@ -31,11 +32,12 @@ export class WeatherService {
   realTimeCurrentCity(cityName: string, units: string) {
     this.location = cityName.replaceAll(',', '');
     var params = new HttpParams().set('unit', units);
-
+    this.setSpinner(true);
     // this.fiveDaysForecast(this.location, units);
 
     return this.http.get<WeatherResult>(environement.localhost + `/${this.location}`, { params }).subscribe(data => {
       if (data) {
+        this.setSpinner(false);
         this.weatherData = data;
         this.dataBehaviorSubject.next(data);
       }
@@ -56,5 +58,11 @@ export class WeatherService {
   }
   getLocationTime(coordinates: weatherLocation) {
     return this.http.get(environement.googleTimeZone + `${coordinates.latitude}%2C${coordinates.longitude}&timestamp=0&key=${environement.googleMapsApiKey}`);
+  }
+  setSpinner(value: boolean) {
+    this.isLoading.next(value);
+  }
+  getSpinner() {
+    return this.isLoading.asObservable();
   }
 }

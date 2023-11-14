@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
 import { weatherCode } from 'src/app/enums/weatherCode';
 import { environement } from 'src/app/environements/environement';
 import { weatherLocation } from 'src/app/interfaces/weatherLocation';
@@ -15,6 +14,7 @@ import { WeatherUtilities } from 'src/app/shared/weatherUtilities';
 export class WeatherResultComponent implements OnInit {
   sharedData!: WeatherResult;
   unit!: string;
+  loadingSpinner!: boolean;
 
   dateFormat!: string;
   timeFormat!: string | null;
@@ -51,11 +51,16 @@ export class WeatherResultComponent implements OnInit {
 
   //Recieve and extract weather data
   timeCityWeatherData() {
+    this.weatherService.getSpinner().subscribe(data => {
+      this.loadingSpinner = data;
+    });
 
     this.weatherService.data$.subscribe(data => {
       this.sharedData = data;
 
       if (this.sharedData) {
+        console.log('when data returned', this.loadingSpinner);
+
         this.getLocationTime(this.sharedData.location);
 
         this.dateFormat = this.sharedData.data.weatherDateTime.split('T')[0];
@@ -74,6 +79,7 @@ export class WeatherResultComponent implements OnInit {
         this.setBackgroundImage();
       }
     });
+
   }
   //Set background day or night image 
   setBackgroundImage() {

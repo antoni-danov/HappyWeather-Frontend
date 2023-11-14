@@ -1,4 +1,6 @@
-@if (sharedData) {
+@if(loadingSpinner == true){
+<app-loading-spinner></app-loading-spinner>
+} @else if(sharedData){
 <div class="weather-container">
   <section class="weatherDetails">
     <section class="weatherDescription" [ngStyle]="setBackgroundImage()">
