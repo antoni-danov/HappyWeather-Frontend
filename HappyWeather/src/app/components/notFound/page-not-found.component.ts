@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { switchMap, tap, timer } from 'rxjs';
 
 @Component({
   selector: 'app-page-not-found',
@@ -14,7 +13,7 @@ export class PageNotFoundComponent implements OnInit {
   }
   ngOnInit() {
     setTimeout(() => {
-      return this.router.navigate(['/']);
+      return this.router.navigate(['']);
     }, 7000)
   }
 
