@@ -14,7 +14,7 @@ import { WeatherUtilities } from 'src/app/shared/weatherUtilities';
 export class WeatherResultComponent implements OnInit {
   sharedData!: WeatherResult;
   unit!: string;
-  isLoading!: boolean;
+  loadingSpinner!: boolean;
 
   dateFormat!: string;
   timeFormat!: string | null;
@@ -51,13 +51,15 @@ export class WeatherResultComponent implements OnInit {
 
   //Recieve and extract weather data
   timeCityWeatherData() {
-    this.weatherService.data$.subscribe(data => {
-      this.isLoading = true;
+    this.weatherService.getSpinner().subscribe(data => {
+      this.loadingSpinner = data;
+    });
 
+    this.weatherService.data$.subscribe(data => {
       this.sharedData = data;
 
       if (this.sharedData) {
-        this.isLoading = false;
+        console.log('when data returned', this.loadingSpinner);
 
         this.getLocationTime(this.sharedData.location);
 
