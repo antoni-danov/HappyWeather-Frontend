@@ -14,6 +14,7 @@ import { WeatherUtilities } from 'src/app/shared/weatherUtilities';
 export class WeatherResultComponent implements OnInit {
   sharedData!: WeatherResult;
   unit!: string;
+  converted: boolean = false;
   loadingSpinner!: boolean;
 
   dateFormat!: string;
@@ -59,8 +60,6 @@ export class WeatherResultComponent implements OnInit {
       this.sharedData = data;
 
       if (this.sharedData) {
-        console.log('when data returned', this.loadingSpinner);
-
         this.getLocationTime(this.sharedData.location);
 
         this.dateFormat = this.sharedData.data.weatherDateTime.split('T')[0];
@@ -115,7 +114,11 @@ export class WeatherResultComponent implements OnInit {
   //Set weather temperature in celsius or farenheit
   private temperatureUnit() {
     this.weatherService.unitChoice$.subscribe(data => {
-      this.unit = data;
+
+      if (data) {
+        this.converted = !this.converted;
+        this.unit = data;
+      }
     });
 
   }

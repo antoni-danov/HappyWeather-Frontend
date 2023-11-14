@@ -44,7 +44,9 @@
   <section class="mainInfo">
     <div id="dateFormat"><strong>{{dateFormat | dateFormat}}</strong></div>
     <div id="temperature">
-      <span>{{temperature | tempConversion: unit | number }}&deg; </span>
+      <span
+        >{{temperature | tempConversion: unit : converted | number }}&deg;
+      </span>
       @if (unit === undefined || unit === 'metric' || unit === null || unit ===
       'Nan') {
       <span>C</span>
@@ -59,9 +61,9 @@
     }
     <div id="feelsLike">
       <span
-        ><strong>Feels like:</strong> {{feelsLike | tempConversion: unit |
-        number }}&deg; @if (unit === undefined || unit === 'metric' || unit ===
-        null || unit === 'Nan') {
+        ><strong>Feels like:</strong> {{feelsLike | tempConversion: unit :
+        converted | number }}&deg; @if (unit === undefined || unit === 'metric'
+        || unit === null || unit === 'Nan') {
         <span>C</span>
         } @if (unit === 'imperial') {
         <span>F</span>

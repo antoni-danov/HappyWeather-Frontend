@@ -1,9 +1,6 @@
 import { AfterViewInit, ChangeDetectorRef, Component } from '@angular/core';
-import { weatherCode } from 'src/app/enums/weatherCode';
-import { environement } from 'src/app/environements/environement';
 import { DailyWeatherForecast } from 'src/app/interfaces/DailyForecast/dailyWeatherForecast';
 import { WeatherService } from 'src/app/services/weatherService/weather.service';
-import { WeatherUtilities } from 'src/app/shared/weatherUtilities';
 
 @Component({
   selector: 'app-five-days-forecast',
@@ -14,6 +11,8 @@ export class FiveDaysForecastComponent implements AfterViewInit {
 
   fivedaysForecast!: DailyWeatherForecast;
   unit!: string;
+  converted: boolean = false;
+
   minTemperature!: number;
   maxTemperature!: number;
   weatherIndex!: number;
@@ -36,7 +35,10 @@ export class FiveDaysForecastComponent implements AfterViewInit {
   }
   private temperatureUnit() {
     this.service.unitChoice$.subscribe(data => {
-      this.unit = data;
+      if (data) {
+        this.converted = !this.converted;
+        this.unit = data;
+      }
     });
   }
   // setIcon(data: number): any {
