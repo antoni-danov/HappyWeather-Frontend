@@ -6,11 +6,12 @@ import { WeatherResult } from 'src/app/interfaces/weatherResult';
 import { WeatherService } from 'src/app/services/weatherService/weather.service';
 import { WeatherUtilities } from 'src/app/shared/weatherUtilities';
 import * as iconList from '../../../assets/iconsList.json';
+import { CountdownTimerComponent } from '../countdown-timer/countdown-timer.component';
 
 @Component({
   selector: 'app-weather-result',
   templateUrl: './weather-result.component.html',
-  styleUrls: ['./weather-result.component.css']
+  styleUrls: ['./weather-result.component.css'],
 })
 export class WeatherResultComponent implements OnInit {
   sharedData!: WeatherResult;

@@ -24,6 +24,7 @@ import { NumberPipe } from './pipes/roundNumber/number.pipe';
 import { TemperatureConversionPipe } from './pipes/temperature/temperature-conversion.pipe';
 import { LocalTimeComponent } from './components/localTime/local-time/local-time.component';
 import { LoadingSpinnerComponent } from './components/loading-spinner/loading-spinner.component';
+import { CountdownTimerComponent } from './components/countdown-timer/countdown-timer.component';
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import { LoadingSpinnerComponent } from './components/loading-spinner/loading-sp
     NumberPipe,
     TemperatureConversionPipe,
     LocalTimeComponent,
+    CountdownTimerComponent
   ],
   imports: [
     BrowserModule,
