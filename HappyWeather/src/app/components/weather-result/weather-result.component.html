@@ -1,9 +1,9 @@
 @if(loadingSpinner == true){
 <app-loading-spinner></app-loading-spinner>
 } @else if(sharedData){
-<div class="weather-container">
+<div class="weather-container" [ngStyle]="setBackgroundImage()">
   <section class="weatherDetails">
-    <section class="weatherDescription" [ngStyle]="setBackgroundImage()">
+    <section class="weatherDescription">
       <section class="location">
         <div id="locationName">
           <mat-icon>place</mat-icon
@@ -31,6 +31,7 @@
     </div> -->
     </section>
     <section class="otherInfos">
+      <hr />
       <!--  <div>{{sharedData.current.windSpeed}}</div>
       <div>{{sharedData.current.windDirection}}</div>
        <div>{{sharedData.current.pressure}}</div>
@@ -41,6 +42,7 @@
     <div>{{sharedData.current.visibility}}</div>-->
     </section>
   </section>
+  <hr />
   <section class="mainInfo">
     <div id="dateFormat"><strong>{{dateFormat}}</strong></div>
     <div id="temperature">
@@ -91,7 +93,7 @@
         <i class="wi wi-wind towards-{{this.windDegree | number}}-deg"></i>
       </div>
     </div>
-    <hr />
+
     <!-- <section class="fiveDaysForecast">
       <span><strong>Five days forecast</strong></span>
       <br />

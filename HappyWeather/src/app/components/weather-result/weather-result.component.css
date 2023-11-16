@@ -2,7 +2,7 @@
   display: flex;
 
   border-radius: 15px;
-  margin: 2% 3%;
+  margin: 1% 1%;
   width: auto;
   height: auto;
 
@@ -10,7 +10,9 @@
   opacity: 0.7;
   box-sizing: border-box;
   box-shadow: 0px 1.5px 10px 6px rgba(0, 0, 0, 0.72);
-  background-color: gainsboro;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 .weatherDetails {
   box-sizing: border-box;
@@ -26,9 +28,6 @@
   padding: 1%;
   border-top-right-radius: 10px;
   border-bottom-right-radius: 10px;
-
-  background: black;
-  background: linear-gradient(220deg, rgb(207 206 206) 0%, rgb(15 133 114));
 }
 .weatherDescription {
   margin-bottom: 1%;
@@ -80,7 +79,6 @@
   padding-left: 33%;
 }
 .otherInfos {
-  background-color: cadetblue;
   border-radius: 5px;
   height: 100px;
   box-sizing: border-box;
