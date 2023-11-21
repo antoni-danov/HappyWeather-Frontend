@@ -13,7 +13,7 @@ const routes: Routes = [{
   title: "Error connection", path: 'connectionError', component: ConnectionErrorComponent
 },
 {
-  title: "Error", path: 'error', component: TechincalErrorComponent
+  title: "Coffee break", path: 'coffeebreak', component: TechincalErrorComponent
 }];
 
 @NgModule({

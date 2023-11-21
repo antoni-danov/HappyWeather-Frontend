@@ -1,5 +1,6 @@
 import { AfterViewInit, ChangeDetectorRef, Component } from '@angular/core';
-import { DailyWeatherForecast } from 'src/app/interfaces/DailyForecast/dailyWeatherForecast';
+import { DayUnit } from 'src/app/interfaces/DailyForecast/dayUnit';
+import { WeatherForecast } from 'src/app/interfaces/WeatherForecast/weatherForecast';
 import { WeatherService } from 'src/app/services/weatherService/weather.service';
 
 @Component({
@@ -9,7 +10,7 @@ import { WeatherService } from 'src/app/services/weatherService/weather.service'
 })
 export class FiveDaysForecastComponent implements AfterViewInit {
 
-  fivedaysForecast!: DailyWeatherForecast;
+  fivedaysForecast!: WeatherForecast<DayUnit>;
   unit!: string;
   converted: boolean = false;
 
