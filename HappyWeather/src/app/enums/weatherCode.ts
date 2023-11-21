@@ -1,4 +1,4 @@
-export enum weatherCode {
+export enum WeatherCode {
     Unknown = 0,
     Clear_Sunny = 1000,
     Mostly_Clear = 1100,

@@ -1,17 +1,13 @@
 import { WeatherCode } from "src/app/enums/weatherCode";
 
-export interface DayValues {
-    cloudCoverAverage: number;
-    averageHumidity: number;
-    moonRise: string;
-    moonSet: string;
+export interface HourlyValues {
+
+    cloudCoverage: number;
+    humidity: number;
     precipitationProbability: number;
-    sunrise: string;
-    sunset: string;
+    temperature: number;
     apparentTemperature: number;
-    maxTemperature: number;
-    minTemperature: number;
-    averageUVIndex: number;
+    uVIndex: number;
     visibility: number;
     weatherCode: WeatherCode;
     windDirection: number;

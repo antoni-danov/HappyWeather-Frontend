@@ -1,4 +1,4 @@
-import { weatherCode } from "../enums/weatherCode";
+import { WeatherCode } from "../enums/weatherCode";
 import { weatherCodeFullDay } from "../enums/weatherCodeFullDay";
 
 export class WeatherUtilities {
@@ -10,9 +10,9 @@ export class WeatherUtilities {
     }
     static getWeatherDescription(data: string): { index: number; description: string } {
         //Weather index
-        var index = Object.keys(weatherCode).indexOf(data);
+        var index = Object.keys(WeatherCode).indexOf(data);
         //Weather description
-        var description = Object.values(weatherCode)[index].toString().replace('_', ' ');
+        var description = Object.values(WeatherCode)[index].toString().replace('_', ' ');
         return { index, description };
     }
 

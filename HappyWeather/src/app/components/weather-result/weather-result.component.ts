@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { weatherCode } from 'src/app/enums/weatherCode';
+import { WeatherCode } from 'src/app/enums/weatherCode';
 import { environement } from 'src/app/environements/environement';
-import { weatherLocation } from 'src/app/interfaces/weatherLocation';
+import { WeatherLocation } from 'src/app/interfaces/weatherLocation';
 import { WeatherResult } from 'src/app/interfaces/weatherResult';
 import { WeatherService } from 'src/app/services/weatherService/weather.service';
 import { WeatherUtilities } from 'src/app/shared/weatherUtilities';
@@ -14,6 +14,7 @@ import * as iconList from '../../../assets/iconsList.json';
 })
 export class WeatherResultComponent implements OnInit {
   sharedData!: WeatherResult;
+  sessionData!: WeatherResult;
   unit!: string;
   converted: boolean = false;
   loadingSpinner!: boolean;
@@ -47,47 +48,60 @@ export class WeatherResultComponent implements OnInit {
   constructor(private weatherService: WeatherService) {
   }
   ngOnInit() {
-    this.timeCityWeatherData();
-    this.temperatureUnit();
+    if (sessionStorage) {
+      var currentData = sessionStorage.getItem('data');
+      this.sessionData = JSON.parse(currentData!);
+      this.timeCityWeatherData(this.sessionData);
+
+    } else {
+      this.timeCityWeatherData();
+      this.temperatureUnit();
+    }
   }
 
   //Recieve and extract weather data
-  timeCityWeatherData() {
+  timeCityWeatherData(sessionData?: WeatherResult) {
     this.weatherService.getSpinner().subscribe(data => {
       this.loadingSpinner = data;
     });
 
-    this.weatherService.data$.subscribe(data => {
-      this.sharedData = data;
+    if (sessionData) {
+      console.log(sessionData);
 
-      if (this.sharedData) {
-        this.getLocationTime(this.sharedData.location);
+    } else {
+      this.weatherService.data$.subscribe(data => {
+        this.sharedData = data;
+        sessionStorage.setItem('data', JSON.stringify(this.sharedData))
 
-        this.dateFormat = this.sharedData.data.weatherDateTime.split('T')[0];
-        this.temperature = this.sharedData.data.values.temperature;
-        this.feelsLike = this.sharedData.data.values.temperatureApparent;
-        this.windSpeed = this.sharedData.data.values.windSpeed;
-        this.windGust = this.sharedData.data.values.windGust;
-        this.windDegree = this.sharedData.data.values.windDirection;
-        this.windDirection = WeatherUtilities.getWindDirection(this.sharedData.data.values.windDirection);
-        this.location = this.weatherService.location.replace('/\s+/g', ', ');
-        this.externalLink = environement.locationSearch + this.weatherService.location;
-        this.weatherIndex = WeatherUtilities.getWeatherDescription(this.sharedData.data.values.weatherCode.toString()).index;
-        this.weatherDescription = WeatherUtilities.getWeatherDescription(this.sharedData.data.values.weatherCode.toString()).description;
-        this.setWeatherIcon(this.weatherDescription);
-        this.setBackgroundImage();
-      }
-    });
+        if (this.sharedData) {
+          this.getLocationTime(this.sharedData.location);
 
+          this.dateFormat = this.sharedData.data.weatherDateTime.split('T')[0];
+          this.temperature = this.sharedData.data.values.temperature;
+          this.feelsLike = this.sharedData.data.values.temperatureApparent;
+          this.windSpeed = this.sharedData.data.values.windSpeed;
+          this.windGust = this.sharedData.data.values.windGust;
+          this.windDegree = this.sharedData.data.values.windDirection;
+          this.windDirection = WeatherUtilities.getWindDirection(this.sharedData.data.values.windDirection);
+          this.location = this.weatherService.location.replace('/\s+/g', ', ');
+          this.externalLink = environement.locationSearch + this.weatherService.location;
+          this.weatherIndex = WeatherUtilities.getWeatherDescription(this.sharedData.data.values.weatherCode.toString()).index;
+          this.weatherDescription = WeatherUtilities.getWeatherDescription(this.sharedData.data.values.weatherCode.toString()).description;
+          this.setWeatherIcon(this.weatherDescription);
+          this.setBackgroundImage();
+        }
+      });
+      sessionStorage.setItem('data', JSON.stringify(this.sharedData))
+    }
   }
   //Set background day or night image 
   setBackgroundImage() {
     try {
-      this.weatherIndex = Object.keys(weatherCode).indexOf(this.sharedData.data.values.weatherCode.toString());
+      this.weatherIndex = Object.keys(WeatherCode).indexOf(this.sharedData.data.values.weatherCode.toString());
       this.dayState = this.timeOfTheDay();
       this.weatherDescription = this.dayState === 'night' && this.weatherDescription === 'Clear Sunny' ? 'Clear' : this.weatherDescription;
 
-      return Object.values(weatherCode).includes(this.sharedData.data.values.weatherCode) ?
+      return Object.values(WeatherCode).includes(this.sharedData.data.values.weatherCode) ?
         {
           'background-image': `url(${this.backgroundImage}${this.dayState}/${this.weatherDescription.replace(' ', '').toLowerCase()}.jpg)`
         } :
@@ -143,7 +157,7 @@ export class WeatherResultComponent implements OnInit {
     return this.dayState;
   }
   //Get location real time
-  private getLocationTime(coordinates: weatherLocation) {
+  private getLocationTime(coordinates: WeatherLocation) {
     this.weatherService.getLocationTime(coordinates)
       .subscribe((timezoneData: any) => {
         //Get time zone

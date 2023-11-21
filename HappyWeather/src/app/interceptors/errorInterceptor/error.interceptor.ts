@@ -23,11 +23,14 @@ export class ErrorInterceptor implements HttpInterceptor {
           console.error('An error occured: ', error.error.message);
           this.router.navigate(['/connectionError']);
         } else {
-          if (error.status === 400 || error.status === 404) {
+          if (error.status == 0) {
+            this.router.navigate(['/connectionerror']);
+          }
+          else if (error.status === 400 || error.status === 404) {
             console.error('Network error: ', error.status);
             this.router.navigate(['/pageNotFound']);
           } else if (error.status == 429) {
-            this.router.navigate(['/error']);
+            this.router.navigate(['/coffeebreak']);
           }
           else {
             console.error(`Backend returned code ${error.status} body was: ${error.error}`);
