@@ -25,6 +25,7 @@ import { TemperatureConversionPipe } from './pipes/temperature/temperature-conve
 import { LocalTimeComponent } from './components/localTime/local-time/local-time.component';
 import { LoadingSpinnerComponent } from './components/loading-spinner/loading-spinner.component';
 import { CountdownTimerComponent } from './components/countdown-timer/countdown-timer.component';
+import { TwentyFourHourComponent } from './components/twenty-four-hour/twenty-four-hour.component';
 
 @NgModule({
   declarations: [
