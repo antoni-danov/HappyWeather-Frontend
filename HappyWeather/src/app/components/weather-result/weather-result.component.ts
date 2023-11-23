@@ -48,15 +48,15 @@ export class WeatherResultComponent implements OnInit {
   constructor(private weatherService: WeatherService) {
   }
   ngOnInit() {
-    if (sessionStorage) {
-      var currentData = sessionStorage.getItem('data');
-      this.sessionData = JSON.parse(currentData!);
-      this.timeCityWeatherData(this.sessionData);
+    // if (sessionStorage) {
+    //   var currentData = sessionStorage.getItem('data');
+    //   this.sessionData = JSON.parse(currentData!);
+    //   this.timeCityWeatherData(this.sessionData);
 
-    } else {
-      this.timeCityWeatherData();
-      this.temperatureUnit();
-    }
+    // } else {
+    this.timeCityWeatherData();
+    this.temperatureUnit();
+    // }
   }
 
   //Recieve and extract weather data
@@ -91,7 +91,6 @@ export class WeatherResultComponent implements OnInit {
           this.setBackgroundImage();
         }
       });
-      sessionStorage.setItem('data', JSON.stringify(this.sharedData))
     }
   }
   //Set background day or night image 
