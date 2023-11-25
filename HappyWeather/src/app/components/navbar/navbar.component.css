@@ -50,6 +50,7 @@ nav {
   flex-direction: row;
   justify-content: space-evenly;
   padding: 10px;
+  /* margin-left: 1%; */
 }
 a {
   text-decoration: none;

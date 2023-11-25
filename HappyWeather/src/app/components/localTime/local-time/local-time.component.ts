@@ -3,7 +3,8 @@ import { AfterViewInit, Component, Input } from '@angular/core';
 @Component({
   selector: 'app-local-time',
   templateUrl: './local-time.component.html',
-  styleUrls: ['./local-time.component.css']
+  styleUrls: ['./local-time.component.css'],
+  standalone: true
 })
 export class LocalTimeComponent implements AfterViewInit {
 

@@ -4,7 +4,7 @@ import { WeatherService } from 'src/app/services/weatherService/weather.service'
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
-  styleUrls: ['./navbar.component.css']
+  styleUrls: ['./navbar.component.css'],
 })
 export class NavbarComponent {
   units: string = "metric";

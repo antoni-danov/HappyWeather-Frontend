@@ -1,6 +1,6 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import { environement } from 'src/app/environements/environement';
 import { DayUnit } from 'src/app/interfaces/DailyForecast/dayUnit';
@@ -27,20 +27,18 @@ export class WeatherService {
   private fiveDaysSubject = new BehaviorSubject<WeatherForecast<DayUnit>>(this.fiveDaysWeather);
   public fiveDaysData$ = this.fiveDaysSubject.asObservable();
 
-  private hourlySubject = new BehaviorSubject<WeatherForecast<HourlyUnit>>(this.hourlyWeather);
-  private hourlyData$ = this.hourlySubject.asObservable();
-
   location!: string;
+  units!: string;
 
   constructor(private http: HttpClient) {
   }
 
   realTimeCurrentCity(cityName: string, units: string) {
     this.location = cityName.replaceAll(',', '');
+    this.units = units;
     var params = new HttpParams().set('unit', units);
     this.setSpinner(true);
     //this.fiveDaysForecast(this.location, units);
-    //this.hourlyWeatherForecast(this.location, units);
 
     return this.http.get<WeatherResult>(environement.localhost + `/${this.location}`, { params }).subscribe(data => {
       if (data) {
@@ -61,13 +59,9 @@ export class WeatherService {
       this.fiveDaysSubject.next(data);
     });
   }
-  hourlyWeatherForecast(cityName: string, units: string) {
-    var params = new HttpParams().set('unit', units).set('timeStep', '1h');
-    return this.http.get<WeatherForecast<HourlyUnit>>(environement.localhost + `/${cityName}/hourlyforecast`, { params }).subscribe(data => {
-      console.log(data);
-
-      this.hourlySubject.next(data);
-    });
+  hourlyWeatherForecast(): Observable<WeatherForecast<HourlyUnit>> {
+    var params = new HttpParams().set('unit', this.units).set('timeStep', '1h');
+    return this.http.get<WeatherForecast<HourlyUnit>>(environement.localhost + `/${this.location}/hourlyforecast`, { params });
   }
   getIconFileNames() {
     return this.http.get<string[]>(environement.jsonIconsList);

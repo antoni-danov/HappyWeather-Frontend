@@ -1,0 +1,73 @@
+@if(details){ @for (item of details.timeLines.hourly; track $index) {
+<div class="container">
+  <div class="dayInfo">
+    <div>
+      <p>{{item.time | dateFormat}}</p>
+
+      <p>{{item.time.split('T')[1].split(':00Z')[0]}}</p>
+    </div>
+    <div class="weatherIcon">
+      <img [src]="iconPaths[$index]" alt="" />
+      <p>
+        {{realTimeDescription[$index]}}
+      </p>
+    </div>
+  </div>
+  <div class="separator"></div>
+  <div>
+    <span>Temperature: </span>
+    <span>
+      {{item.values.temperature | tempConversion: unit : converted |
+      roundNumber}}&deg;
+    </span>
+    @if (unit === undefined || unit === 'metric' || unit === null || unit ===
+    'Nan') {
+    <span>C</span>
+    } @if (unit === 'imperial') {
+    <span>F</span>
+    }
+    <br />
+    <span>Fells like: </span>
+    <span>
+      {{item.values.apparentTemperature | tempConversion: unit : converted |
+      roundNumber }}&deg;
+    </span>
+    @if (unit === undefined || unit === 'metric' || unit === null || unit ===
+    'Nan') {
+    <span>C</span>
+    } @if (unit === 'imperial') {
+    <span>F</span>
+    }
+  </div>
+  <div class="separator"></div>
+  <div>
+    <span>Cloud coverage: </span>
+    <span>{{item.values.cloudCoverage}}%</span>
+    <br />
+    <span>Humidity: </span>
+    <span>{{item.values.humidity}}%</span>
+    <br />
+    <span>Precipitation: </span>
+    <span>{{item.values.precipitationProbability}} mm</span>
+    <br />
+    <span>Index UV: </span>
+    <span>{{item.values.uvIndex}}</span>
+    <br />
+  </div>
+  <div class="separator"></div>
+  <div>
+    <span>Visibility: </span>
+    <span>{{item.values.visibility | roundNumber}} km</span>
+    <br />
+    <span>Wind direction: </span>
+    <span>{{item.values.windDirection}}</span>
+    <br />
+    <span>Wind speed: </span>
+    <span>{{item.values.windSpeed}} m/s</span>
+    <br />
+    <span>Maximal wind gust: </span>
+    <span>{{item.values.maxWindGust}} m/s</span>
+  </div>
+</div>
+<hr />
+} }
