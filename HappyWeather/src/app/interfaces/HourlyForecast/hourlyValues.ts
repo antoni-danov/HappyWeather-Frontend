@@ -7,7 +7,7 @@ export interface HourlyValues {
     precipitationProbability: number;
     temperature: number;
     apparentTemperature: number;
-    uVIndex: number;
+    uvIndex: number;
     visibility: number;
     weatherCode: WeatherCode;
     windDirection: number;

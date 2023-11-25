@@ -1,12 +1,24 @@
+import { NgStyle } from '@angular/common';
 import { AfterViewInit, ChangeDetectorRef, Component } from '@angular/core';
 import { DayUnit } from 'src/app/interfaces/DailyForecast/dayUnit';
 import { WeatherForecast } from 'src/app/interfaces/WeatherForecast/weatherForecast';
+import { NumberPipe } from 'src/app/pipes/roundNumber/number.pipe';
+import { DateFormatPipe } from 'src/app/pipes/stringSplit/date-format.pipe';
+import { TemperatureConversionPipe } from 'src/app/pipes/temperature/temperature-conversion.pipe';
 import { WeatherService } from 'src/app/services/weatherService/weather.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-five-days-forecast',
   templateUrl: './five-days-forecast.component.html',
-  styleUrls: ['./five-days-forecast.component.css']
+  styleUrls: ['./five-days-forecast.component.css'],
+  standalone: true,
+  imports: [
+    TemperatureConversionPipe,
+    NumberPipe,
+    DateFormatPipe,
+    CommonModule
+  ]
 })
 export class FiveDaysForecastComponent implements AfterViewInit {
 

@@ -1,6 +1,6 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import { environement } from 'src/app/environements/environement';
 import { DayUnit } from 'src/app/interfaces/DailyForecast/dayUnit';
@@ -39,7 +39,6 @@ export class WeatherService {
     var params = new HttpParams().set('unit', units);
     this.setSpinner(true);
     //this.fiveDaysForecast(this.location, units);
-    //this.hourlyWeatherForecast(this.location, units);
 
     return this.http.get<WeatherResult>(environement.localhost + `/${this.location}`, { params }).subscribe(data => {
       if (data) {
@@ -60,7 +59,7 @@ export class WeatherService {
       this.fiveDaysSubject.next(data);
     });
   }
-  hourlyWeatherForecast() {
+  hourlyWeatherForecast(): Observable<WeatherForecast<HourlyUnit>> {
     var params = new HttpParams().set('unit', this.units).set('timeStep', '1h');
     return this.http.get<WeatherForecast<HourlyUnit>>(environement.localhost + `/${this.location}/hourlyforecast`, { params });
   }

@@ -47,7 +47,7 @@
     <div id="dateFormat"><strong>{{dateFormat}}</strong></div>
     <div id="temperature">
       <span
-        >{{temperature | tempConversion: unit : converted | number }}&deg;
+        >{{temperature | tempConversion: unit : converted | roundNumber }}&deg;
       </span>
       @if (unit === undefined || unit === 'metric' || unit === null || unit ===
       'Nan') {
@@ -64,8 +64,8 @@
     <div id="feelsLike">
       <span
         ><strong>Feels like:</strong> {{feelsLike | tempConversion: unit :
-        converted | number }}&deg; @if (unit === undefined || unit === 'metric'
-        || unit === null || unit === 'Nan') {
+        converted | roundNumber }}&deg; @if (unit === undefined || unit ===
+        'metric' || unit === null || unit === 'Nan') {
         <span>C</span>
         } @if (unit === 'imperial') {
         <span>F</span>

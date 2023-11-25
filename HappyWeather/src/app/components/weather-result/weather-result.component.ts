@@ -6,11 +6,26 @@ import { WeatherResult } from 'src/app/interfaces/weatherResult';
 import { WeatherService } from 'src/app/services/weatherService/weather.service';
 import { WeatherUtilities } from 'src/app/shared/weatherUtilities';
 import * as iconList from '../../../assets/iconsList.json';
+import { TemperatureConversionPipe } from 'src/app/pipes/temperature/temperature-conversion.pipe';
+import { LoadingSpinnerComponent } from '../loading-spinner/loading-spinner.component';
+import { LocalTimeComponent } from '../localTime/local-time/local-time.component';
+import { NumberPipe } from 'src/app/pipes/roundNumber/number.pipe';
+import { CommonModule } from '@angular/common';
+import { MaterialModule } from 'src/app/modules/material.module';
 
 @Component({
   selector: 'app-weather-result',
   templateUrl: './weather-result.component.html',
-  styleUrls: ['./weather-result.component.css']
+  styleUrls: ['./weather-result.component.css'],
+  standalone: true,
+  imports: [
+    TemperatureConversionPipe,
+    NumberPipe,
+    LoadingSpinnerComponent,
+    LocalTimeComponent,
+    CommonModule,
+    MaterialModule
+  ]
 })
 export class WeatherResultComponent implements OnInit {
   sharedData!: WeatherResult;
