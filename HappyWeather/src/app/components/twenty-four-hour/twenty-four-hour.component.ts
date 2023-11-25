@@ -30,6 +30,7 @@ export class TwentyFourHourComponent implements OnInit {
   converted: boolean = false;
   unit!: string;
   timeOfTheDay!: string;
+  realTimeDescription: string[] = [];
   iconPaths: string[] = [];
 
   weatherIconPath: string = '../../../assets/icons/tomorrow-weather-codes-master/V2_icons/large/png/';
@@ -59,32 +60,28 @@ export class TwentyFourHourComponent implements OnInit {
 
       var currentCode = codes[index].values.weatherCode.toString();
 
-      if (codes[index].values.weatherCode.toString().length === 4) {
+      // Check if code exists in weatherCode.ts
+      const weatherindex = Object.keys(fourCode.WeatherCode).indexOf(currentCode);
 
-        // Check if code exists in weatherCode.ts
-        const weatherindex = Object.keys(fourCode.WeatherCode).indexOf(currentCode);
+      // If exists get value
+      const weatherDescription = Object.values(fourCode.WeatherCode)[weatherindex];
+      this.realTimeDescription.push(weatherDescription.toString().replaceAll('_', ' '));
 
-        // If exists get value
-        const weatherDescription = Object.values(fourCode.WeatherCode)[weatherindex];
 
-        // Check if value exists in weatherCodeFullFay.ts
-        const fulldayIndex = Object.values(fiveCode.weatherCodeFullDay)
-          .indexOf(weatherDescription.toString());
+      // Check if value exists in weatherCodeFullFay.ts
+      const fulldayIndex = Object.values(fiveCode.weatherCodeFullDay)
+        .indexOf(weatherDescription.toString());
 
-        // If exists get weather code with 5 digits
-        const fiveDigitCode = Object.keys(fiveCode.weatherCodeFullDay)[fulldayIndex];
+      // If exists get weather code with 5 digits
+      const fiveDigitCode = Object.keys(fiveCode.weatherCodeFullDay)[fulldayIndex];
 
-        // Find coresponding code in iconsList.js and get his value
-        const iconPath = Object.values(iconList).find((file) =>
-          file.startsWith(fiveDigitCode));
+      // Find coresponding code in iconsList.js and get his value
+      const iconPath = Object.values(iconList).find((file) =>
+        file.startsWith(fiveDigitCode));
 
-        // Add to icons array
-        // this.iconPaths.push(this.timeOfTheDay === 'day' ? this.weatherIconPath + iconPath : '');
-        this.iconPaths.push(this.weatherIconPath + iconPath);
-
-      } else if (codes[index].values.weatherCode.toString().length === 5) {
-
-      }
+      // Add to icons array
+      // this.iconPaths.push(this.timeOfTheDay === 'day' ? this.weatherIconPath + iconPath : '');
+      this.iconPaths.push(this.weatherIconPath + iconPath);
     }
   }
   //Set weather temperature in celsius or farenheit
