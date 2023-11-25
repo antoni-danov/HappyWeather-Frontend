@@ -7,7 +7,8 @@ import { TemperatureConversionPipe } from 'src/app/pipes/temperature/temperature
 import { NumberPipe } from 'src/app/pipes/roundNumber/number.pipe';
 import { DateFormatPipe } from 'src/app/pipes/stringSplit/date-format.pipe';
 import * as fourCode from '../../enums/weatherCode';
-import * as fiveCode from '../../enums/weatherCodeFullDay';
+import * as fiveDayCode from '../../enums/weatherCodeFullDay';
+import * as fiveNightCode from '../../enums/weatherCodeFullNight';
 import * as iconList from '../../../assets/iconsList.json';
 import { WeatherUtilities } from 'src/app/shared/weatherUtilities';
 
@@ -29,9 +30,10 @@ export class TwentyFourHourComponent implements OnInit {
 
   converted: boolean = false;
   unit!: string;
-  timeOfTheDay!: string;
+  iconPath!: string | undefined;
   realTimeDescription: string[] = [];
   iconPaths: string[] = [];
+  timeOfTheDay: string[] = [];
 
   weatherIconPath: string = '../../../assets/icons/tomorrow-weather-codes-master/V2_icons/large/png/';
 
@@ -54,34 +56,59 @@ export class TwentyFourHourComponent implements OnInit {
   //Set weatherIcon
   setWeatherIcon() {
     const codes = this.details.timeLines.hourly;
-    // this.timeOfTheDay = WeatherUtilities.timeOfTheDay();
+    console.log('Codes: ', codes);
 
-    for (let index = 0; index < codes.length; index++) {
+    for (let index = 0; index <= codes.length; index++) {
 
       var currentCode = codes[index].values.weatherCode.toString();
+      var dayState = WeatherUtilities.twentyFourHourDayTime(Object.values(this.details.timeLines.hourly)[index].time.split('T')[1]);
+      console.log('Day state: ', dayState);
 
       // Check if code exists in weatherCode.ts
       const weatherindex = Object.keys(fourCode.WeatherCode).indexOf(currentCode);
+      console.log('Weather index: ', weatherindex);
 
       // If exists get value
       const weatherDescription = Object.values(fourCode.WeatherCode)[weatherindex];
+      console.log('Weather description: ', weatherDescription);
+
       this.realTimeDescription.push(weatherDescription.toString().replaceAll('_', ' '));
 
+      // If is Day or Night
+      if (dayState === 'day') {
 
-      // Check if value exists in weatherCodeFullFay.ts
-      const fulldayIndex = Object.values(fiveCode.weatherCodeFullDay)
-        .indexOf(weatherDescription.toString());
+        // Check if value exists in weatherCodeFullDay.ts
+        const fulldayIndex = Object.values(fiveDayCode.weatherCodeFullDay)
+          .indexOf(weatherDescription.toString());
 
-      // If exists get weather code with 5 digits
-      const fiveDigitCode = Object.keys(fiveCode.weatherCodeFullDay)[fulldayIndex];
+        // If exists get weather code with 5 digits
+        const fiveDigitDayCode = Object.keys(fiveDayCode.weatherCodeFullDay)[fulldayIndex];
 
-      // Find coresponding code in iconsList.js and get his value
-      const iconPath = Object.values(iconList).find((file) =>
-        file.startsWith(fiveDigitCode));
+        // Find coresponding code in iconsList.js and get his value
+        this.iconPath = Object.values(iconList).find((file) =>
+          file.startsWith(fiveDigitDayCode));
+        console.log(fulldayIndex);
+        console.log(fiveDigitDayCode);
+        console.log(this.iconPath);
+
+      } else if (dayState === 'night') {
+        // Check if value exists in weatherCodeFullNight.ts
+        const fullNightIndex = Object.values(fiveNightCode.weatherCodeFullNight)
+          .indexOf(weatherDescription.toString());
+
+        // If exists get weather code with 5 digits
+        const fiveDigitNightCode = Object.keys(fiveNightCode.weatherCodeFullNight)[fullNightIndex];
+
+        // Find coresponding code in iconsList.js and get his value
+        this.iconPath = Object.values(iconList).find((file) =>
+          file.startsWith(fiveDigitNightCode));
+        console.log(fullNightIndex);
+        console.log(fiveNightCode);
+        console.log(this.iconPath);
+      }
 
       // Add to icons array
-      // this.iconPaths.push(this.timeOfTheDay === 'day' ? this.weatherIconPath + iconPath : '');
-      this.iconPaths.push(this.weatherIconPath + iconPath);
+      this.iconPaths.push(this.weatherIconPath + this.iconPath);
     }
   }
   //Set weather temperature in celsius or farenheit

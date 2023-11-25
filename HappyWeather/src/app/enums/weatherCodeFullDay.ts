@@ -1,6 +1,6 @@
 export enum weatherCodeFullDay {
     Unknown = 0,
-    Clear, Sunny = 10000,
+    Clear_Sunny = 10000,
     Mostly_Clear = 11000,
     Partly_Cloudy = 11010,
     Mostly_Cloudy = 11020,
