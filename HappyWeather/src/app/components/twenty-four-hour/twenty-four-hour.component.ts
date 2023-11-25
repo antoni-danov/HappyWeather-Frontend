@@ -42,7 +42,6 @@ export class TwentyFourHourComponent implements OnInit {
 
   ngOnInit() {
     this.detailedWeatherForecast();
-
     this.temperatureUnit();
   }
 
@@ -56,21 +55,17 @@ export class TwentyFourHourComponent implements OnInit {
   //Set weatherIcon
   setWeatherIcon() {
     const codes = this.details.timeLines.hourly;
-    console.log('Codes: ', codes);
 
     for (let index = 0; index <= codes.length; index++) {
 
       var currentCode = codes[index].values.weatherCode.toString();
       var dayState = WeatherUtilities.twentyFourHourDayTime(Object.values(this.details.timeLines.hourly)[index].time.split('T')[1]);
-      console.log('Day state: ', dayState);
 
       // Check if code exists in weatherCode.ts
       const weatherindex = Object.keys(fourCode.WeatherCode).indexOf(currentCode);
-      console.log('Weather index: ', weatherindex);
 
       // If exists get value
       const weatherDescription = Object.values(fourCode.WeatherCode)[weatherindex];
-      console.log('Weather description: ', weatherDescription);
 
       this.realTimeDescription.push(weatherDescription.toString().replaceAll('_', ' '));
 
@@ -87,10 +82,6 @@ export class TwentyFourHourComponent implements OnInit {
         // Find coresponding code in iconsList.js and get his value
         this.iconPath = Object.values(iconList).find((file) =>
           file.startsWith(fiveDigitDayCode));
-        console.log(fulldayIndex);
-        console.log(fiveDigitDayCode);
-        console.log(this.iconPath);
-
       } else if (dayState === 'night') {
         // Check if value exists in weatherCodeFullNight.ts
         const fullNightIndex = Object.values(fiveNightCode.weatherCodeFullNight)
@@ -102,9 +93,6 @@ export class TwentyFourHourComponent implements OnInit {
         // Find coresponding code in iconsList.js and get his value
         this.iconPath = Object.values(iconList).find((file) =>
           file.startsWith(fiveDigitNightCode));
-        console.log(fullNightIndex);
-        console.log(fiveNightCode);
-        console.log(this.iconPath);
       }
 
       // Add to icons array
