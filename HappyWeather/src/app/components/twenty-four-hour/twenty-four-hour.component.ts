@@ -47,6 +47,8 @@ export class TwentyFourHourComponent implements OnInit {
 
   detailedWeatherForecast() {
     this.service.hourlyWeatherForecast().subscribe(data => {
+      console.log(data);
+
       this.details = data;
       this.setWeatherIcon();
     });
@@ -65,9 +67,9 @@ export class TwentyFourHourComponent implements OnInit {
       const weatherindex = Object.keys(fourCode.WeatherCode).indexOf(currentCode);
 
       // If exists get value
-      const weatherDescription = Object.values(fourCode.WeatherCode)[weatherindex];
-
-      this.realTimeDescription.push(weatherDescription.toString().replaceAll('_', ' '));
+      var weatherDescription = Object.values(fourCode.WeatherCode)[weatherindex];
+      weatherDescription = dayState === 'night' && weatherDescription === 'Clear_Sunny' ? weatherDescription.toString().slice(0, 5) : weatherDescription.toString().replaceAll('_', ' ');
+      this.realTimeDescription.push(weatherDescription);
 
       // If is Day or Night
       if (dayState === 'day') {

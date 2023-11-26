@@ -18,8 +18,8 @@ export class WeatherService {
   hourlyWeather!: WeatherForecast<HourlyUnit>;
   private isLoading = new Subject<boolean>();
 
-  unitChoice: Subject<string> = new Subject<string>();
-  unitChoice$ = this.unitChoice.asObservable();
+  private unitChoice: Subject<string> = new Subject<string>();
+  public unitChoice$ = this.unitChoice.asObservable();
 
   private dataBehaviorSubject = new BehaviorSubject<WeatherResult>(this.weatherData);
   public data$ = this.dataBehaviorSubject.asObservable();
@@ -30,6 +30,7 @@ export class WeatherService {
   location!: string;
   units!: string;
 
+  test: any;
   constructor(private http: HttpClient) {
   }
 
@@ -38,13 +39,11 @@ export class WeatherService {
     this.units = units;
     var params = new HttpParams().set('unit', units);
     this.setSpinner(true);
-    //this.fiveDaysForecast(this.location, units);
 
     return this.http.get<WeatherResult>(environement.localhost + `/${this.location}`, { params }).subscribe(data => {
       if (data) {
         this.setSpinner(false);
         this.weatherData = data;
-        // this.sessionStorage(data);
 
         this.dataBehaviorSubject.next(data);
       }
@@ -54,8 +53,6 @@ export class WeatherService {
 
     var params = new HttpParams().set('unit', units).set('timeStep', '1d');
     return this.http.get<WeatherForecast<DayUnit>>(environement.localhost + `/${cityName}/dailyforecast`, { params }).subscribe(data => {
-      console.log(data);
-
       this.fiveDaysSubject.next(data);
     });
   }
@@ -71,6 +68,7 @@ export class WeatherService {
   }
   getLocationTime(coordinates: WeatherLocation) {
     return this.http.get(environement.googleTimeZone + `${coordinates.latitude}%2C${coordinates.longitude}&timestamp=0&key=${environement.googleMapsApiKey}`);
+
   }
   setSpinner(value: boolean) {
     this.isLoading.next(value);

@@ -1,17 +1,20 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterContentChecked, Component, OnInit } from '@angular/core';
 import { WeatherCode } from 'src/app/enums/weatherCode';
 import { environement } from 'src/app/environements/environement';
 import { WeatherLocation } from 'src/app/interfaces/weatherLocation';
 import { WeatherResult } from 'src/app/interfaces/weatherResult';
 import { WeatherService } from 'src/app/services/weatherService/weather.service';
-import { WeatherUtilities } from 'src/app/shared/weatherUtilities';
-import * as iconList from '../../../assets/iconsList.json';
 import { TemperatureConversionPipe } from 'src/app/pipes/temperature/temperature-conversion.pipe';
 import { LoadingSpinnerComponent } from '../loading-spinner/loading-spinner.component';
 import { LocalTimeComponent } from '../localTime/local-time/local-time.component';
 import { NumberPipe } from 'src/app/pipes/roundNumber/number.pipe';
 import { CommonModule } from '@angular/common';
 import { MaterialModule } from 'src/app/modules/material.module';
+import * as fourCode from '../../enums/weatherCode';
+import * as fiveDayCode from '../../enums/weatherCodeFullDay';
+import * as fiveNightCode from '../../enums/weatherCodeFullNight';
+import * as iconList from '../../../assets/iconsList.json';
+import { WeatherUtilities } from 'src/app/shared/weatherUtilities';
 
 @Component({
   selector: 'app-weather-result',
@@ -27,7 +30,7 @@ import { MaterialModule } from 'src/app/modules/material.module';
     MaterialModule
   ]
 })
-export class WeatherResultComponent implements OnInit {
+export class WeatherResultComponent implements OnInit, AfterContentChecked {
   sharedData!: WeatherResult;
   sessionData!: WeatherResult;
   unit!: string;
@@ -57,21 +60,17 @@ export class WeatherResultComponent implements OnInit {
   backgroundImage: string = '../../../assets/images/';
   weatherIconPath: string = '../../../assets/icons/tomorrow-weather-codes-master/V2_icons/large/png/';
   externalLink: any;
-
+  iconPath!: string | undefined;
   dayState!: string;
 
   constructor(private weatherService: WeatherService) {
   }
   ngOnInit() {
-    // if (sessionStorage) {
-    //   var currentData = sessionStorage.getItem('data');
-    //   this.sessionData = JSON.parse(currentData!);
-    //   this.timeCityWeatherData(this.sessionData);
-
-    // } else {
     this.timeCityWeatherData();
     this.temperatureUnit();
-    // }
+  }
+  ngAfterContentChecked() {
+    this.setWeatherIcon(this.sharedData.data.values.weatherCode.toString());
   }
 
   //Recieve and extract weather data
@@ -80,33 +79,26 @@ export class WeatherResultComponent implements OnInit {
       this.loadingSpinner = data;
     });
 
-    if (sessionData) {
-      console.log(sessionData);
+    this.weatherService.data$.subscribe(data => {
+      this.sharedData = data;
 
-    } else {
-      this.weatherService.data$.subscribe(data => {
-        this.sharedData = data;
-        sessionStorage.setItem('data', JSON.stringify(this.sharedData))
+      if (this.sharedData) {
+        this.getLocationTime(this.sharedData.location);
 
-        if (this.sharedData) {
-          this.getLocationTime(this.sharedData.location);
-
-          this.dateFormat = this.sharedData.data.weatherDateTime.split('T')[0];
-          this.temperature = this.sharedData.data.values.temperature;
-          this.feelsLike = this.sharedData.data.values.temperatureApparent;
-          this.windSpeed = this.sharedData.data.values.windSpeed;
-          this.windGust = this.sharedData.data.values.windGust;
-          this.windDegree = this.sharedData.data.values.windDirection;
-          this.windDirection = WeatherUtilities.getWindDirection(this.sharedData.data.values.windDirection);
-          this.location = this.weatherService.location.replace('/\s+/g', ', ');
-          this.externalLink = environement.locationSearch + this.weatherService.location;
-          this.weatherIndex = WeatherUtilities.getWeatherDescription(this.sharedData.data.values.weatherCode.toString()).index;
-          this.weatherDescription = WeatherUtilities.getWeatherDescription(this.sharedData.data.values.weatherCode.toString()).description;
-          this.setWeatherIcon(this.weatherDescription);
-          this.setBackgroundImage();
-        }
-      });
-    }
+        this.dateFormat = this.sharedData.data.weatherDateTime.split('T')[0];
+        this.temperature = this.sharedData.data.values.temperature;
+        this.feelsLike = this.sharedData.data.values.temperatureApparent;
+        this.windSpeed = this.sharedData.data.values.windSpeed;
+        this.windGust = this.sharedData.data.values.windGust;
+        this.windDegree = this.sharedData.data.values.windDirection;
+        this.windDirection = WeatherUtilities.getWindDirection(this.sharedData.data.values.windDirection);
+        this.location = this.weatherService.location.replace('/\s+/g', ', ');
+        this.externalLink = environement.locationSearch + this.weatherService.location;
+        this.weatherIndex = WeatherUtilities.getWeatherDescription(this.sharedData.data.values.weatherCode.toString()).index;
+        this.weatherDescription = WeatherUtilities.getWeatherDescription(this.sharedData.data.values.weatherCode.toString()).description;
+        this.setBackgroundImage();
+      }
+    });
   }
   //Set background day or night image 
   setBackgroundImage() {
@@ -127,32 +119,47 @@ export class WeatherResultComponent implements OnInit {
   }
   //Set weather icon
   private setWeatherIcon(data: string) {
+
     const currentTime = this.timeOfTheDay();
 
-    var test = Object.values(iconList).map((file, index) => (file.substring(5)));
-    // var currentIconNames = Object.values(iconList).map((file, index) => (file.substring(5)
-    //   .replaceAll('_', ' ')
-    //   .trimStart().startsWith(data.toLocaleLowerCase()) ? index : -1))
-    //   .filter(index => index !== -1);
+    var dayState = WeatherUtilities.twentyFourHourDayTime(this.locationTime.split(':')[0]);
 
-    console.log(typeof (test));
-    console.log('Test result: ', test);
+    // Check if code exists in weatherCode.ts
+    const weatherindex = Object.keys(fourCode.WeatherCode).indexOf(data);
 
-    // this.weatherIcon = currentTime === 'day' ? this.weatherIconPath + iconList[currentIconNames[0]] : this.weatherIconPath + iconList[currentIconNames[1]];
+    // If exists get value
+    var weatherDescription = Object.values(fourCode.WeatherCode)[weatherindex];
+    weatherDescription = dayState === 'night' && weatherDescription === 'Clear_Sunny' ? weatherDescription.toString().slice(0, 5) : weatherDescription.toString().replaceAll('_', ' ');
+
+    // If is Day or Night
+    if (dayState === 'day') {
+
+      // Check if value exists in weatherCodeFullDay.ts
+      const fulldayIndex = Object.values(fiveDayCode.weatherCodeFullDay)
+        .indexOf(weatherDescription.toString());
+
+      // If exists get weather code with 5 digits
+      const fiveDigitDayCode = Object.keys(fiveDayCode.weatherCodeFullDay)[fulldayIndex];
+
+      // Find coresponding code in iconsList.js and get his value
+      this.iconPath = Object.values(iconList).find((file) =>
+        file.startsWith(fiveDigitDayCode));
 
 
-    // this.weatherService.getIconFileNames().subscribe(files => {
+    } else if (dayState === 'night') {
+      // Check if value exists in weatherCodeFullNight.ts
+      const fullNightIndex = Object.values(fiveNightCode.weatherCodeFullNight)
+        .indexOf(weatherDescription.toString());
+      // If exists get weather code with 5 digits
+      const fiveDigitNightCode = Object.keys(fiveNightCode.weatherCodeFullNight)[fullNightIndex];
 
-    //   var currentIconNames = files.map((file, index) => (file.substring(5)
-    //     .replaceAll('_', ' ')
-    //     .trimStart().startsWith(data.toLocaleLowerCase()) ? index : -1))
-    //     .filter(index => index !== -1);
-    //   console.log('Filtered collection: ', currentIconNames);
+      // Find coresponding code in iconsList.js and get his value
+      this.iconPath = Object.values(iconList).find((file) =>
+        file.startsWith(fiveDigitNightCode));
+    }
 
-    //   this.weatherIcon = currentTime === 'day' ? this.weatherIconPath + files[currentIconNames[0]] : this.weatherIconPath + files[currentIconNames[1]];
-    //   console.log('weather icon: ', this.weatherIcon);
+    this.weatherIcon = this.weatherIconPath + this.iconPath;
 
-    // });
   }
   //Set weather temperature in celsius or farenheit
   private temperatureUnit() {
@@ -172,6 +179,7 @@ export class WeatherResultComponent implements OnInit {
   }
   //Get location real time
   private getLocationTime(coordinates: WeatherLocation) {
+
     this.weatherService.getLocationTime(coordinates)
       .subscribe((timezoneData: any) => {
         //Get time zone
