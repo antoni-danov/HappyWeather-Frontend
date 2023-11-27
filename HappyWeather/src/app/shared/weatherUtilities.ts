@@ -15,7 +15,7 @@ export class WeatherUtilities {
         var description = Object.values(WeatherCode)[index].toString().replace('_', ' ');
         return { index, description };
     }
-    static timeOfTheDay(time: string): string {
+    static twentyFourHourDayTime(time: string): string {
         const hour = parseInt(time.split(':')[0]);
         const dayState = hour > 19 || (hour >= 0 && hour < 6) ? 'night' : 'day';
         return dayState;

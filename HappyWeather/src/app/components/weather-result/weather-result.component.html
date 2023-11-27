@@ -80,17 +80,19 @@
         <br />
         <span
           ><strong>Wind speed: </strong>
-          <span>{{this.windSpeed | number}} m/s</span></span
+          <span>{{this.windSpeed | roundNumber}} m/s</span></span
         >
         <br />
-        <span><strong>Wind gust:</strong> {{this.windGust | number}} m/s</span>
+        <span
+          ><strong>Wind gust:</strong> {{this.windGust | roundNumber}} m/s</span
+        >
         <br />
         @if (this.sharedData.data.values.windSpeed > 0) {
         <span> <strong>Wind direction:</strong> {{this.windDirection}} </span>
         }
       </div>
       <div class="windIcon">
-        <i class="wi wi-wind towards-{{this.windDegree | number}}-deg"></i>
+        <i class="wi wi-wind towards-{{this.windDegree | roundNumber}}-deg"></i>
       </div>
     </div>
 

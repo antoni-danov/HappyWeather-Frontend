@@ -1,4 +1,4 @@
-@if(details){ @for (item of details.timeLines.hourly; track $index) {
+@if(details){ @for (item of details; track $index) {
 <div class="container">
   <div class="dayInfo">
     <div>
@@ -42,13 +42,13 @@
   <div class="separator"></div>
   <div>
     <span>Cloud coverage: </span>
-    <span>{{item.values.cloudCoverage}}%</span>
+    <span>{{item.values.cloudCoverage | roundNumber}}%</span>
     <br />
     <span>Humidity: </span>
-    <span>{{item.values.humidity}}%</span>
+    <span>{{item.values.humidity | roundNumber}}%</span>
     <br />
     <span>Precipitation: </span>
-    <span>{{item.values.precipitationProbability}} mm</span>
+    <span>{{item.values.precipitationProbability | roundNumber}} mm</span>
     <br />
     <span>Index UV: </span>
     <span>{{item.values.uvIndex}}</span>
@@ -63,10 +63,10 @@
     <span>{{item.values.windDirection}}</span>
     <br />
     <span>Wind speed: </span>
-    <span>{{item.values.windSpeed}} m/s</span>
+    <span>{{item.values.windSpeed | roundNumber}} m/s</span>
     <br />
     <span>Maximal wind gust: </span>
-    <span>{{item.values.maxWindGust}} m/s</span>
+    <span>{{item.values.maxWindGust | roundNumber}} m/s</span>
   </div>
 </div>
 <hr />
