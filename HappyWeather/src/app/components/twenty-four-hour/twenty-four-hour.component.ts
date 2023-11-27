@@ -66,7 +66,6 @@ export class TwentyFourHourComponent implements OnInit {
 
   //Set weatherIcon
   setWeatherIcon() {
-    console.log('Details: ', this.details);
 
     for (let index = 0; index <= this.details.length; index++) {
 
