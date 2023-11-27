@@ -198,4 +198,7 @@ export class WeatherResultComponent implements OnInit, AfterContentChecked {
         this.dateFormat = `${day}, ${date} ${month}`;
       });
   }
+  private testNetlify() {
+
+  }
 }
