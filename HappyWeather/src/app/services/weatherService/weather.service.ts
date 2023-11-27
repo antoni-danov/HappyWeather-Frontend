@@ -16,6 +16,7 @@ export class WeatherService {
   weatherData!: WeatherResult;
   fiveDaysWeather!: WeatherForecast<DayUnit>;
   hourlyWeather!: WeatherForecast<HourlyUnit>;
+  locationTime!: any;
   private isLoading = new Subject<boolean>();
 
   private unitChoice: Subject<string> = new Subject<string>();
@@ -26,6 +27,9 @@ export class WeatherService {
 
   private fiveDaysSubject = new BehaviorSubject<WeatherForecast<DayUnit>>(this.fiveDaysWeather);
   public fiveDaysData$ = this.fiveDaysSubject.asObservable();
+
+  private locationTimeSubject = new BehaviorSubject<any>(this.locationTime);
+  public locationTimeData$ = this.locationTimeSubject.asObservable();
 
   location!: string;
   units!: string;
@@ -44,6 +48,7 @@ export class WeatherService {
       if (data) {
         this.setSpinner(false);
         this.weatherData = data;
+        this.getLocationTime(this.weatherData.location);
 
         this.dataBehaviorSubject.next(data);
       }
@@ -67,7 +72,10 @@ export class WeatherService {
     this.unitChoice.next(value);
   }
   getLocationTime(coordinates: WeatherLocation) {
-    return this.http.get(environement.googleTimeZone + `${coordinates.latitude}%2C${coordinates.longitude}&timestamp=0&key=${environement.googleMapsApiKey}`);
+    return this.http.get(environement.googleTimeZone + `${coordinates.latitude}%2C${coordinates.longitude}&timestamp=0&key=${environement.googleMapsApiKey}`)
+      .subscribe(data => {
+        this.locationTimeSubject.next(data);
+      });
 
   }
   setSpinner(value: boolean) {

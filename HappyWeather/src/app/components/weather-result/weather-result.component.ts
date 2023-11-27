@@ -83,7 +83,7 @@ export class WeatherResultComponent implements OnInit, AfterContentChecked {
       this.sharedData = data;
 
       if (this.sharedData) {
-        this.getLocationTime(this.sharedData.location);
+        this.getLocationTime();
 
         this.dateFormat = this.sharedData.data.weatherDateTime.split('T')[0];
         this.temperature = this.sharedData.data.values.temperature;
@@ -129,7 +129,7 @@ export class WeatherResultComponent implements OnInit, AfterContentChecked {
 
     // If exists get value
     var weatherDescription = Object.values(fourCode.WeatherCode)[weatherindex];
-    weatherDescription = dayState === 'night' && weatherDescription === 'Clear_Sunny' ? weatherDescription.toString().slice(0, 5) : weatherDescription.toString().replaceAll('_', ' ');
+    weatherDescription = dayState === 'night' && weatherDescription === 'Clear_Sunny' ? weatherDescription.toString().slice(0, 5) : weatherDescription.toString();
 
     // If is Day or Night
     if (dayState === 'day') {
@@ -178,9 +178,9 @@ export class WeatherResultComponent implements OnInit, AfterContentChecked {
     return this.dayState;
   }
   //Get location real time
-  private getLocationTime(coordinates: WeatherLocation) {
+  private getLocationTime() {
 
-    this.weatherService.getLocationTime(coordinates)
+    this.weatherService.locationTimeData$
       .subscribe((timezoneData: any) => {
         //Get time zone
         const timeZoneId = timezoneData.timeZoneId;

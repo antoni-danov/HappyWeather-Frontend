@@ -26,7 +26,7 @@ import { WeatherUtilities } from 'src/app/shared/weatherUtilities';
   ]
 })
 export class TwentyFourHourComponent implements OnInit {
-  details!: WeatherForecast<HourlyUnit>;
+  details!: HourlyUnit[];
 
   converted: boolean = false;
   unit!: string;
@@ -34,6 +34,8 @@ export class TwentyFourHourComponent implements OnInit {
   realTimeDescription: string[] = [];
   iconPaths: string[] = [];
   timeOfTheDay: string[] = [];
+  locationHour!: string | number;
+  locationTime!: string;
 
   weatherIconPath: string = '../../../assets/icons/tomorrow-weather-codes-master/V2_icons/large/png/';
 
@@ -46,30 +48,39 @@ export class TwentyFourHourComponent implements OnInit {
   }
 
   detailedWeatherForecast() {
-    this.service.hourlyWeatherForecast().subscribe(data => {
-      console.log(data);
+    //Get location current time
+    this.getLocationTime();
 
-      this.details = data;
+    //Get 24 hours data for the location
+    this.service.hourlyWeatherForecast().subscribe(data => {
+
+      //Extract only 24 hours records starting from the location current time
+      var extractedData = Object.values(data.timeLines.hourly)
+        .findIndex(file => file.time.split('T')[1].split(':')[0] == this.locationHour.toString());
+      this.details = Object.values(data.timeLines.hourly).splice(extractedData, 25);
+
+      //Set weather icon for every record
       this.setWeatherIcon();
     });
   }
 
   //Set weatherIcon
   setWeatherIcon() {
-    const codes = this.details.timeLines.hourly;
+    console.log('Details: ', this.details);
 
-    for (let index = 0; index <= codes.length; index++) {
+    for (let index = 0; index <= this.details.length; index++) {
 
-      var currentCode = codes[index].values.weatherCode.toString();
-      var dayState = WeatherUtilities.twentyFourHourDayTime(Object.values(this.details.timeLines.hourly)[index].time.split('T')[1]);
+      var currentCode = this.details[index].values.weatherCode.toString();
+
+      var dayState = WeatherUtilities.twentyFourHourDayTime(this.details[index].time.split('T')[1]);
 
       // Check if code exists in weatherCode.ts
       const weatherindex = Object.keys(fourCode.WeatherCode).indexOf(currentCode);
 
       // If exists get value
       var weatherDescription = Object.values(fourCode.WeatherCode)[weatherindex];
-      weatherDescription = dayState === 'night' && weatherDescription === 'Clear_Sunny' ? weatherDescription.toString().slice(0, 5) : weatherDescription.toString().replaceAll('_', ' ');
-      this.realTimeDescription.push(weatherDescription);
+      weatherDescription = dayState === 'night' && weatherDescription === 'Clear_Sunny' ? weatherDescription.toString().slice(0, 5) : weatherDescription.toString();
+      this.realTimeDescription.push(weatherDescription.replaceAll('_', ' '));
 
       // If is Day or Night
       if (dayState === 'day') {
@@ -84,6 +95,7 @@ export class TwentyFourHourComponent implements OnInit {
         // Find coresponding code in iconsList.js and get his value
         this.iconPath = Object.values(iconList).find((file) =>
           file.startsWith(fiveDigitDayCode));
+
       } else if (dayState === 'night') {
         // Check if value exists in weatherCodeFullNight.ts
         const fullNightIndex = Object.values(fiveNightCode.weatherCodeFullNight)
@@ -110,6 +122,22 @@ export class TwentyFourHourComponent implements OnInit {
       }
     });
 
+  }
+  //Get location time
+  private getLocationTime() {
+
+    this.service.locationTimeData$
+      .subscribe((timezoneData: any) => {
+
+        //Get time zone
+        const timeZoneId = timezoneData.timeZoneId;
+        const currentUTC = new Date();
+        const localTime = new Date(currentUTC.toLocaleString('en-US', { timeZone: timeZoneId }));
+        //Get hour
+        this.locationHour = localTime.getHours() < 10 ? '0' + `${localTime.getHours()}` : localTime.getHours();
+        //Add values to variables
+        this.locationTime = `${this.locationHour}:00`;
+      });
   }
 
 }
