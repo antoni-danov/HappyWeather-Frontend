@@ -58,7 +58,6 @@ export class WeatherResultComponent implements OnInit, AfterContentChecked {
   weatherDescription!: string;
   weatherIcon!: string;
   backgroundImage: string = '../../../assets/images/';
-  weatherIconPath: string = '../../../assets/icons/tomorrow-weather-codes-master/V2_icons/large/png/';
   externalLink: any;
   iconPath!: string | undefined;
   dayState!: string;
@@ -158,7 +157,7 @@ export class WeatherResultComponent implements OnInit, AfterContentChecked {
         file.startsWith(fiveDigitNightCode));
     }
 
-    this.weatherIcon = this.weatherIconPath + this.iconPath;
+    this.weatherIcon = environement.weatherIconPath + this.iconPath;
 
   }
   //Set weather temperature in celsius or farenheit
@@ -197,8 +196,5 @@ export class WeatherResultComponent implements OnInit, AfterContentChecked {
         this.locationTime = `${hours}:${minutes}`;
         this.dateFormat = `${day}, ${date} ${month}`;
       });
-  }
-  private testNetlify() {
-
   }
 }
