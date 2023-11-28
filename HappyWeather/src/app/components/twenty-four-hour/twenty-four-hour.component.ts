@@ -11,6 +11,7 @@ import * as fiveDayCode from '../../enums/weatherCodeFullDay';
 import * as fiveNightCode from '../../enums/weatherCodeFullNight';
 import * as iconList from '../../../assets/iconsList.json';
 import { WeatherUtilities } from 'src/app/shared/weatherUtilities';
+import { environement } from 'src/app/environements/environement';
 
 
 @Component({
@@ -36,8 +37,6 @@ export class TwentyFourHourComponent implements OnInit {
   timeOfTheDay: string[] = [];
   locationHour!: string | number;
   locationTime!: string;
-
-  weatherIconPath: string = '../../../assets/icons/tomorrow-weather-codes-master/V2_icons/large/png/';
 
   constructor(private service: WeatherService) {
   }
@@ -109,7 +108,7 @@ export class TwentyFourHourComponent implements OnInit {
       }
 
       // Add to icons array
-      this.iconPaths.push(this.weatherIconPath + this.iconPath);
+      this.iconPaths.push(environement.weatherIconPath + this.iconPath);
     }
   }
   //Set weather temperature in celsius or farenheit
