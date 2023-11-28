@@ -135,3 +135,10 @@ input:checked + .slider:before {
 .slider.round:before {
   border-radius: 50%;
 }
+@media screen and (max-width: 340px) {
+  .nav section {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+  }
+}

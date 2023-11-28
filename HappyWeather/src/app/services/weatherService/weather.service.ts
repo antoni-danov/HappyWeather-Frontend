@@ -2,7 +2,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
-import { environement } from 'src/app/environements/environement';
+import { environement } from 'src/app/environements/environement.prod';
 import { DayUnit } from 'src/app/interfaces/DailyForecast/dayUnit';
 import { HourlyUnit } from 'src/app/interfaces/HourlyForecast/hourlyUnit';
 import { WeatherForecast } from 'src/app/interfaces/WeatherForecast/weatherForecast';
