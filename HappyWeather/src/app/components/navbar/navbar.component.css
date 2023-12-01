@@ -15,7 +15,76 @@
 .mdc-switch__track::after {
   background-color: rgba(244, 172, 43, 1);
 }
+mat-slide-toggle {
+  margin-top: 7.5%;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+.mdc-switch {
+  width: 63px;
+}
 
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 53px;
+  height: 25px;
+  margin: 0% 5% 0% 4%;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(
+    circle,
+    rgba(244, 172, 43, 1) 37%,
+    rgba(230, 93, 11, 1) 98%
+  );
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 20px;
+  width: 20px;
+  left: 3px;
+  bottom: 3px;
+  background-color: white;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+}
+
+input:checked + .slider {
+  background: rgba(126, 214, 238, 255);
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px rgba(126, 214, 238, 255);
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+.slider.round {
+  border-radius: 34px;
+}
+.slider.round:before {
+  border-radius: 50%;
+}
 @media screen and (min-width: 375px) and (max-width: 480px) {
   nav {
     background-color: rgba(13, 31, 58, 255);
@@ -25,7 +94,6 @@
     flex-direction: column;
     align-items: center;
   }
-
   .leftSection a {
     display: flex;
     flex-direction: column;
@@ -61,76 +129,6 @@
 
     width: -webkit-fill-available;
     text-align: center;
-  }
-  mat-slide-toggle {
-    margin-top: 7.5%;
-    margin-left: 5px;
-    margin-right: 5px;
-  }
-  .mdc-switch {
-    width: 63px;
-  }
-
-  .switch {
-    position: relative;
-    display: inline-block;
-    width: 53px;
-    height: 25px;
-    margin: 0% 5% 0% 4%;
-  }
-
-  .switch input {
-    opacity: 0;
-    width: 0;
-    height: 0;
-  }
-
-  .slider {
-    position: absolute;
-    cursor: pointer;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: radial-gradient(
-      circle,
-      rgba(244, 172, 43, 1) 37%,
-      rgba(230, 93, 11, 1) 98%
-    );
-    -webkit-transition: 0.4s;
-    transition: 0.4s;
-  }
-
-  .slider:before {
-    position: absolute;
-    content: "";
-    height: 20px;
-    width: 20px;
-    left: 3px;
-    bottom: 3px;
-    background-color: white;
-    -webkit-transition: 0.4s;
-    transition: 0.4s;
-  }
-
-  input:checked + .slider {
-    background: rgba(126, 214, 238, 255);
-  }
-
-  input:focus + .slider {
-    box-shadow: 0 0 1px rgba(126, 214, 238, 255);
-  }
-
-  input:checked + .slider:before {
-    -webkit-transform: translateX(26px);
-    -ms-transform: translateX(26px);
-    transform: translateX(26px);
-  }
-  .slider.round {
-    border-radius: 34px;
-  }
-  .slider.round:before {
-    border-radius: 50%;
   }
 }
 @media (min-width: 481px) and (max-width: 767px) {
@@ -184,75 +182,5 @@
   .rightSection {
     font-size: large;
     margin-right: 4%;
-  }
-  mat-slide-toggle {
-    margin-top: 7.5%;
-    margin-left: 5px;
-    margin-right: 5px;
-  }
-  .mdc-switch {
-    width: 63px;
-  }
-
-  .switch {
-    position: relative;
-    display: inline-block;
-    width: 53px;
-    height: 25px;
-    margin: 0% 5% 0% 4%;
-  }
-
-  .switch input {
-    opacity: 0;
-    width: 0;
-    height: 0;
-  }
-
-  .slider {
-    position: absolute;
-    cursor: pointer;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: radial-gradient(
-      circle,
-      rgba(244, 172, 43, 1) 37%,
-      rgba(230, 93, 11, 1) 98%
-    );
-    -webkit-transition: 0.4s;
-    transition: 0.4s;
-  }
-
-  .slider:before {
-    position: absolute;
-    content: "";
-    height: 20px;
-    width: 20px;
-    left: 3px;
-    bottom: 3px;
-    background-color: white;
-    -webkit-transition: 0.4s;
-    transition: 0.4s;
-  }
-
-  input:checked + .slider {
-    background: rgba(126, 214, 238, 255);
-  }
-
-  input:focus + .slider {
-    box-shadow: 0 0 1px rgba(126, 214, 238, 255);
-  }
-
-  input:checked + .slider:before {
-    -webkit-transform: translateX(26px);
-    -ms-transform: translateX(26px);
-    transform: translateX(26px);
-  }
-  .slider.round {
-    border-radius: 34px;
-  }
-  .slider.round:before {
-    border-radius: 50%;
   }
 }

@@ -16,7 +16,7 @@
           <app-local-time [localTime]="locationTime"></app-local-time>
         </div>
       </section>
-      <div class="weatherState">
+      <section class="weatherState">
         <span id="weatherStateTitle">Weather forecast</span>
         <br />
         <div class="weatherForecast">
@@ -24,7 +24,7 @@
             {{weatherDescription}}
           </div>
         </div>
-      </div>
+      </section>
       <!-- <div id="timeFormat">
       <i id="wi-time" class="wi wi-time-{{hour}}"></i>
       <span id="time">{{timeFormat}}</span>
@@ -42,7 +42,6 @@
     <div>{{sharedData.current.visibility}}</div>-->
     </section>
   </section>
-  <hr />
   <section class="mainInfo">
     <div id="dateFormat"><strong>{{dateFormat}}</strong></div>
     <div id="temperature">
