@@ -15,6 +15,7 @@ import * as fiveDayCode from '../../enums/weatherCodeFullDay';
 import * as fiveNightCode from '../../enums/weatherCodeFullNight';
 import * as iconList from '../../../assets/iconsList.json';
 import { WeatherUtilities } from 'src/app/shared/weatherUtilities';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-weather-result',
@@ -61,12 +62,18 @@ export class WeatherResultComponent implements OnInit, AfterContentChecked {
   externalLink: any;
   iconPath!: string | undefined;
   dayState!: string;
+  searchString!: string | null;
 
-  constructor(private weatherService: WeatherService) {
+  constructor(
+    private weatherService: WeatherService,
+    private route: ActivatedRoute) {
   }
   ngOnInit() {
     this.timeCityWeatherData();
     this.temperatureUnit();
+    this.route.paramMap.subscribe(params => {
+      this.searchString = params.get('searchString');
+    });
   }
   ngAfterContentChecked() {
     this.setWeatherIcon(this.sharedData.data.values.weatherCode.toString());

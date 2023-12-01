@@ -1,5 +1,6 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { Observable, Subject } from 'rxjs';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import { environement } from 'src/app/environements/environement';
@@ -35,7 +36,9 @@ export class WeatherService {
   units!: string;
 
   test: any;
-  constructor(private http: HttpClient) {
+  constructor(
+    private http: HttpClient,
+    private router: Router) {
   }
 
   realTimeCurrentCity(cityName: string, units: string) {
@@ -49,6 +52,7 @@ export class WeatherService {
         this.setSpinner(false);
         this.weatherData = data;
         this.getLocationTime(this.weatherData.location);
+        this.router.navigate(['/result', cityName.split(', ')[0].toLowerCase()]);
 
         this.dataBehaviorSubject.next(data);
       }
