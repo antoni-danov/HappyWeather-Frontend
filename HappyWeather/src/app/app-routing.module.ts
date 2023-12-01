@@ -6,10 +6,14 @@ import { TechincalErrorComponent } from './components/techincal-error/techincal-
 import { ConnectionErrorComponent } from './components/connection-error/connection-error.component';
 import { TwentyFourHourComponent } from './components/twenty-four-hour/twenty-four-hour.component';
 import { FiveDaysForecastComponent } from './components/five-days-forecast/five-days-forecast.component';
+import { WeatherResultComponent } from './components/weather-result/weather-result.component';
 
 const routes: Routes = [{
   title: "Happy weather", path: '', component: HomeComponent
 }, {
+  path: 'result/:searchString', component: WeatherResultComponent
+},
+{
   title: "24 hours", path: 'twenty-four-hours-forecast', component: TwentyFourHourComponent
 }, {
   title: "Five days", path: 'five-days-forecast', component: FiveDaysForecastComponent

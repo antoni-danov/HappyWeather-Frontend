@@ -105,6 +105,7 @@ export class TwentyFourHourComponent implements OnInit {
         // Find coresponding code in iconsList.js and get his value
         this.iconPath = Object.values(iconList).find((file) =>
           file.startsWith(fiveDigitNightCode));
+
       }
 
       // Add to icons array

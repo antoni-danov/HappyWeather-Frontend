@@ -22,6 +22,8 @@
   </section>
 </nav>
 <div class="timePeriod">
+  @if(haveResult === true){
+
   <div>
     <button class="btn btn-primary" routerLink="/twenty-four-hours-forecast">
       24 hours
@@ -33,4 +35,5 @@
     </button>
   </div>
   <div><button class="btn btn-primary" routerLink="">5 days</button></div>
+  }
 </div>
