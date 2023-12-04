@@ -23,7 +23,11 @@
 </nav>
 <div class="timePeriod">
   @if(haveResult === true){
-
+  <div>
+    <button class="btn btn-primary" routerLink="{{this.location}}">
+      Current weather
+    </button>
+  </div>
   <div>
     <button class="btn btn-primary" routerLink="/twenty-four-hours-forecast">
       24 hours

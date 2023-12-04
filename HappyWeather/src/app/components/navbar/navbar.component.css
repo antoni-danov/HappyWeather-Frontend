@@ -137,7 +137,7 @@ input:checked + .slider:before {
 }
 @media (min-width: 1024px) {
   nav {
-    background-color: rgba(13, 31, 58, 255);
+    /* background-color: rgba(13, 31, 58, 255); */
     color: white;
 
     display: flex;
@@ -182,5 +182,9 @@ input:checked + .slider:before {
   .rightSection {
     font-size: large;
     margin-right: 4%;
+  }
+  button {
+    background-color: rgba(11, 144, 230, 1);
+    color: black;
   }
 }

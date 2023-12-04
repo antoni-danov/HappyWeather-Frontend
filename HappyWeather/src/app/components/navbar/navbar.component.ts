@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, DoCheck, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { WeatherService } from 'src/app/services/weatherService/weather.service';
 
 @Component({
@@ -6,17 +7,24 @@ import { WeatherService } from 'src/app/services/weatherService/weather.service'
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.css'],
 })
-export class NavbarComponent implements OnInit {
+export class NavbarComponent implements OnInit, DoCheck {
   units: string = "metric";
   isChoosed: boolean = false;
   haveResult: boolean = false;
+  location!: string;
 
-  constructor(private service: WeatherService) {
-
+  constructor(private service: WeatherService, private router: Router) {
   }
+
   ngOnInit() {
     this.haveResult = false;
     this.checkForResult();
+  }
+
+  ngDoCheck() {
+    if (this.router.url.includes('/result/')) {
+      this.location = this.router.url;
+    }
   }
 
   checkForResult() {
