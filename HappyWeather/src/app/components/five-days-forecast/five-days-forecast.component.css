@@ -5,21 +5,44 @@
   box-sizing: border-box;
 
   border-radius: 15px;
+  border: none;
 
   width: -webkit-fill-available;
   background: rgb(255, 255, 255);
   background: linear-gradient(
     360deg,
-    rgba(255, 255, 255, 1) 16%,
+    rgba(255, 255, 255, 1) -20%,
     rgba(11, 144, 230, 1) 89%
   );
   -webkit-box-shadow: 0px 5px 4px 3px rgba(0, 0, 0, 0.47);
-  box-shadow: 0px 5px 4px 3px rgba(0, 0, 0, 0.47);
+  box-shadow: 0px 0px 4px 3px rgba(0, 0, 0, 0.47);
 }
 .daysContainer:hover {
   background-color: #286090;
   border-color: #204d74;
   color: white;
+}
+#shadow {
+  margin-left: 20%;
+  margin-top: -15%;
+  border-radius: 50%;
+  width: 60%;
+  height: 100px;
+  background: rgb(212, 209, 209);
+  -webkit-filter: blur(10px);
+  -webkit-transform: scale(1, 0.2);
+}
+#description {
+  font-size: xx-large;
+  font-weight: 400;
+}
+.temperature div {
+  margin-top: 45%;
+  margin-bottom: 45%;
+}
+.temperature div span {
+  font-size: x-large;
+  font-weight: 500;
 }
 @media screen and (min-width: 1024px) {
   .daysContainer {
@@ -40,14 +63,10 @@
   .weatherIcon {
     text-align: center;
   }
-  #shadow {
-    margin-left: 20%;
-    margin-top: -15%;
-    border-radius: 50%;
-    width: 60%;
-    height: 100px;
-    background: rgb(212, 209, 209);
-    -webkit-filter: blur(10px);
-    -webkit-transform: scale(1, 0.2);
+  .vertical-line {
+    border-left: 1px solid grey;
+    height: 230px;
+    margin-top: 0.5%;
+    margin-bottom: 0.5%;
   }
 }
