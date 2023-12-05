@@ -1,49 +1,15 @@
 @if(loadingSpinner == true){
 <app-loading-spinner></app-loading-spinner>
 } @else if(sharedData){
-<div class="weather-container" [ngStyle]="setBackgroundImage()">
-  <section class="weatherDetails">
-    <section class="weatherDescription">
-      <section class="location">
-        <div id="locationName">
-          <mat-icon>place</mat-icon
-          ><a id="hyperlink" [href]="externalLink" target="_blank">
-            <strong>{{location}} </strong
-            ><span class="material-icons">open_in_new</span>
-          </a>
-        </div>
-        <div id="localTime">
-          <app-local-time [localTime]="locationTime"></app-local-time>
-        </div>
-      </section>
-      <section class="weatherState">
-        <span id="weatherStateTitle">Weather forecast</span>
-        <br />
-        <div class="weatherForecast">
-          <div>
-            {{weatherDescription}}
-          </div>
-        </div>
-      </section>
-      <!-- <div id="timeFormat">
-      <i id="wi-time" class="wi wi-time-{{hour}}"></i>
-      <span id="time">{{timeFormat}}</span>
-    </div> -->
-    </section>
-    <section class="otherInfos">
-      <hr />
-      <!--  <div>{{sharedData.current.windSpeed}}</div>
-      <div>{{sharedData.current.windDirection}}</div>
-       <div>{{sharedData.current.pressure}}</div>
-    <div>{{sharedData.current.precipitations}}</div>
-    <div>{{sharedData.current.humidity}}</div>
-    <div>{{sharedData.current.cloudCover}}</div>
-    <div>{{sharedData.current.uvIndex}}</div>
-    <div>{{sharedData.current.visibility}}</div>-->
-    </section>
-  </section>
+<div class="weather-container">
   <section class="mainInfo">
     <div id="dateFormat"><strong>{{dateFormat}}</strong></div>
+    @if (weatherIndex) {
+    <p id="weatherIcon">
+      <img [src]="weatherIcon" alt="" />
+    </p>
+    <!-- <div id="shadow"></div> -->
+    }
     <div id="temperature">
       <span
         >{{temperature | tempConversion: unit : converted | roundNumber }}&deg;
@@ -55,11 +21,6 @@
       <span>F</span>
       }
     </div>
-    @if (weatherIndex) {
-    <p id="weatherIcon">
-      <img [src]="weatherIcon" alt="" />
-    </p>
-    }
     <div id="feelsLike">
       <span
         ><strong>Feels like:</strong> {{feelsLike | tempConversion: unit :
@@ -100,6 +61,47 @@
       <br />
       <app-five-days-forecast></app-five-days-forecast>
     </section> -->
+  </section>
+  <div class="vertical-line"></div>
+  <section class="weatherDetails">
+    <section class="weatherDescription">
+      <section class="location">
+        <div id="locationName">
+          <mat-icon>place</mat-icon
+          ><a id="hyperlink" [href]="externalLink" target="_blank">
+            <strong>{{location}} </strong
+            ><span class="material-icons">open_in_new</span>
+          </a>
+        </div>
+        <div id="localTime">
+          <app-local-time [localTime]="locationTime"></app-local-time>
+        </div>
+      </section>
+      <section class="weatherState">
+        <span id="weatherStateTitle">Weather forecast</span>
+        <br />
+        <div class="weatherForecast">
+          <div>
+            {{weatherDescription}}
+          </div>
+        </div>
+      </section>
+      <!-- <div id="timeFormat">
+      <i id="wi-time" class="wi wi-time-{{hour}}"></i>
+      <span id="time">{{timeFormat}}</span>
+    </div> -->
+    </section>
+    <section class="otherInfos">
+      <hr />
+      <!--  <div>{{sharedData.current.windSpeed}}</div>
+      <div>{{sharedData.current.windDirection}}</div>
+       <div>{{sharedData.current.pressure}}</div>
+    <div>{{sharedData.current.precipitations}}</div>
+    <div>{{sharedData.current.humidity}}</div>
+    <div>{{sharedData.current.cloudCover}}</div>
+    <div>{{sharedData.current.uvIndex}}</div>
+    <div>{{sharedData.current.visibility}}</div>-->
+    </section>
   </section>
 </div>
 }

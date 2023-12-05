@@ -19,9 +19,9 @@ const routes: Routes = [{
   title: "Five days", path: 'five-days-forecast', component: FiveDaysForecastComponent
 },
 {
-  title: "Not Found", path: 'pageNotFound', component: PageNotFoundComponent
+  title: "Not Found", path: 'pagenotfound', component: PageNotFoundComponent
 }, {
-  title: "Error connection", path: 'connectionError', component: ConnectionErrorComponent
+  title: "Error connection", path: 'connectionerror', component: ConnectionErrorComponent
 },
 {
   title: "Coffee break", path: 'coffeebreak', component: TechincalErrorComponent

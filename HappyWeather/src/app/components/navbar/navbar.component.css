@@ -85,7 +85,11 @@ input:checked + .slider:before {
 .slider.round:before {
   border-radius: 50%;
 }
-@media screen and (min-width: 375px) and (max-width: 480px) {
+.btn {
+  background-color: rgba(11, 144, 230, 1);
+  color: white;
+}
+@media screen and (min-width: 320px) and (max-width: 480px) {
   nav {
     background-color: rgba(13, 31, 58, 255);
     color: white;
@@ -137,7 +141,7 @@ input:checked + .slider:before {
 }
 @media (min-width: 1024px) {
   nav {
-    background-color: rgba(13, 31, 58, 255);
+    /* background-color: rgba(13, 31, 58, 255); */
     color: white;
 
     display: flex;
@@ -182,5 +186,9 @@ input:checked + .slider:before {
   .rightSection {
     font-size: large;
     margin-right: 4%;
+  }
+  button {
+    background-color: rgba(11, 144, 230, 1);
+    color: black;
   }
 }

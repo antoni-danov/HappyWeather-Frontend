@@ -1,47 +1,65 @@
-@if (this.fivedaysForecast) {
-<div class="daysContainer">
-  @for (day of this.fivedaysForecast.timeLines.daily; track day) {
-  <div>
-    <div class="day">
-      <section class="dayInfo">
-        <div id="weatherIcon">
-          {{day.values.weatherCode}} @if (weatherIcon) {
-          <img
-            [ngStyle]="setIcon(day.values.weatherCode)"
-            [src]="weatherIcon"
-            alt="weather icon"
-          />
-          } {{weatherIcon}}
-        </div>
-        <div>{{day.time | dateFormat}}</div>
-        <span>{{unit}}</span>
-      </section>
-      <section class="mainInfo">
-        <div id="temperature">
-          <span
-            >{{day.values.minTemperature | tempConversion: unit : converted|
-            number }}&deg;
-          </span>
-          @if (unit === undefined || unit === 'metric' || unit === null || unit
-          === 'Nan') {
-          <span>C</span>
-          } @if (unit === 'imperial') {
-          <span>F</span>
-          } |
-          <span
-            >{{day.values.maxTemperature | tempConversion: unit : converted |
-            number }}&deg;
-          </span>
-          @if (unit === undefined || unit === 'metric' || unit === null || unit
-          === 'Nan') {
-          <span>C</span>
-          } @if (unit === 'imperial') {
-          <span>F</span>
-          }
-        </div>
-      </section>
+@if (this.fivedaysForecast) { @for (day of fivedaysForecast; track $index) {
+<button class="daysContainer" routerLink="/">
+  <div class="dayInfo">
+    <div>
+      <p><strong>{{day.time | dateFormat}}</strong></p>
+    </div>
+    <div class="weatherIcon">
+      <img [src]="iconPaths[$index]" alt="" />
+      <div id="shadow"></div>
+      <p id="description">
+        {{dayTimeDescription[$index]}}
+      </p>
     </div>
   </div>
-  }
-</div>
-}
+  <div class="vertical-line"></div>
+  <div class="temperature">
+    <div>
+      <span><strong>Min temp: </strong></span>
+      <span>
+        {{day.values.minTemperature | tempConversion: unit : converted |
+        roundNumber}}&deg;
+      </span>
+      @if (unit === undefined || unit === 'metric' || unit === null || unit ===
+      'Nan') {
+      <span>C</span>
+      } @if (unit === 'imperial') {
+      <span>F</span>
+      }
+      <br />
+      <span><strong>Max temp: </strong></span>
+      <span>
+        {{day.values.maxTemperature | tempConversion: unit : converted |
+        roundNumber }}&deg;
+      </span>
+      @if (unit === undefined || unit === 'metric' || unit === null || unit ===
+      'Nan') {
+      <span>C</span>
+      } @if (unit === 'imperial') {
+      <span>F</span>
+      }
+    </div>
+  </div>
+  <div class="vertical-line"></div>
+  <div class="mainInfo">
+    <div>
+      <span
+        ><strong>Wind speed: </strong>{{day.values.windSpeed | roundNumber}}
+        m/s</span
+      >
+    </div>
+    <div>
+      <span
+        ><strong>Cloud coverage: </strong>{{day.values.cloudCoverAverage |
+        roundNumber}}%</span
+      >
+    </div>
+    <div>
+      <span>
+        <strong>Precipitation probability: </strong
+        >{{day.values.precipitationProbability | roundNumber}}%
+      </span>
+    </div>
+  </div>
+</button>
+} }

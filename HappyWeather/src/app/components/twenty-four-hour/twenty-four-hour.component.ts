@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { WeatherService } from 'src/app/services/weatherService/weather.service';
 import { HourlyUnit } from 'src/app/interfaces/HourlyForecast/hourlyUnit';
-import { WeatherForecast } from 'src/app/interfaces/WeatherForecast/weatherForecast';
 import { TemperatureConversionPipe } from 'src/app/pipes/temperature/temperature-conversion.pipe';
 import { NumberPipe } from 'src/app/pipes/roundNumber/number.pipe';
 import { DateFormatPipe } from 'src/app/pipes/stringSplit/date-format.pipe';

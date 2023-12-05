@@ -20,3 +20,14 @@
 .weatherIcon {
   text-align: center;
 }
+#shadow {
+  margin-left: 20%;
+  margin-top: -15%;
+  border-radius: 50%;
+  width: 60%;
+  height: 100px;
+  background: gainsboro;
+  /* opacity: 0; */
+  -webkit-filter: blur(10px);
+  -webkit-transform: scale(1, 0.2);
+}

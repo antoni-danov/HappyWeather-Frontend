@@ -102,26 +102,8 @@ export class WeatherResultComponent implements OnInit, AfterContentChecked {
         this.externalLink = environement.locationSearch + this.weatherService.location;
         this.weatherIndex = WeatherUtilities.getWeatherDescription(this.sharedData.data.values.weatherCode.toString()).index;
         this.weatherDescription = WeatherUtilities.getWeatherDescription(this.sharedData.data.values.weatherCode.toString()).description;
-        this.setBackgroundImage();
       }
     });
-  }
-  //Set background day or night image 
-  setBackgroundImage() {
-    try {
-      this.weatherIndex = Object.keys(WeatherCode).indexOf(this.sharedData.data.values.weatherCode.toString());
-      this.dayState = this.timeOfTheDay();
-      this.weatherDescription = this.dayState === 'night' && this.weatherDescription === 'Clear Sunny' ? 'Clear' : this.weatherDescription;
-
-      return Object.values(WeatherCode).includes(this.sharedData.data.values.weatherCode) ?
-        {
-          'background-image': `url(${this.backgroundImage}${this.dayState}/${this.weatherDescription.replace(' ', '').toLowerCase()}.jpg)`
-        } :
-        { 'background': 'linear-gradient(351deg, rgba(9,17,121,0.9948354341736695) 0%, rgba(25,173,112,1) 51%, rgba(0,186,230,1) 100%)' };
-    } catch (error) {
-      return;
-    }
-
   }
   //Set weather icon
   private setWeatherIcon(data: string) {
