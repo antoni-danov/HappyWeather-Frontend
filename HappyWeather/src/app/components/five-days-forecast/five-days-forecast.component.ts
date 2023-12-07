@@ -11,6 +11,7 @@ import * as fiveDayCode from '../../enums/weatherCodeFullDay';
 import * as fiveNightCode from '../../enums/weatherCodeFullNight';
 import * as iconList from '../../../assets/iconsList.json';
 import { environement } from 'src/app/environements/environement';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-five-days-forecast',
@@ -39,7 +40,11 @@ export class FiveDaysForecastComponent implements OnInit {
   weatherDescription!: string;
   weatherIcon!: string;
 
-  constructor(private service: WeatherService) {
+  locationTime!: string;
+
+  constructor(
+    private service: WeatherService,
+    private router: Router) {
 
   }
   ngOnInit() {
@@ -48,10 +53,11 @@ export class FiveDaysForecastComponent implements OnInit {
 
   }
   fiveDaysWeatherForecast() {
-    this.service.fiveDaysForecast().subscribe(data => {
-      this.fivedaysForecast = Object.values(data.timeLines.daily).splice(0, data.timeLines.daily.length - 1);
-      console.log(this.fivedaysForecast);
+    this.service.fiveDaysForecast();
 
+    this.service.fiveDaysData$.subscribe(data => {
+      this.getLocationTime();
+      this.fivedaysForecast = Object.values(data.timeLines.daily).splice(0, data.timeLines.daily.length - 1);
       this.setWeatherIcon();
     });
   }
@@ -59,50 +65,16 @@ export class FiveDaysForecastComponent implements OnInit {
   setWeatherIcon() {
 
     for (let index = 0; index <= this.fivedaysForecast.length; index++) {
+      var iconInfo = WeatherUtilities.setIcon(this.fivedaysForecast[index], this.locationTime);
+      console.log(iconInfo.weatherDescription);
 
-      var currentCode = this.fivedaysForecast[index].values.weatherCode.toString();
-
-      var dayState = WeatherUtilities.twentyFourHourDayTime(this.fivedaysForecast[index].time.split('T')[1]);
-
-      // Check if code exists in weatherCode.ts
-      const weatherindex = Object.keys(fourCode.WeatherCode).indexOf(currentCode);
-
-      // If exists get value
-      var weatherDescription = Object.values(fourCode.WeatherCode)[weatherindex];
-      weatherDescription = dayState === 'night' && weatherDescription === 'Clear_Sunny' ? weatherDescription.toString().slice(0, 5) : weatherDescription.toString();
-      this.dayTimeDescription.push(weatherDescription.replaceAll('_', ' '));
-
-      // If is Day or Night
-      if (dayState === 'day') {
-
-        // Check if value exists in weatherCodeFullDay.ts
-        const fulldayIndex = Object.values(fiveDayCode.weatherCodeFullDay)
-          .indexOf(weatherDescription.toString());
-
-        // If exists get weather code with 5 digits
-        const fiveDigitDayCode = Object.keys(fiveDayCode.weatherCodeFullDay)[fulldayIndex];
-
-        // Find coresponding code in iconsList.js and get his value
-        this.iconPath = Object.values(iconList).find((file) =>
-          file.startsWith(fiveDigitDayCode));
-
-      } else if (dayState === 'night') {
-        // Check if value exists in weatherCodeFullNight.ts
-        const fullNightIndex = Object.values(fiveNightCode.weatherCodeFullNight)
-          .indexOf(weatherDescription.toString());
-
-        // If exists get weather code with 5 digits
-        const fiveDigitNightCode = Object.keys(fiveNightCode.weatherCodeFullNight)[fullNightIndex];
-
-        // Find coresponding code in iconsList.js and get his value
-        this.iconPath = Object.values(iconList).find((file) =>
-          file.startsWith(fiveDigitNightCode));
-
-      }
-
-      // Add to icons array
-      this.iconPaths.push(environement.weatherIconPath + this.iconPath);
+      this.dayTimeDescription.push(iconInfo.weatherDescription.replaceAll('_', ' '));
+      this.iconPaths.push(environement.weatherIconPath + iconInfo.iconPath);
     }
+
+  }
+  navigateToDetails(index: number, day: any) {
+    this.router.navigate(['/details', index]);
   }
   private temperatureUnit() {
     this.service.unitChoice$.subscribe(data => {
@@ -111,5 +83,26 @@ export class FiveDaysForecastComponent implements OnInit {
         this.unit = data;
       }
     });
+  }
+  //Get location real time
+  private getLocationTime() {
+
+    this.service.locationTimeData$
+      .subscribe((timezoneData: any) => {
+        //Get time zone
+        const timeZoneId = timezoneData.timeZoneId;
+        const currentUTC = new Date();
+        const localTime = new Date(currentUTC.toLocaleString('en-US', { timeZone: timeZoneId }));
+        //Get day, month and date
+        const day = new Intl.DateTimeFormat('en-US', { weekday: 'long' }).format(localTime);
+        const month = new Intl.DateTimeFormat('en-US', { month: 'long' }).format(localTime);
+        const date = localTime.getDate();
+        //Get hour and minutes
+        const minutes = localTime.getMinutes() < 10 ? '0' + `${localTime.getMinutes()}` : localTime.getMinutes();
+        const hours = localTime.getHours() < 10 ? '0' + `${localTime.getHours()}` : localTime.getHours();
+        //Add values to variables
+        this.locationTime = `${hours}:${minutes}`;
+        // this.dateFormat = `${day}, ${date} ${month}`;
+      });
   }
 }

@@ -1,6 +1,6 @@
 import { WeatherValues } from "./weatherValues";
 
 export interface WeatherData {
-    weatherDateTime: string;
+    time: string;
     values: WeatherValues;
 }

@@ -1,5 +1,5 @@
 @if (this.fivedaysForecast) { @for (day of fivedaysForecast; track $index) {
-<button class="daysContainer" routerLink="/">
+<button class="daysContainer" (click)="navigateToDetails($index, day.time)">
   <div class="dayInfo">
     <div>
       <p><strong>{{day.time | dateFormat}}</strong></p>

@@ -59,7 +59,12 @@ export class WeatherService {
   }
   fiveDaysForecast() {
     var params = new HttpParams().set('unit', this.units).set('timeStep', '1d');
-    return this.http.get<WeatherForecast<DayUnit>>(environement.localhost + `${this.location}/dailyforecast`, { params });
+    return this.http.get<WeatherForecast<DayUnit>>(environement.localhost + `${this.location}/dailyforecast`, { params })
+      .subscribe(data => {
+        if (data) {
+          this.fiveDaysSubject.next(data);
+        }
+      });
   }
   hourlyWeatherForecast(): Observable<WeatherForecast<HourlyUnit>> {
     var params = new HttpParams().set('unit', this.units).set('timeStep', '1h');

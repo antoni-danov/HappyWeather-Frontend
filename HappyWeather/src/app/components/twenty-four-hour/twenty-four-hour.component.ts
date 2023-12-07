@@ -67,48 +67,9 @@ export class TwentyFourHourComponent implements OnInit {
 
     for (let index = 0; index <= this.details.length; index++) {
 
-      var currentCode = this.details[index].values.weatherCode.toString();
-
-      var dayState = WeatherUtilities.twentyFourHourDayTime(this.details[index].time.split('T')[1]);
-
-      // Check if code exists in weatherCode.ts
-      const weatherindex = Object.keys(fourCode.WeatherCode).indexOf(currentCode);
-
-      // If exists get value
-      var weatherDescription = Object.values(fourCode.WeatherCode)[weatherindex];
-      weatherDescription = dayState === 'night' && weatherDescription === 'Clear_Sunny' ? weatherDescription.toString().slice(0, 5) : weatherDescription.toString();
-      this.realTimeDescription.push(weatherDescription.replaceAll('_', ' '));
-
-      // If is Day or Night
-      if (dayState === 'day') {
-
-        // Check if value exists in weatherCodeFullDay.ts
-        const fulldayIndex = Object.values(fiveDayCode.weatherCodeFullDay)
-          .indexOf(weatherDescription.toString());
-
-        // If exists get weather code with 5 digits
-        const fiveDigitDayCode = Object.keys(fiveDayCode.weatherCodeFullDay)[fulldayIndex];
-
-        // Find coresponding code in iconsList.js and get his value
-        this.iconPath = Object.values(iconList).find((file) =>
-          file.startsWith(fiveDigitDayCode));
-
-      } else if (dayState === 'night') {
-        // Check if value exists in weatherCodeFullNight.ts
-        const fullNightIndex = Object.values(fiveNightCode.weatherCodeFullNight)
-          .indexOf(weatherDescription.toString());
-
-        // If exists get weather code with 5 digits
-        const fiveDigitNightCode = Object.keys(fiveNightCode.weatherCodeFullNight)[fullNightIndex];
-
-        // Find coresponding code in iconsList.js and get his value
-        this.iconPath = Object.values(iconList).find((file) =>
-          file.startsWith(fiveDigitNightCode));
-
-      }
-
-      // Add to icons array
-      this.iconPaths.push(environement.weatherIconPath + this.iconPath);
+      var iconInfo = WeatherUtilities.setIcon(this.details[index]);
+      this.realTimeDescription.push(iconInfo.weatherDescription);
+      this.iconPaths.push(environement.weatherIconPath + iconInfo.iconPath);
     }
   }
   //Set weather temperature in celsius or farenheit
