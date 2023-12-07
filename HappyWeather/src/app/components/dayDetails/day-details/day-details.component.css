@@ -1,0 +1,27 @@
+* {
+  border: 1px solid gray;
+  border-radius: 15px;
+  margin: 3% 7%;
+  text-align: center;
+}
+.separator {
+  border-left: 1px solid grey;
+  height: 120px;
+}
+.mainInfo {
+  display: flex;
+  flex-direction: row;
+}
+.leftModul {
+  display: flex;
+  flex-direction: column;
+
+  width: 100%;
+}
+.leftModul div {
+  height: 100%;
+}
+.rightModul,
+.title span {
+  width: 100%;
+}

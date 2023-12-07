@@ -91,7 +91,7 @@ export class WeatherResultComponent implements OnInit, AfterContentChecked {
       if (this.sharedData) {
         this.getLocationTime();
 
-        this.dateFormat = this.sharedData.data.weatherDateTime.split('T')[0];
+        this.dateFormat = this.sharedData.data.time.split('T')[0];
         this.temperature = this.sharedData.data.values.temperature;
         this.feelsLike = this.sharedData.data.values.temperatureApparent;
         this.windSpeed = this.sharedData.data.values.windSpeed;
@@ -108,45 +108,11 @@ export class WeatherResultComponent implements OnInit, AfterContentChecked {
   //Set weather icon
   private setWeatherIcon(data: string) {
 
-    const currentTime = this.timeOfTheDay();
+    WeatherUtilities.twentyFourHourDayTime(this.locationTime);
 
-    var dayState = WeatherUtilities.twentyFourHourDayTime(this.locationTime.split(':')[0]);
+    var iconInfo = WeatherUtilities.setIcon(this.sharedData.data, this.locationTime);
 
-    // Check if code exists in weatherCode.ts
-    const weatherindex = Object.keys(fourCode.WeatherCode).indexOf(data);
-
-    // If exists get value
-    var weatherDescription = Object.values(fourCode.WeatherCode)[weatherindex];
-    weatherDescription = dayState === 'night' && weatherDescription === 'Clear_Sunny' ? weatherDescription.toString().slice(0, 5) : weatherDescription.toString();
-
-    // If is Day or Night
-    if (dayState === 'day') {
-
-      // Check if value exists in weatherCodeFullDay.ts
-      const fulldayIndex = Object.values(fiveDayCode.weatherCodeFullDay)
-        .indexOf(weatherDescription.toString());
-
-      // If exists get weather code with 5 digits
-      const fiveDigitDayCode = Object.keys(fiveDayCode.weatherCodeFullDay)[fulldayIndex];
-
-      // Find coresponding code in iconsList.js and get his value
-      this.iconPath = Object.values(iconList).find((file) =>
-        file.startsWith(fiveDigitDayCode));
-
-
-    } else if (dayState === 'night') {
-      // Check if value exists in weatherCodeFullNight.ts
-      const fullNightIndex = Object.values(fiveNightCode.weatherCodeFullNight)
-        .indexOf(weatherDescription.toString());
-      // If exists get weather code with 5 digits
-      const fiveDigitNightCode = Object.keys(fiveNightCode.weatherCodeFullNight)[fullNightIndex];
-
-      // Find coresponding code in iconsList.js and get his value
-      this.iconPath = Object.values(iconList).find((file) =>
-        file.startsWith(fiveDigitNightCode));
-    }
-
-    this.weatherIcon = environement.weatherIconPath + this.iconPath;
+    this.weatherIcon = environement.weatherIconPath + iconInfo.iconPath;
 
   }
   //Set weather temperature in celsius or farenheit
@@ -159,12 +125,12 @@ export class WeatherResultComponent implements OnInit, AfterContentChecked {
     });
 
   }
-  //Set time of the day for background choice
-  private timeOfTheDay(): string {
-    const hour = parseInt(this.locationTime.split(':')[0]);
-    this.dayState = hour > 19 || (hour >= 0 && hour < 6) ? 'night' : 'day';
-    return this.dayState;
-  }
+  // //Set time of the day for background choice
+  // private timeOfTheDay(): string {
+  //   const hour = parseInt(this.locationTime.split(':')[0]);
+  //   this.dayState = hour > 19 || (hour >= 0 && hour < 6) ? 'night' : 'day';
+  //   return this.dayState;
+  // }
   //Get location real time
   private getLocationTime() {
 

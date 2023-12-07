@@ -1,0 +1,49 @@
+@if (dayDetails) {
+<div class="container">
+  @for (day of dayDetails; track $index){
+  <section class="title">
+    {{ day.time| dateFormat}}
+  </section>
+  <section class="mainInfo">
+    <div class="leftModul">
+      <div class="icon">{{day.values.weatherCode}}</div>
+      <hr />
+      <div>Weather description</div>
+    </div>
+    <div class="separator"></div>
+    <div class="rightModul">
+      <span>{{day.values.cloudCoverAverage}}</span>
+      <hr />
+      <span>{{day.values.averageHumidity}}</span>
+      <hr />
+      <span>{{day.values.moonRise}}</span>
+      <hr />
+      <span>{{day.values.moonSet}}</span>
+      <hr />
+      <span>{{day.values.precipitationProbability}}</span>
+      <hr />
+      <span>{{day.values.sunrise}}</span>
+      <hr />
+      <span>{{day.values.sunset}}</span>
+      <hr />
+      <span>{{day.values.apparentTemperature}}</span>
+      <hr />
+      <span>{{day.values.minTemperature}}</span>
+      <hr />
+      <span>{{day.values.maxTemperature}}</span>
+      <hr />
+      <span>{{day.values.averageUVIndex}}</span>
+      <hr />
+      <span>{{day.values.visibility}}</span>
+      <hr />
+      <span>{{day.values.windDirection}}</span>
+      <hr />
+      <span>{{day.values.maxWindGust}}</span>
+      <hr />
+      <span>{{day.values.windSpeed}}</span>
+      <hr />
+    </div>
+  </section>
+  }
+</div>
+}
