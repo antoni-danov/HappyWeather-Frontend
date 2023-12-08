@@ -22,6 +22,7 @@ export class WeatherUtilities {
     static twentyFourHourDayTime(time: string | undefined): string {
         const hour = parseInt(time!.split(':')[0]);
         const dayState = hour > 19 || (hour >= 0 && hour < 6) ? 'night' : 'day';
+
         return dayState;
     }
     static setIcon(data: any, locationTime?: string): { weatherDescription: string, iconPath: string } {

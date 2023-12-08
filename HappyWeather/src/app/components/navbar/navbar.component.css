@@ -90,7 +90,7 @@ input:checked + .slider:before {
   color: black;
 }
 .btn {
-  background-color: rgba(11, 144, 230, 1);
+  background-color: rgba(29, 150, 299, 1);
   color: white;
 }
 @media screen and (min-width: 320px) and (max-width: 480px) {

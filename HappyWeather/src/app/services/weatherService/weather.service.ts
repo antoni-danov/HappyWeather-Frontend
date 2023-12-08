@@ -50,7 +50,7 @@ export class WeatherService {
       if (data) {
         this.setSpinner(false);
         this.weatherData = data;
-        this.getLocationTime(this.weatherData.location);
+        this.getLocationTime(data.location);
         this.router.navigate(['/result', cityName.split(', ')[0].toLowerCase()]);
 
         this.dataBehaviorSubject.next(data);

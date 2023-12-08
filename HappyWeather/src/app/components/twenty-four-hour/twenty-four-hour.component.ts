@@ -5,10 +5,6 @@ import { HourlyUnit } from 'src/app/interfaces/HourlyForecast/hourlyUnit';
 import { TemperatureConversionPipe } from 'src/app/pipes/temperature/temperature-conversion.pipe';
 import { NumberPipe } from 'src/app/pipes/roundNumber/number.pipe';
 import { DateFormatPipe } from 'src/app/pipes/stringSplit/date-format.pipe';
-import * as fourCode from '../../enums/weatherCode';
-import * as fiveDayCode from '../../enums/weatherCodeFullDay';
-import * as fiveNightCode from '../../enums/weatherCodeFullNight';
-import * as iconList from '../../../assets/iconsList.json';
 import { WeatherUtilities } from 'src/app/shared/weatherUtilities';
 import { environement } from 'src/app/environements/environement';
 

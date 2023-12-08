@@ -12,7 +12,8 @@
     }
     <div id="temperature">
       <span
-        >{{temperature | tempConversion: unit : converted | roundNumber }}&deg;
+        >{{this.sharedData.data.values.temperature | tempConversion: unit :
+        converted | roundNumber }}&deg;
       </span>
       @if (unit === undefined || unit === 'metric' || unit === null || unit ===
       'Nan') {
@@ -23,8 +24,9 @@
     </div>
     <div id="feelsLike">
       <span
-        ><strong>Feels like:</strong> {{feelsLike | tempConversion: unit :
-        converted | roundNumber }}&deg; @if (unit === undefined || unit ===
+        ><strong>Feels like:</strong>
+        {{this.sharedData.data.values.temperatureApparent| tempConversion: unit
+        : converted | roundNumber }}&deg; @if (unit === undefined || unit ===
         'metric' || unit === null || unit === 'Nan') {
         <span>C</span>
         } @if (unit === 'imperial') {
@@ -40,14 +42,17 @@
         <br />
         <span
           ><strong>Wind speed: </strong>
-          <span>{{this.windSpeed | roundNumber}} m/s</span></span
+          <span
+            >{{sharedData.data.values.windSpeed | roundNumber}} m/s</span
+          ></span
         >
         <br />
         <span
-          ><strong>Wind gust:</strong> {{this.windGust | roundNumber}} m/s</span
+          ><strong>Wind gust:</strong> {{sharedData.data.values.windGust |
+          roundNumber}} m/s</span
         >
         <br />
-        @if (this.sharedData.data.values.windSpeed > 0) {
+        @if (sharedData.data.values.windSpeed > 0) {
         <span> <strong>Wind direction:</strong> {{this.windDirection}} </span>
         }
       </div>
@@ -55,12 +60,6 @@
         <i class="wi wi-wind towards-{{this.windDegree | roundNumber}}-deg"></i>
       </div>
     </div>
-
-    <!-- <section class="fiveDaysForecast">
-      <span><strong>Five days forecast</strong></span>
-      <br />
-      <app-five-days-forecast></app-five-days-forecast>
-    </section> -->
   </section>
   <div class="vertical-line"></div>
   <section class="weatherDetails">

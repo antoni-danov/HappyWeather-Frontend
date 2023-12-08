@@ -1,7 +1,5 @@
 import { AfterContentChecked, Component, OnInit } from '@angular/core';
-import { WeatherCode } from 'src/app/enums/weatherCode';
 import { environement } from 'src/app/environements/environement';
-import { WeatherLocation } from 'src/app/interfaces/weatherLocation';
 import { WeatherResult } from 'src/app/interfaces/weatherResult';
 import { WeatherService } from 'src/app/services/weatherService/weather.service';
 import { TemperatureConversionPipe } from 'src/app/pipes/temperature/temperature-conversion.pipe';
@@ -10,10 +8,6 @@ import { LocalTimeComponent } from '../localTime/local-time/local-time.component
 import { NumberPipe } from 'src/app/pipes/roundNumber/number.pipe';
 import { CommonModule } from '@angular/common';
 import { MaterialModule } from 'src/app/modules/material.module';
-import * as fourCode from '../../enums/weatherCode';
-import * as fiveDayCode from '../../enums/weatherCodeFullDay';
-import * as fiveNightCode from '../../enums/weatherCodeFullNight';
-import * as iconList from '../../../assets/iconsList.json';
 import { WeatherUtilities } from 'src/app/shared/weatherUtilities';
 import { ActivatedRoute } from '@angular/router';
 
@@ -42,12 +36,7 @@ export class WeatherResultComponent implements OnInit, AfterContentChecked {
   timeFormat!: string | null;
   hour!: string | undefined;
 
-  temperature!: number;
-  feelsLike!: number;
-
   windDegree!: number;
-  windSpeed!: number;
-  windGust!: number;
   windDirection!: string;
 
   country!: string;
@@ -76,7 +65,7 @@ export class WeatherResultComponent implements OnInit, AfterContentChecked {
     });
   }
   ngAfterContentChecked() {
-    this.setWeatherIcon(this.sharedData.data.values.weatherCode.toString());
+    this.setWeatherIcon();
   }
 
   //Recieve and extract weather data
@@ -89,25 +78,26 @@ export class WeatherResultComponent implements OnInit, AfterContentChecked {
       this.sharedData = data;
 
       if (this.sharedData) {
+
         this.getLocationTime();
 
         this.dateFormat = this.sharedData.data.time.split('T')[0];
-        this.temperature = this.sharedData.data.values.temperature;
-        this.feelsLike = this.sharedData.data.values.temperatureApparent;
-        this.windSpeed = this.sharedData.data.values.windSpeed;
-        this.windGust = this.sharedData.data.values.windGust;
+
         this.windDegree = this.sharedData.data.values.windDirection;
         this.windDirection = WeatherUtilities.getWindDirection(this.sharedData.data.values.windDirection);
-        this.location = this.weatherService.location.replace('/\s+/g', ', ');
-        this.externalLink = environement.locationSearch + this.weatherService.location;
+        this.location = this.weatherService.location;
+
+        this.externalLink = environement.locationSearch + this.location;
         this.weatherIndex = WeatherUtilities.getWeatherDescription(this.sharedData.data.values.weatherCode.toString()).index;
         this.weatherDescription = WeatherUtilities.getWeatherDescription(this.sharedData.data.values.weatherCode.toString()).description;
+        this.setWeatherIcon();
+
       }
     });
+
   }
   //Set weather icon
-  private setWeatherIcon(data: string) {
-
+  private setWeatherIcon() {
     WeatherUtilities.twentyFourHourDayTime(this.locationTime);
 
     var iconInfo = WeatherUtilities.setIcon(this.sharedData.data, this.locationTime);
@@ -127,7 +117,6 @@ export class WeatherResultComponent implements OnInit, AfterContentChecked {
   }
   //Get location real time
   private getLocationTime() {
-
     this.weatherService.locationTimeData$
       .subscribe((timezoneData: any) => {
         //Get time zone
