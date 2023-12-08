@@ -125,12 +125,6 @@ export class WeatherResultComponent implements OnInit, AfterContentChecked {
     });
 
   }
-  // //Set time of the day for background choice
-  // private timeOfTheDay(): string {
-  //   const hour = parseInt(this.locationTime.split(':')[0]);
-  //   this.dayState = hour > 19 || (hour >= 0 && hour < 6) ? 'night' : 'day';
-  //   return this.dayState;
-  // }
   //Get location real time
   private getLocationTime() {
 

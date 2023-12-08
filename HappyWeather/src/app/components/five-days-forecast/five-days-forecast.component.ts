@@ -65,8 +65,7 @@ export class FiveDaysForecastComponent implements OnInit {
   setWeatherIcon() {
 
     for (let index = 0; index <= this.fivedaysForecast.length; index++) {
-      var iconInfo = WeatherUtilities.setIcon(this.fivedaysForecast[index], this.locationTime);
-      console.log(iconInfo.weatherDescription);
+      var iconInfo = WeatherUtilities.setIcon(this.fivedaysForecast[index]);
 
       this.dayTimeDescription.push(iconInfo.weatherDescription.replaceAll('_', ' '));
       this.iconPaths.push(environement.weatherIconPath + iconInfo.iconPath);

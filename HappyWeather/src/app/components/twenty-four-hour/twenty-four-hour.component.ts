@@ -68,7 +68,7 @@ export class TwentyFourHourComponent implements OnInit {
     for (let index = 0; index <= this.details.length; index++) {
 
       var iconInfo = WeatherUtilities.setIcon(this.details[index]);
-      this.realTimeDescription.push(iconInfo.weatherDescription);
+      this.realTimeDescription.push(iconInfo.weatherDescription.replaceAll('_', ' '));
       this.iconPaths.push(environement.weatherIconPath + iconInfo.iconPath);
     }
   }
