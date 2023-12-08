@@ -28,7 +28,6 @@ export class WeatherUtilities {
         var iconPath: any;
 
         var currentCode = data.values.weatherCode.toString();
-        console.log(data.time);
 
         var dayState = locationTime ? WeatherUtilities.twentyFourHourDayTime(locationTime) : WeatherUtilities.twentyFourHourDayTime(data.time.split('T')[1]);
 
@@ -38,7 +37,6 @@ export class WeatherUtilities {
         // If exists get value
         var weatherDescription = Object.values(fourCode.WeatherCode)[weatherindex];
         weatherDescription = dayState === 'night' && weatherDescription === 'Clear_Sunny' ? weatherDescription.toString().slice(0, 5) : weatherDescription.toString();
-        console.log(dayState);
 
         // If is Day or Night
         if (dayState === 'day') {
@@ -67,7 +65,6 @@ export class WeatherUtilities {
                 file.startsWith(fiveDigitNightCode));
 
         }
-        console.log(weatherDescription);
 
         return { weatherDescription, iconPath };
     }
