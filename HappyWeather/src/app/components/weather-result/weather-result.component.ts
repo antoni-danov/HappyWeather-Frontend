@@ -11,6 +11,7 @@ import { MaterialModule } from 'src/app/modules/material.module';
 import { WeatherUtilities } from 'src/app/shared/weatherUtilities';
 import { ActivatedRoute } from '@angular/router';
 import { DateFormatPipe } from 'src/app/pipes/stringSplit/date-format.pipe';
+import { ExternalData } from 'src/app/interfaces/externalData';
 
 @Component({
   selector: 'app-weather-result',
@@ -29,30 +30,23 @@ import { DateFormatPipe } from 'src/app/pipes/stringSplit/date-format.pipe';
 })
 export class WeatherResultComponent implements OnInit, AfterContentChecked {
   sharedData!: WeatherResult;
-  sessionData!: WeatherResult;
-  unit!: string;
+  sessionData: ExternalData = {
+    location: '',
+    locationTime: '',
+    windDegree: 0,
+    windDirection: '',
+    externalLink: '',
+    weatherIndex: 0,
+    weatherDescription: '',
+    weatherIcon: '',
+    unit: ''
+  };
   converted: boolean = false;
   loadingSpinner!: boolean;
 
   dateFormat!: string;
-  timeFormat!: string | null;
-  hour!: string | undefined;
 
-  windDegree!: number;
-  windDirection!: string;
-
-  country!: string;
-  city!: string;
-  location!: string;
-  locationTime!: string;
-
-  weatherIndex!: number;
-  weatherDescription!: string;
-  weatherIcon!: string;
   backgroundImage: string = '../../../assets/images/';
-  externalLink: any;
-  iconPath!: string | undefined;
-  dayState!: string;
   searchString!: string | null;
 
   constructor(
@@ -82,14 +76,14 @@ export class WeatherResultComponent implements OnInit, AfterContentChecked {
       if (this.sharedData) {
         this.getLocationTime();
 
-        this.location = this.weatherService.location;
         this.sharedData.data.time = this.sharedData.data.time.split('T')[0];
 
-        this.windDegree = this.sharedData.data.values.windDirection;
-        this.windDirection = WeatherUtilities.getWindDirection(this.sharedData.data.values.windDirection);
-        this.externalLink = environement.locationSearch + this.location;
-        this.weatherIndex = WeatherUtilities.getWeatherDescription(this.sharedData.data.values.weatherCode.toString()).index;
-        this.weatherDescription = WeatherUtilities.getWeatherDescription(this.sharedData.data.values.weatherCode.toString()).description;
+        this.sessionData.location = this.weatherService.location;
+        this.sessionData.windDegree = this.sharedData.data.values.windDirection;
+        this.sessionData.windDirection = WeatherUtilities.getWindDirection(this.sharedData.data.values.windDirection);
+        this.sessionData.externalLink = environement.locationSearch + this.sessionData.location;
+        this.sessionData.weatherIndex = WeatherUtilities.getWeatherDescription(this.sharedData.data.values.weatherCode.toString()).index;
+        this.sessionData.weatherDescription = WeatherUtilities.getWeatherDescription(this.sharedData.data.values.weatherCode.toString()).description;
 
         this.setWeatherIcon();
 
@@ -99,19 +93,18 @@ export class WeatherResultComponent implements OnInit, AfterContentChecked {
   }
   //Set weather icon
   private setWeatherIcon() {
-    WeatherUtilities.twentyFourHourDayTime(this.locationTime);
+    WeatherUtilities.twentyFourHourDayTime(this.sessionData.locationTime);
 
-    var iconInfo = WeatherUtilities.setIcon(this.sharedData.data, this.locationTime);
+    var iconInfo = WeatherUtilities.setIcon(this.sharedData.data, this.sessionData.locationTime);
 
-    this.weatherIcon = environement.weatherIconPath + iconInfo.iconPath;
-
+    this.sessionData.weatherIcon = environement.weatherIconPath + iconInfo.iconPath;
   }
   //Set weather temperature in celsius or farenheit
   private temperatureUnit() {
     this.weatherService.unitChoice$.subscribe(data => {
       if (data) {
         this.converted = !this.converted;
-        this.unit = data;
+        this.sessionData.unit = data;
       }
     });
 
@@ -132,7 +125,7 @@ export class WeatherResultComponent implements OnInit, AfterContentChecked {
         const minutes = localTime.getMinutes() < 10 ? '0' + `${localTime.getMinutes()}` : localTime.getMinutes();
         const hours = localTime.getHours() < 10 ? '0' + `${localTime.getHours()}` : localTime.getHours();
         //Add values to variables
-        this.locationTime = `${hours}:${minutes}`;
+        this.sessionData.locationTime = `${hours}:${minutes}`;
         this.dateFormat = `${day}, ${date} ${month}`;
       });
   }
