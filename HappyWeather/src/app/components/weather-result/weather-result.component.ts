@@ -10,6 +10,7 @@ import { CommonModule } from '@angular/common';
 import { MaterialModule } from 'src/app/modules/material.module';
 import { WeatherUtilities } from 'src/app/shared/weatherUtilities';
 import { ActivatedRoute } from '@angular/router';
+import { DateFormatPipe } from 'src/app/pipes/stringSplit/date-format.pipe';
 
 @Component({
   selector: 'app-weather-result',
@@ -18,6 +19,7 @@ import { ActivatedRoute } from '@angular/router';
   standalone: true,
   imports: [
     TemperatureConversionPipe,
+    DateFormatPipe,
     NumberPipe,
     LoadingSpinnerComponent,
     LocalTimeComponent,
@@ -78,18 +80,17 @@ export class WeatherResultComponent implements OnInit, AfterContentChecked {
       this.sharedData = data;
 
       if (this.sharedData) {
-
         this.getLocationTime();
 
-        this.dateFormat = this.sharedData.data.time.split('T')[0];
+        this.location = this.weatherService.location;
+        this.sharedData.data.time = this.sharedData.data.time.split('T')[0];
 
         this.windDegree = this.sharedData.data.values.windDirection;
         this.windDirection = WeatherUtilities.getWindDirection(this.sharedData.data.values.windDirection);
-        this.location = this.weatherService.location;
-
         this.externalLink = environement.locationSearch + this.location;
         this.weatherIndex = WeatherUtilities.getWeatherDescription(this.sharedData.data.values.weatherCode.toString()).index;
         this.weatherDescription = WeatherUtilities.getWeatherDescription(this.sharedData.data.values.weatherCode.toString()).description;
+
         this.setWeatherIcon();
 
       }
