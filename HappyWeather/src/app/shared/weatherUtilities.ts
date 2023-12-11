@@ -31,6 +31,7 @@ export class WeatherUtilities {
         var currentCode = data.values.weatherCode.toString();
 
         var dayState = locationTime ? WeatherUtilities.twentyFourHourDayTime(locationTime) : WeatherUtilities.twentyFourHourDayTime(data.time.split('T')[1]);
+        console.log(dayState);
 
         // Check if code exists in weatherCode.ts
         const weatherindex = Object.keys(fourCode.WeatherCode).indexOf(currentCode);

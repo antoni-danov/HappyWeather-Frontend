@@ -6,10 +6,6 @@ import { WeatherService } from 'src/app/services/weatherService/weather.service'
 import { CommonModule } from '@angular/common';
 import { TemperatureConversionPipe } from 'src/app/pipes/temperature/temperature-conversion.pipe';
 import { WeatherUtilities } from 'src/app/shared/weatherUtilities';
-import * as fourCode from '../../enums/weatherCode';
-import * as fiveDayCode from '../../enums/weatherCodeFullDay';
-import * as fiveNightCode from '../../enums/weatherCodeFullNight';
-import * as iconList from '../../../assets/iconsList.json';
 import { environement } from 'src/app/environements/environement';
 import { Router } from '@angular/router';
 
@@ -65,7 +61,8 @@ export class FiveDaysForecastComponent implements OnInit {
   setWeatherIcon() {
 
     for (let index = 0; index <= this.fivedaysForecast.length; index++) {
-      var iconInfo = WeatherUtilities.setIcon(this.fivedaysForecast[index]);
+      const hour = this.locationTime;
+      var iconInfo = WeatherUtilities.setIcon(this.fivedaysForecast[index], hour);
 
       this.dayTimeDescription.push(iconInfo.weatherDescription.replaceAll('_', ' '));
       this.iconPaths.push(environement.weatherIconPath + iconInfo.iconPath);

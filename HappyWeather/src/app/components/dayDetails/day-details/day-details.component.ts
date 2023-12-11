@@ -69,8 +69,8 @@ export class DayDetailsComponent implements OnInit {
   private setWeatherIcon() {
 
     WeatherUtilities.twentyFourHourDayTime(this.locationTime);
-
-    var iconInfo = WeatherUtilities.setIcon(this.dayDetails[0], this.locationTime);
+    const hour = this.locationTime;
+    var iconInfo = WeatherUtilities.setIcon(this.dayDetails[0], hour);
 
     this.weatherIcon = environement.weatherIconPath + iconInfo.iconPath;
 
