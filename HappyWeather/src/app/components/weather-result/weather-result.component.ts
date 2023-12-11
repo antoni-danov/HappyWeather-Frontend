@@ -113,20 +113,8 @@ export class WeatherResultComponent implements OnInit, AfterContentChecked {
   private getLocationTime() {
     this.weatherService.locationTimeData$
       .subscribe((timezoneData: any) => {
-        //Get time zone
-        const timeZoneId = timezoneData.timeZoneId;
-        const currentUTC = new Date();
-        const localTime = new Date(currentUTC.toLocaleString('en-US', { timeZone: timeZoneId }));
-        //Get day, month and date
-        const day = new Intl.DateTimeFormat('en-US', { weekday: 'long' }).format(localTime);
-        const month = new Intl.DateTimeFormat('en-US', { month: 'long' }).format(localTime);
-        const date = localTime.getDate();
-        //Get hour and minutes
-        const minutes = localTime.getMinutes() < 10 ? '0' + `${localTime.getMinutes()}` : localTime.getMinutes();
-        const hours = localTime.getHours() < 10 ? '0' + `${localTime.getHours()}` : localTime.getHours();
-        //Add values to variables
-        this.sessionData.locationTime = `${hours}:${minutes}`;
-        this.dateFormat = `${day}, ${date} ${month}`;
+        this.sessionData.locationTime = WeatherUtilities.getLocationTime(timezoneData).locationTime;
+        this.dateFormat = WeatherUtilities.getLocationTime(timezoneData).dateFormat;
       });
   }
 }

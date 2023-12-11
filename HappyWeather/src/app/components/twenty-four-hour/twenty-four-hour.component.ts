@@ -50,7 +50,7 @@ export class TwentyFourHourComponent implements OnInit {
 
       //Extract only 24 hours records starting from the location current time
       var extractedData = Object.values(data.timeLines.hourly)
-        .findIndex(file => file.time.split('T')[1].split(':')[0] == this.locationHour.toString());
+        .findIndex(file => file.time.split('T')[1].split(':')[0] == this.locationTime);
       this.details = Object.values(data.timeLines.hourly).splice(extractedData, 25);
 
       //Set weather icon for every record
@@ -83,15 +83,9 @@ export class TwentyFourHourComponent implements OnInit {
 
     this.service.locationTimeData$
       .subscribe((timezoneData: any) => {
+        this.locationTime = `${WeatherUtilities.getLocationTime(timezoneData).locationTime.split(':')[0]}:00`;
+        console.log(this.locationTime);
 
-        //Get time zone
-        const timeZoneId = timezoneData.timeZoneId;
-        const currentUTC = new Date();
-        const localTime = new Date(currentUTC.toLocaleString('en-US', { timeZone: timeZoneId }));
-        //Get hour
-        this.locationHour = localTime.getHours() < 10 ? '0' + `${localTime.getHours()}` : localTime.getHours();
-        //Add values to variables
-        this.locationTime = `${this.locationHour}:00`;
       });
   }
 
