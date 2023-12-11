@@ -6,10 +6,6 @@ import { WeatherService } from 'src/app/services/weatherService/weather.service'
 import { CommonModule } from '@angular/common';
 import { TemperatureConversionPipe } from 'src/app/pipes/temperature/temperature-conversion.pipe';
 import { WeatherUtilities } from 'src/app/shared/weatherUtilities';
-import * as fourCode from '../../enums/weatherCode';
-import * as fiveDayCode from '../../enums/weatherCodeFullDay';
-import * as fiveNightCode from '../../enums/weatherCodeFullNight';
-import * as iconList from '../../../assets/iconsList.json';
 import { environement } from 'src/app/environements/environement';
 import { Router } from '@angular/router';
 
@@ -65,7 +61,8 @@ export class FiveDaysForecastComponent implements OnInit {
   setWeatherIcon() {
 
     for (let index = 0; index <= this.fivedaysForecast.length; index++) {
-      var iconInfo = WeatherUtilities.setIcon(this.fivedaysForecast[index]);
+      const hour = this.locationTime;
+      var iconInfo = WeatherUtilities.setIcon(this.fivedaysForecast[index], hour);
 
       this.dayTimeDescription.push(iconInfo.weatherDescription.replaceAll('_', ' '));
       this.iconPaths.push(environement.weatherIconPath + iconInfo.iconPath);
@@ -88,20 +85,7 @@ export class FiveDaysForecastComponent implements OnInit {
 
     this.service.locationTimeData$
       .subscribe((timezoneData: any) => {
-        //Get time zone
-        const timeZoneId = timezoneData.timeZoneId;
-        const currentUTC = new Date();
-        const localTime = new Date(currentUTC.toLocaleString('en-US', { timeZone: timeZoneId }));
-        //Get day, month and date
-        const day = new Intl.DateTimeFormat('en-US', { weekday: 'long' }).format(localTime);
-        const month = new Intl.DateTimeFormat('en-US', { month: 'long' }).format(localTime);
-        const date = localTime.getDate();
-        //Get hour and minutes
-        const minutes = localTime.getMinutes() < 10 ? '0' + `${localTime.getMinutes()}` : localTime.getMinutes();
-        const hours = localTime.getHours() < 10 ? '0' + `${localTime.getHours()}` : localTime.getHours();
-        //Add values to variables
-        this.locationTime = `${hours}:${minutes}`;
-        // this.dateFormat = `${day}, ${date} ${month}`;
+        this.locationTime = WeatherUtilities.getLocationTime(timezoneData).locationTime;
       });
   }
 }

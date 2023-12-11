@@ -89,8 +89,4 @@ export class WeatherService {
   getSpinner() {
     return this.isLoading.asObservable();
   }
-  // sessionStorage(data: WeatherResult) {
-  //   sessionStorage.clear();
-  //   sessionStorage.setItem('data', JSON.stringify(data));
-  // }
 }

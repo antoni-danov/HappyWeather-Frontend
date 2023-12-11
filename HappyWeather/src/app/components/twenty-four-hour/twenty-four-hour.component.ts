@@ -83,7 +83,6 @@ export class TwentyFourHourComponent implements OnInit {
 
     this.service.locationTimeData$
       .subscribe((timezoneData: any) => {
-
         //Get time zone
         const timeZoneId = timezoneData.timeZoneId;
         const currentUTC = new Date();

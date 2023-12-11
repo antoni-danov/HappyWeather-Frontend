@@ -3,33 +3,36 @@
 } @else if(sharedData){
 <div class="weather-container">
   <section class="mainInfo">
-    <div id="dateFormat"><strong>{{dateFormat}}</strong></div>
-    @if (weatherIndex) {
+    <div id="dateFormat">
+      <strong>{{this.sharedData.data.time | dateFormat}}</strong>
+    </div>
+    @if (sessionData.weatherIndex) {
     <p id="weatherIcon">
-      <img [src]="weatherIcon" alt="" />
+      <img [src]="sessionData.weatherIcon" alt="" />
     </p>
     <!-- <div id="shadow"></div> -->
     }
     <div id="temperature">
       <span
-        >{{this.sharedData.data.values.temperature | tempConversion: unit :
-        converted | roundNumber }}&deg;
+        >{{this.sharedData.data.values.temperature | tempConversion:
+        sessionData.unit : converted | roundNumber }}&deg;
       </span>
-      @if (unit === undefined || unit === 'metric' || unit === null || unit ===
-      'Nan') {
+      @if (sessionData.unit === undefined || sessionData.unit === 'metric' ||
+      sessionData.unit === null || sessionData.unit === 'Nan') {
       <span>C</span>
-      } @if (unit === 'imperial') {
+      } @if (sessionData.unit === 'imperial') {
       <span>F</span>
       }
     </div>
     <div id="feelsLike">
       <span
         ><strong>Feels like:</strong>
-        {{this.sharedData.data.values.temperatureApparent| tempConversion: unit
-        : converted | roundNumber }}&deg; @if (unit === undefined || unit ===
-        'metric' || unit === null || unit === 'Nan') {
+        {{this.sharedData.data.values.temperatureApparent| tempConversion:
+        sessionData.unit : converted | roundNumber }}&deg; @if (sessionData.unit
+        === undefined || sessionData.unit === 'metric' || sessionData.unit ===
+        null || sessionData.unit === 'Nan') {
         <span>C</span>
-        } @if (unit === 'imperial') {
+        } @if (sessionData.unit === 'imperial') {
         <span>F</span>
         }
       </span>
@@ -53,11 +56,15 @@
         >
         <br />
         @if (sharedData.data.values.windSpeed > 0) {
-        <span> <strong>Wind direction:</strong> {{this.windDirection}} </span>
+        <span>
+          <strong>Wind direction:</strong> {{sessionData.windDirection}}
+        </span>
         }
       </div>
       <div class="windIcon">
-        <i class="wi wi-wind towards-{{this.windDegree | roundNumber}}-deg"></i>
+        <i
+          class="wi wi-wind towards-{{sessionData.windDegree | roundNumber}}-deg"
+        ></i>
       </div>
     </div>
   </section>
@@ -67,13 +74,15 @@
       <section class="location">
         <div id="locationName">
           <mat-icon>place</mat-icon
-          ><a id="hyperlink" [href]="externalLink" target="_blank">
-            <strong>{{location}} </strong
+          ><a id="hyperlink" [href]="sessionData.externalLink" target="_blank">
+            <strong>{{sessionData.location}} </strong
             ><span class="material-icons">open_in_new</span>
           </a>
         </div>
         <div id="localTime">
-          <app-local-time [localTime]="locationTime"></app-local-time>
+          <app-local-time
+            [localTime]="sessionData.locationTime"
+          ></app-local-time>
         </div>
       </section>
       <section class="weatherState">
@@ -81,7 +90,7 @@
         <br />
         <div class="weatherForecast">
           <div>
-            {{weatherDescription}}
+            {{sessionData.weatherDescription}}
           </div>
         </div>
       </section>

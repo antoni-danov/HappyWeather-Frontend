@@ -69,5 +69,24 @@ export class WeatherUtilities {
 
         return { weatherDescription, iconPath };
     }
+    static getLocationTime(data: any): { locationTime: string, dateFormat: string } {
+
+        //Get time zone
+        const timeZoneId = data.timeZoneId;
+        const currentUTC = new Date();
+        const localTime = new Date(currentUTC.toLocaleString('en-US', { timeZone: timeZoneId }));
+        //Get day, month and date
+        const day = new Intl.DateTimeFormat('en-US', { weekday: 'long' }).format(localTime);
+        const month = new Intl.DateTimeFormat('en-US', { month: 'long' }).format(localTime);
+        const date = localTime.getDate();
+        //Get hour and minutes
+        const minutes = localTime.getMinutes() < 10 ? '0' + `${localTime.getMinutes()}` : localTime.getMinutes();
+        const hours = localTime.getHours() < 10 ? '0' + `${localTime.getHours()}` : localTime.getHours();
+
+        const locationTime = `${hours}:${minutes}`;
+        const dateFormat = `${day}, ${date} ${month}`;
+
+        return { locationTime, dateFormat }
+    }
 
 }
