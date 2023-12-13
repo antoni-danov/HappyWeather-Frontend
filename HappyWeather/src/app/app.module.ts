@@ -21,6 +21,8 @@ import { NumberPipe } from './pipes/roundNumber/number.pipe';
 import { TemperatureConversionPipe } from './pipes/temperature/temperature-conversion.pipe';
 import { LoadingSpinnerComponent } from './components/loading-spinner/loading-spinner.component';
 import { CountdownTimerComponent } from './components/countdown-timer/countdown-timer.component';
+import { CarouselComponent } from './components/carousel/carousel/carousel.component';
+import { CarouselModule } from 'ngx-owl-carousel-o';
 
 @NgModule({
   declarations: [
@@ -39,7 +41,9 @@ import { CountdownTimerComponent } from './components/countdown-timer/countdown-
     FormsModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
-    LoadingSpinnerComponent
+    LoadingSpinnerComponent,
+    CarouselComponent,
+    CarouselModule
   ],
   providers: [
     DatePipe,
