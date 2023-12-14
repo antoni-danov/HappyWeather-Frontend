@@ -62,16 +62,6 @@ export class FiveDaysForecastComponent implements OnInit {
     this.temperatureUnit();
 
   }
-  @HostListener('window:scroll', [])
-
-  onWindowScroll() {
-    const scrollPosition = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
-    this.showButton = scrollPosition > 100;
-  }
-
-  scrollToTop() {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  }
 
   fiveDaysWeatherForecast() {
     this.service.fiveDaysForecast();
@@ -112,5 +102,15 @@ export class FiveDaysForecastComponent implements OnInit {
       .subscribe((timezoneData: any) => {
         this.locationTime = WeatherUtilities.getLocationTime(timezoneData).locationTime;
       });
+  }
+  @HostListener('window:scroll', [])
+
+  onWindowScroll() {
+    const scrollPosition = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+    this.showButton = scrollPosition > 100;
+  }
+
+  scrollToTop() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 }
