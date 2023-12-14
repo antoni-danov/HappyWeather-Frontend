@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { WeatherService } from 'src/app/services/weatherService/weather.service';
 import { HourlyUnit } from 'src/app/interfaces/HourlyForecast/hourlyUnit';
@@ -32,6 +32,7 @@ export class TwentyFourHourComponent implements OnInit {
   timeOfTheDay: string[] = [];
   locationHour!: string | number;
   locationTime!: string;
+  showButton: boolean = false;
 
   constructor(private service: WeatherService) {
   }
@@ -39,6 +40,16 @@ export class TwentyFourHourComponent implements OnInit {
   ngOnInit() {
     this.detailedWeatherForecast();
     this.temperatureUnit();
+  }
+  @HostListener('window:scroll', [])
+
+  onWindowScroll() {
+    const scrollPosition = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+    this.showButton = scrollPosition > 100;
+  }
+
+  scrollToTop() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
   detailedWeatherForecast() {

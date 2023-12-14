@@ -50,3 +50,18 @@
 #time {
   text-align: center;
 }
+.scroll-top-btn {
+  position: fixed;
+  bottom: 3%;
+  right: 5%;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  border-width: thick;
+  width: 5%;
+  height: 5%;
+  border-radius: 50%;
+}
+
+.scroll-top-btn.show {
+  opacity: 1;
+}

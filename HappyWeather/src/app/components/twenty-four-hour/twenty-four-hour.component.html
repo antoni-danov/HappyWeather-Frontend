@@ -70,4 +70,11 @@
     <span>{{item.values.maxWindGust | roundNumber}} m/s</span>
   </div>
 </div>
-} }
+}
+<button
+  (click)="scrollToTop()"
+  class="btn btn-light scroll-top-btn"
+  [class.show]="showButton"
+>
+  <i class="fa fa-angle-up fa-fade fa-xl" style="color: #5d6269;"></i></button
+>}

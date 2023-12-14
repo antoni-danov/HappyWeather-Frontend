@@ -1,65 +1,81 @@
-@if (this.fivedaysForecast) { @for (day of fivedaysForecast; track $index) {
-<button class="daysContainer" (click)="navigateToDetails($index, day.time)">
-  <div class="dayInfo">
-    <div>
-      <p><strong>{{day.time | dateFormat}}</strong></p>
+@if (this.fivedaysForecast) {
+<div [@fadeInAnimation]="fivedaysForecast.length">
+  @for (day of fivedaysForecast; track $index) {
+  <button
+    [@fadeInAnimation]="$index"
+    class="daysContainer moveFromLeft"
+    (click)="navigateToDetails($index, day.time)"
+  >
+    <div class="dayInfo">
+      <div>
+        <p><strong>{{day.time | dateFormat}}</strong></p>
+      </div>
+      <div class="weatherIcon">
+        <img [src]="iconPaths[$index]" alt="" />
+        <div id="shadow"></div>
+        <p id="description">
+          {{dayTimeDescription[$index]}}
+        </p>
+      </div>
     </div>
-    <div class="weatherIcon">
-      <img [src]="iconPaths[$index]" alt="" />
-      <div id="shadow"></div>
-      <p id="description">
-        {{dayTimeDescription[$index]}}
-      </p>
+    <div class="vertical-line"></div>
+    <div class="temperature">
+      <div>
+        <span><strong>Min temp: </strong></span>
+        <span>
+          {{day.values.minTemperature | tempConversion: unit : converted |
+          roundNumber}}&deg;
+        </span>
+        @if (unit === undefined || unit === 'metric' || unit === null || unit
+        === 'Nan') {
+        <span>C</span>
+        } @if (unit === 'imperial') {
+        <span>F</span>
+        }
+        <br />
+        <span><strong>Max temp: </strong></span>
+        <span>
+          {{day.values.maxTemperature | tempConversion: unit : converted |
+          roundNumber }}&deg;
+        </span>
+        @if (unit === undefined || unit === 'metric' || unit === null || unit
+        === 'Nan') {
+        <span>C</span>
+        } @if (unit === 'imperial') {
+        <span>F</span>
+        }
+      </div>
     </div>
-  </div>
-  <div class="vertical-line"></div>
-  <div class="temperature">
-    <div>
-      <span><strong>Min temp: </strong></span>
-      <span>
-        {{day.values.minTemperature | tempConversion: unit : converted |
-        roundNumber}}&deg;
-      </span>
-      @if (unit === undefined || unit === 'metric' || unit === null || unit ===
-      'Nan') {
-      <span>C</span>
-      } @if (unit === 'imperial') {
-      <span>F</span>
-      }
-      <br />
-      <span><strong>Max temp: </strong></span>
-      <span>
-        {{day.values.maxTemperature | tempConversion: unit : converted |
-        roundNumber }}&deg;
-      </span>
-      @if (unit === undefined || unit === 'metric' || unit === null || unit ===
-      'Nan') {
-      <span>C</span>
-      } @if (unit === 'imperial') {
-      <span>F</span>
-      }
+    <div class="vertical-line"></div>
+    <div class="mainInfo">
+      <div>
+        <span
+          ><strong>Wind speed: </strong>{{day.values.windSpeed | roundNumber}}
+          m/s</span
+        >
+      </div>
+      <div>
+        <span
+          ><strong>Cloud coverage: </strong>{{day.values.cloudCoverAverage |
+          roundNumber}}%</span
+        >
+      </div>
+      <div>
+        <span>
+          <strong>Precipitation probability: </strong
+          >{{day.values.precipitationProbability | roundNumber}}%
+        </span>
+      </div>
     </div>
-  </div>
-  <div class="vertical-line"></div>
-  <div class="mainInfo">
-    <div>
-      <span
-        ><strong>Wind speed: </strong>{{day.values.windSpeed | roundNumber}}
-        m/s</span
-      >
-    </div>
-    <div>
-      <span
-        ><strong>Cloud coverage: </strong>{{day.values.cloudCoverAverage |
-        roundNumber}}%</span
-      >
-    </div>
-    <div>
-      <span>
-        <strong>Precipitation probability: </strong
-        >{{day.values.precipitationProbability | roundNumber}}%
-      </span>
-    </div>
-  </div>
+  </button>
+  }
+</div>
+
+}
+<button
+  (click)="scrollToTop()"
+  class="btn btn-light scroll-top-btn"
+  [class.show]="showButton"
+>
+  <i class="fa fa-angle-up fa-fade fa-xl" style="color: #5d6269;"></i>
 </button>
-} }
