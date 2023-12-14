@@ -4,7 +4,7 @@
     <div>
       <p>{{item.time | dateFormat}}</p>
 
-      <p>{{item.time.split('T')[1].split(':00Z')[0]}}</p>
+      <p id="time">{{item.time.split('T')[1].split(':00Z')[0]}}</p>
     </div>
     <div class="weatherIcon">
       <img [src]="iconPaths[$index]" alt="" />
@@ -15,7 +15,7 @@
     </div>
   </div>
   <div class="separator"></div>
-  <div>
+  <div class="temperature">
     <span>Temperature: </span>
     <span>
       {{item.values.temperature | tempConversion: unit : converted |
@@ -41,7 +41,7 @@
     }
   </div>
   <div class="separator"></div>
-  <div>
+  <div class="additionalInformation">
     <span>Cloud coverage: </span>
     <span>{{item.values.cloudCoverage | roundNumber}}%</span>
     <br />
@@ -56,7 +56,7 @@
     <br />
   </div>
   <div class="separator"></div>
-  <div>
+  <div class="windInformation">
     <span>Visibility: </span>
     <span>{{item.values.visibility | roundNumber}} km</span>
     <br />
@@ -70,5 +70,11 @@
     <span>{{item.values.maxWindGust | roundNumber}} m/s</span>
   </div>
 </div>
-<hr />
-} }
+}
+<button
+  (click)="scrollToTop()"
+  class="btn btn-light scroll-top-btn"
+  [class.show]="showButton"
+>
+  <i class="fa fa-angle-up" style="color: #5d6269;"></i></button
+>}

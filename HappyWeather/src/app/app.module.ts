@@ -39,7 +39,7 @@ import { CountdownTimerComponent } from './components/countdown-timer/countdown-
     FormsModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
-    LoadingSpinnerComponent
+    LoadingSpinnerComponent,
   ],
   providers: [
     DatePipe,

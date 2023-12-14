@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { DayUnit } from 'src/app/interfaces/DailyForecast/dayUnit';
 import { NumberPipe } from 'src/app/pipes/roundNumber/number.pipe';
 import { DateFormatPipe } from 'src/app/pipes/stringSplit/date-format.pipe';
@@ -8,6 +8,7 @@ import { TemperatureConversionPipe } from 'src/app/pipes/temperature/temperature
 import { WeatherUtilities } from 'src/app/shared/weatherUtilities';
 import { environement } from 'src/app/environements/environement';
 import { Router } from '@angular/router';
+import { animate, query, stagger, state, style, transition, trigger } from '@angular/animations';
 
 @Component({
   selector: 'app-five-days-forecast',
@@ -19,6 +20,18 @@ import { Router } from '@angular/router';
     NumberPipe,
     DateFormatPipe,
     CommonModule
+  ],
+  animations: [
+    trigger('fadeInAnimation', [
+      transition('* => *', [
+        query(':enter', [
+          style({ opacity: 0, transform: 'translateY(20px)' }),
+          stagger('200ms', [
+            // animate('500ms ease-out', style({ opacity: 1, transform: 'translateX(0)' }))
+          ])
+        ], { optional: true })
+      ])
+    ])
   ]
 })
 export class FiveDaysForecastComponent implements OnInit {
@@ -37,6 +50,7 @@ export class FiveDaysForecastComponent implements OnInit {
   weatherIcon!: string;
 
   locationTime!: string;
+  showButton: boolean = false;
 
   constructor(
     private service: WeatherService,
@@ -48,6 +62,7 @@ export class FiveDaysForecastComponent implements OnInit {
     this.temperatureUnit();
 
   }
+
   fiveDaysWeatherForecast() {
     this.service.fiveDaysForecast();
 
@@ -87,5 +102,15 @@ export class FiveDaysForecastComponent implements OnInit {
       .subscribe((timezoneData: any) => {
         this.locationTime = WeatherUtilities.getLocationTime(timezoneData).locationTime;
       });
+  }
+  @HostListener('window:scroll', [])
+
+  onWindowScroll() {
+    const scrollPosition = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+    this.showButton = scrollPosition > 100;
+  }
+
+  scrollToTop() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 }

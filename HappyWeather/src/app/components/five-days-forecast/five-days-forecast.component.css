@@ -17,6 +17,16 @@
   -webkit-box-shadow: 0px 5px 4px 3px rgba(0, 0, 0, 0.47);
   box-shadow: 0px 0px 4px 3px rgba(0, 0, 0, 0.47);
 }
+.moveFromLeft {
+  transform: translateX(-100%);
+  animation: moveRight 1.6s ease-in-out forwards;
+}
+@keyframes moveRight {
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
 .daysContainer:hover {
   background-color: #286090;
   border-color: #204d74;
@@ -43,6 +53,30 @@
 .temperature div span {
   font-size: x-large;
   font-weight: 500;
+}
+.scroll-top-btn {
+  position: fixed;
+  bottom: 3%;
+  right: 5%;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  border-width: thick;
+  width: 6%;
+  height: 12%;
+  padding: 13px 18px;
+  border-radius: 60px;
+  font-size: 15px;
+  text-align: center;
+  border: 1px solid gainsboro;
+  background-color: white;
+}
+.scroll-top-btn i {
+  font-size: xx-large;
+}
+.scroll-top-btn.show {
+  opacity: 1;
+}
+@media screen and (min-width: 320px) {
 }
 @media screen and (min-width: 1024px) {
   .daysContainer {
