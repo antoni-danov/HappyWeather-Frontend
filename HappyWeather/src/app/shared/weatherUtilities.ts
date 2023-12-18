@@ -92,7 +92,6 @@ export class WeatherUtilities {
         sessionStorage.setItem(sessionName, JSON.stringify(mainData));
     }
     static clearSessionStorage(mainData: any, sessionData: any) {
-        sessionStorage.clear();
         sessionStorage.removeItem(mainData);
         sessionStorage.removeItem(sessionData);
     }

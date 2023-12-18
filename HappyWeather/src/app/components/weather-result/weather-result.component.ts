@@ -58,7 +58,7 @@ export class WeatherResultComponent implements OnInit, AfterContentChecked {
     var existingData = sessionStorage.getItem(environement.sessionStorageMainData);
 
     if (existingData) {
-      this.sharedData = JSON.parse(sessionStorage.getItem(environement.sessionStorageMainData)!);
+      this.sharedData = JSON.parse(existingData!);
       this.sessionData = JSON.parse(sessionStorage.getItem(environement.sessionStorageSessionData)!);
     } else {
       this.timeCityWeatherData();

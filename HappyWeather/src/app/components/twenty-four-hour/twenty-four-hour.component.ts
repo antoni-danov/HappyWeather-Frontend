@@ -38,11 +38,11 @@ export class TwentyFourHourComponent implements OnInit, AfterContentChecked {
   }
 
   ngOnInit() {
-    var existingData = sessionStorage.getItem(environement.sessionTwentyFourDetails);
+    var hourForecast = sessionStorage.getItem(environement.sessionHourForecastDetails);
 
-    if (existingData) {
-      this.details = JSON.parse(sessionStorage.getItem(environement.sessionTwentyFourDetails)!);
-      this.iconPaths = JSON.parse(sessionStorage.getItem(environement.sessionIconPaths)!);
+    if (hourForecast) {
+      this.details = JSON.parse(hourForecast!);
+      this.iconPaths = JSON.parse(sessionStorage.getItem(environement.sessionHourIconPaths)!);
 
 
     } else {
@@ -53,8 +53,8 @@ export class TwentyFourHourComponent implements OnInit, AfterContentChecked {
 
   ngAfterContentChecked() {
     if (this.details && this.iconPaths) {
-      WeatherUtilities.setSessionStorageData(environement.sessionTwentyFourDetails, this.details);
-      WeatherUtilities.setSessionStorageData(environement.sessionIconPaths, this.iconPaths);
+      WeatherUtilities.setSessionStorageData(environement.sessionHourForecastDetails, this.details);
+      WeatherUtilities.setSessionStorageData(environement.sessionHourIconPaths, this.iconPaths);
     }
   }
   @HostListener('window:scroll', [])

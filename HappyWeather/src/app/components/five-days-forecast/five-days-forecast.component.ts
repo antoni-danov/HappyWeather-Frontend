@@ -8,7 +8,7 @@ import { TemperatureConversionPipe } from 'src/app/pipes/temperature/temperature
 import { WeatherUtilities } from 'src/app/shared/weatherUtilities';
 import { environement } from 'src/app/environements/environement';
 import { Router } from '@angular/router';
-import { animate, query, stagger, state, style, transition, trigger } from '@angular/animations';
+import { query, stagger, style, transition, trigger } from '@angular/animations';
 
 @Component({
   selector: 'app-five-days-forecast',
@@ -26,8 +26,7 @@ import { animate, query, stagger, state, style, transition, trigger } from '@ang
       transition('* => *', [
         query(':enter', [
           style({ opacity: 0, transform: 'translateY(20px)' }),
-          stagger('200ms', [
-            // animate('500ms ease-out', style({ opacity: 1, transform: 'translateX(0)' }))
+          stagger('100ms', [
           ])
         ], { optional: true })
       ])
@@ -58,9 +57,21 @@ export class FiveDaysForecastComponent implements OnInit {
 
   }
   ngOnInit() {
-    this.fiveDaysWeatherForecast();
-    this.temperatureUnit();
+    var fiveDaysForecastSession = sessionStorage.getItem(environement.sessionFiveDaysForecast);
 
+    if (fiveDaysForecastSession) {
+      this.fivedaysForecast = JSON.parse(fiveDaysForecastSession!);
+      this.iconPaths = JSON.parse(sessionStorage.getItem(environement.sessionFiveDaysIconPaths)!);
+    } else {
+      this.fiveDaysWeatherForecast();
+      this.temperatureUnit();
+    }
+  }
+  ngAfterContentChecked() {
+    if (this.fivedaysForecast && this.iconPaths) {
+      WeatherUtilities.setSessionStorageData(environement.sessionFiveDaysForecast, this.fivedaysForecast);
+      WeatherUtilities.setSessionStorageData(environement.sessionFiveDaysIconPaths, this.iconPaths);
+    }
   }
 
   fiveDaysWeatherForecast() {

@@ -51,6 +51,7 @@ export class WeatherService {
     return this.http.get<WeatherResult>(environement.localhost + `${this.location}`, { params }).subscribe(data => {
       if (data) {
         this.setSpinner(false);
+        sessionStorage.clear();
         WeatherUtilities.clearSessionStorage(environement.sessionStorageMainData, environement.sessionStorageSessionData);
 
         this.weatherData = data;
@@ -67,13 +68,14 @@ export class WeatherService {
     return this.http.get<WeatherForecast<DayUnit>>(environement.localhost + `${this.location}/dailyforecast`, { params })
       .subscribe(data => {
         if (data) {
+          WeatherUtilities.clearSessionStorage(environement.sessionFiveDaysForecast, environement.sessionFiveDaysIconPaths);
           this.fiveDaysSubject.next(data);
         }
       });
   }
   hourlyWeatherForecast(): Observable<WeatherForecast<HourlyUnit>> {
     var params = new HttpParams().set('unit', this.units).set('timeStep', '1h');
-    WeatherUtilities.clearSessionStorage(environement.sessionTwentyFourDetails, environement.sessionIconPaths);
+    WeatherUtilities.clearSessionStorage(environement.sessionHourForecastDetails, environement.sessionHourIconPaths);
 
     return this.http.get<WeatherForecast<HourlyUnit>>(environement.localhost + `${this.location}/hourlyforecast`, { params });
   }
