@@ -1,4 +1,4 @@
-import { Component, HostListener, OnInit } from '@angular/core';
+import { AfterContentChecked, Component, HostListener, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { WeatherService } from 'src/app/services/weatherService/weather.service';
 import { HourlyUnit } from 'src/app/interfaces/HourlyForecast/hourlyUnit';
@@ -21,7 +21,7 @@ import { environement } from 'src/app/environements/environement';
     DateFormatPipe,
   ]
 })
-export class TwentyFourHourComponent implements OnInit {
+export class TwentyFourHourComponent implements OnInit, AfterContentChecked {
   details!: HourlyUnit[];
 
   converted: boolean = false;
@@ -38,8 +38,24 @@ export class TwentyFourHourComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.detailedWeatherForecast();
-    this.temperatureUnit();
+    var existingData = sessionStorage.getItem(environement.sessionTwentyFourDetails);
+
+    if (existingData) {
+      this.details = JSON.parse(sessionStorage.getItem(environement.sessionTwentyFourDetails)!);
+      this.iconPaths = JSON.parse(sessionStorage.getItem(environement.sessionIconPaths)!);
+
+
+    } else {
+      this.detailedWeatherForecast();
+      this.temperatureUnit();
+    }
+  }
+
+  ngAfterContentChecked() {
+    if (this.details && this.iconPaths) {
+      WeatherUtilities.setSessionStorageData(environement.sessionTwentyFourDetails, this.details);
+      WeatherUtilities.setSessionStorageData(environement.sessionIconPaths, this.iconPaths);
+    }
   }
   @HostListener('window:scroll', [])
 
@@ -67,6 +83,8 @@ export class TwentyFourHourComponent implements OnInit {
       //Set weather icon for every record
       this.setWeatherIcon();
     });
+
+
   }
 
   //Set weatherIcon
@@ -78,6 +96,8 @@ export class TwentyFourHourComponent implements OnInit {
       this.realTimeDescription.push(iconInfo.weatherDescription.replaceAll('_', ' '));
       this.iconPaths.push(environement.weatherIconPath + iconInfo.iconPath);
     }
+    console.log(this.iconPaths);
+
   }
   //Set weather temperature in celsius or farenheit
   private temperatureUnit() {

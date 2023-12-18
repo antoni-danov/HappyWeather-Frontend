@@ -12,12 +12,12 @@ export class NavbarComponent implements OnInit, DoCheck {
   isChoosed: boolean = false;
   haveResult: boolean = false;
   location!: string;
+  haveSessionStorage!: number;
 
   constructor(private service: WeatherService, private router: Router) {
   }
 
   ngOnInit() {
-    this.haveResult = false;
     this.checkForResult();
   }
 
@@ -28,6 +28,8 @@ export class NavbarComponent implements OnInit, DoCheck {
   }
 
   checkForResult() {
+    this.haveSessionStorage = sessionStorage.length;
+
     this.service.data$.subscribe(data => {
       if (data) {
         this.haveResult = true;
