@@ -8,7 +8,7 @@
     </div>
     @if (sessionData.weatherIndex) {
     <p id="weatherIcon">
-      <img [src]="sessionData.weatherIcon" alt="" />
+      <img [src]="sessionData.weatherIcon" alt="weather icon" />
     </p>
     }
     <div id="temperature">
@@ -17,7 +17,8 @@
         sessionData.unit : converted | roundNumber }}&deg;
       </span>
       @if (sessionData.unit === undefined || sessionData.unit === 'metric' ||
-      sessionData.unit === null || sessionData.unit === 'Nan') {
+      sessionData.unit === null || sessionData.unit === 'Nan' ||
+      sessionData.unit.length === 0) {
       <span>C</span>
       } @if (sessionData.unit === 'imperial') {
       <span>F</span>
@@ -29,7 +30,7 @@
         {{this.sharedData.data.values.temperatureApparent| tempConversion:
         sessionData.unit : converted | roundNumber }}&deg; @if (sessionData.unit
         === undefined || sessionData.unit === 'metric' || sessionData.unit ===
-        null || sessionData.unit === 'Nan') {
+        null || sessionData.unit === 'Nan' || sessionData.unit.length === 0) {
         <span>C</span>
         } @if (sessionData.unit === 'imperial') {
         <span>F</span>

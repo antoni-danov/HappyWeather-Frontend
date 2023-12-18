@@ -53,19 +53,33 @@ export class WeatherResultComponent implements OnInit, AfterContentChecked {
     private weatherService: WeatherService,
     private route: ActivatedRoute) {
   }
+
   ngOnInit() {
-    this.timeCityWeatherData();
-    this.temperatureUnit();
-    this.route.paramMap.subscribe(params => {
-      this.searchString = params.get('searchString');
-    });
+    var existingData = sessionStorage.getItem(environement.sessionStorageMainData);
+
+    if (existingData) {
+      this.sharedData = JSON.parse(existingData!);
+      this.sessionData = JSON.parse(sessionStorage.getItem(environement.sessionStorageSessionData)!);
+    } else {
+      this.timeCityWeatherData();
+      this.temperatureUnit();
+      this.route.paramMap.subscribe(params => {
+        this.searchString = params.get('searchString');
+      });
+    }
+
   }
   ngAfterContentChecked() {
     this.setWeatherIcon();
+
+    if (this.sessionData.locationTime && this.sessionData.weatherIcon) {
+      WeatherUtilities.setSessionStorageData(environement.sessionStorageMainData, this.sharedData);
+      WeatherUtilities.setSessionStorageData(environement.sessionStorageSessionData, this.sessionData);
+    }
   }
 
   //Recieve and extract weather data
-  timeCityWeatherData(sessionData?: WeatherResult) {
+  timeCityWeatherData() {
     this.weatherService.getSpinner().subscribe(data => {
       this.loadingSpinner = data;
     });
@@ -84,8 +98,6 @@ export class WeatherResultComponent implements OnInit, AfterContentChecked {
         this.sessionData.externalLink = environement.locationSearch + this.sessionData.location;
         this.sessionData.weatherIndex = WeatherUtilities.getWeatherDescription(this.sharedData.data.values.weatherCode.toString()).index;
         this.sessionData.weatherDescription = WeatherUtilities.getWeatherDescription(this.sharedData.data.values.weatherCode.toString()).description;
-
-        this.setWeatherIcon();
 
       }
     });

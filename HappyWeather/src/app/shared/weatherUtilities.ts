@@ -88,5 +88,11 @@ export class WeatherUtilities {
 
         return { locationTime, dateFormat }
     }
-
+    static setSessionStorageData(sessionName: any, mainData: any,) {
+        sessionStorage.setItem(sessionName, JSON.stringify(mainData));
+    }
+    static clearSessionStorage(mainData: any, sessionData: any) {
+        sessionStorage.removeItem(mainData);
+        sessionStorage.removeItem(sessionData);
+    }
 }
