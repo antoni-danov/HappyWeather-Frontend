@@ -57,21 +57,21 @@ export class FiveDaysForecastComponent implements OnInit {
 
   }
   ngOnInit() {
-    var fiveDaysForecastSession = sessionStorage.getItem(environement.sessionFiveDaysForecast);
+    // var fiveDaysForecastSession = sessionStorage.getItem(environement.sessionFiveDaysForecast);
 
-    if (fiveDaysForecastSession) {
-      this.fivedaysForecast = JSON.parse(fiveDaysForecastSession!);
-      this.iconPaths = JSON.parse(sessionStorage.getItem(environement.sessionFiveDaysIconPaths)!);
-    } else {
-      this.fiveDaysWeatherForecast();
-      this.temperatureUnit();
-    }
+    // if (fiveDaysForecastSession) {
+    //   this.fivedaysForecast = JSON.parse(fiveDaysForecastSession!);
+    //   this.iconPaths = JSON.parse(sessionStorage.getItem(environement.sessionFiveDaysIconPaths)!);
+    // } else {
+    this.fiveDaysWeatherForecast();
+    this.temperatureUnit();
+    // }
   }
   ngAfterContentChecked() {
-    if (this.fivedaysForecast && this.iconPaths) {
-      WeatherUtilities.setSessionStorageData(environement.sessionFiveDaysForecast, this.fivedaysForecast);
-      WeatherUtilities.setSessionStorageData(environement.sessionFiveDaysIconPaths, this.iconPaths);
-    }
+    // if (this.fivedaysForecast && this.iconPaths) {
+    //   WeatherUtilities.setSessionStorageData(environement.sessionFiveDaysForecast, this.fivedaysForecast);
+    //   WeatherUtilities.setSessionStorageData(environement.sessionFiveDaysIconPaths, this.iconPaths);
+    // }
   }
 
   fiveDaysWeatherForecast() {

@@ -38,24 +38,24 @@ export class TwentyFourHourComponent implements OnInit, AfterContentChecked {
   }
 
   ngOnInit() {
-    var hourForecast = sessionStorage.getItem(environement.sessionHourForecastDetails);
+    // var hourForecast = sessionStorage.getItem(environement.sessionHourForecastDetails);
 
-    if (hourForecast) {
-      this.details = JSON.parse(hourForecast!);
-      this.iconPaths = JSON.parse(sessionStorage.getItem(environement.sessionHourIconPaths)!);
+    // if (hourForecast) {
+    //   this.details = JSON.parse(hourForecast!);
+    //   this.iconPaths = JSON.parse(sessionStorage.getItem(environement.sessionHourIconPaths)!);
 
 
-    } else {
-      this.detailedWeatherForecast();
-      this.temperatureUnit();
-    }
+    // } else {
+    this.detailedWeatherForecast();
+    this.temperatureUnit();
+    // }
   }
 
   ngAfterContentChecked() {
-    if (this.details && this.iconPaths) {
-      WeatherUtilities.setSessionStorageData(environement.sessionHourForecastDetails, this.details);
-      WeatherUtilities.setSessionStorageData(environement.sessionHourIconPaths, this.iconPaths);
-    }
+    // if (this.details && this.iconPaths) {
+    //   WeatherUtilities.setSessionStorageData(environement.sessionHourForecastDetails, this.details);
+    //   WeatherUtilities.setSessionStorageData(environement.sessionHourIconPaths, this.iconPaths);
+    // }
   }
   @HostListener('window:scroll', [])
 
