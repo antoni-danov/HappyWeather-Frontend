@@ -5,7 +5,6 @@
   justify-content: space-evenly;
 
   margin: 1.5% 0% 1.5% 8.5%;
-  padding: 2%;
   border-radius: 15px;
   border: none;
 
@@ -26,15 +25,20 @@
 }
 .separator {
   border-left: 2px solid gray;
-  height: 246px;
-  margin: 0% 3%;
+  height: 285px;
+  margin: 3%;
 }
 .dayinfo {
   display: flex;
   flex-direction: column;
+  margin: 4% 0%;
+}
+.weatherIcon p {
+  font-size: x-large;
 }
 .weatherIcon {
   text-align: center;
+  margin: 12% 0%;
 }
 #shadow {
   margin-left: 20%;
@@ -71,4 +75,14 @@
 }
 .scroll-top-btn.show {
   opacity: 1;
+}
+.temperature,
+.additionalInformation,
+.windInformation {
+  display: flex;
+  flex-direction: column;
+  margin: 5% 0%;
+}
+.temperature {
+  margin: 10% 0%;
 }

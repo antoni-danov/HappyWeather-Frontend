@@ -2,7 +2,7 @@
 <div class="container">
   <div class="dayInfo">
     <div>
-      <p>{{item.time | dateFormat}}</p>
+      <p><strong>{{item.time | dateFormat}}</strong></p>
 
       <p id="time">{{item.time.split('T')[1].split(':00Z')[0]}}</p>
     </div>
@@ -14,60 +14,64 @@
       </p>
     </div>
   </div>
-  <div class="separator"></div>
   <div class="temperature">
-    <span>Temperature: </span>
-    <span>
-      {{item.values.temperature | tempConversion: unit : converted |
-      roundNumber}}&deg;
-    </span>
-    @if (unit === undefined || unit === 'metric' || unit === null || unit ===
-    'Nan') {
-    <span>C</span>
-    } @if (unit === 'imperial') {
-    <span>F</span>
-    }
-    <br />
-    <span>Fells like: </span>
-    <span>
-      {{item.values.apparentTemperature | tempConversion: unit : converted |
-      roundNumber }}&deg;
-    </span>
-    @if (unit === undefined || unit === 'metric' || unit === null || unit ===
-    'Nan') {
-    <span>C</span>
-    } @if (unit === 'imperial') {
-    <span>F</span>
-    }
+    <span
+      ><strong>Temperature: </strong>{{item.values.temperature | tempConversion:
+      unit : converted | roundNumber}}&deg; @if (unit === undefined || unit ===
+      'metric' || unit === null || unit === 'Nan') {
+      <span>C</span>
+      } @if (unit === 'imperial') {
+      <span>F</span>
+      }</span
+    >
+    <hr />
+    <span
+      ><strong>Fells like: </strong> {{item.values.apparentTemperature |
+      tempConversion: unit : converted | roundNumber }}&deg; @if (unit ===
+      undefined || unit === 'metric' || unit === null || unit === 'Nan') {
+      <span>C</span>
+      } @if (unit === 'imperial') {
+      <span>F</span>
+      }</span
+    >
+    <hr />
   </div>
-  <div class="separator"></div>
   <div class="additionalInformation">
-    <span>Cloud coverage: </span>
-    <span>{{item.values.cloudCoverage | roundNumber}}%</span>
-    <br />
-    <span>Humidity: </span>
-    <span>{{item.values.humidity | roundNumber}}%</span>
-    <br />
-    <span>Precipitation: </span>
-    <span>{{item.values.precipitationProbability | roundNumber}} mm</span>
-    <br />
-    <span>Index UV: </span>
-    <span>{{item.values.uvIndex}}</span>
-    <br />
+    <span
+      ><strong>Cloud coverage: </strong> {{item.values.cloudCoverage |
+      roundNumber}}%</span
+    >
+    <hr />
+    <span
+      ><strong>Humidity: </strong>{{item.values.humidity | roundNumber}}%</span
+    >
+    <hr />
+    <span
+      ><strong>Precipitation: </strong>{{item.values.precipitationProbability |
+      roundNumber}} mm</span
+    >
+    <hr />
+    <span><strong>Index UV: </strong>{{item.values.uvIndex}}</span>
+    <hr />
   </div>
-  <div class="separator"></div>
   <div class="windInformation">
-    <span>Visibility: </span>
-    <span>{{item.values.visibility | roundNumber}} km</span>
-    <br />
-    <span>Wind direction: </span>
-    <span>{{item.values.windDirection}}</span>
-    <br />
-    <span>Wind speed: </span>
-    <span>{{item.values.windSpeed | roundNumber}} m/s</span>
-    <br />
-    <span>Maximal wind gust: </span>
-    <span>{{item.values.maxWindGust | roundNumber}} m/s</span>
+    <span
+      ><strong>Visibility: </strong>{{item.values.visibility | roundNumber}}
+      km</span
+    >
+    <hr />
+    <span><strong>Wind direction: </strong>{{item.values.windDirection}}</span>
+    <hr />
+    <span
+      ><strong>Wind speed: </strong>{{item.values.windSpeed | roundNumber}}
+      m/s</span
+    >
+    <hr />
+    <span
+      ><strong>Maximal wind gust: </strong>{{item.values.maxWindGust |
+      roundNumber}} m/s</span
+    >
+    <hr />
   </div>
 </div>
 }

@@ -47,8 +47,7 @@
   font-weight: 400;
 }
 .temperature div {
-  margin-top: 45%;
-  margin-bottom: 45%;
+  margin: 40% 0%;
 }
 .temperature div span {
   font-size: x-large;
@@ -93,9 +92,11 @@
     justify-content: center;
     flex-grow: 0.1;
     text-align: justify;
+    margin: 6.5% 0%;
   }
   .weatherIcon {
     text-align: center;
+    margin: 17% 0%;
   }
   .vertical-line {
     border-left: 1px solid grey;
