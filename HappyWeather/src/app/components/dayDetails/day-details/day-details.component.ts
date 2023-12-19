@@ -38,34 +38,34 @@ export class DayDetailsComponent implements OnInit, AfterContentChecked {
   }
 
   ngOnInit() {
-    var daySessionStorage = sessionStorage.getItem(environement.sessionDayDetails);
+    // var daySessionStorage = sessionStorage.getItem(environement.sessionDayDetails);
 
-    if (daySessionStorage) {
+    // if (daySessionStorage) {
 
-      this.dayDetails = JSON.parse(daySessionStorage!);
-      this.weatherIcon = JSON.parse(sessionStorage.getItem(environement.sessionDayWeatherIcon)!);
+    //   this.dayDetails = JSON.parse(daySessionStorage!);
+    //   this.weatherIcon = JSON.parse(sessionStorage.getItem(environement.sessionDayWeatherIcon)!);
 
-      console.log(this.dayDetails);
-      console.log(this.weatherIcon);
-    } else {
-      this.route.params.subscribe(params => {
-        this.index = params['id'];
-      });
-      this.detailedInformation();
-      this.temperatureUnit();
-    }
+    //   console.log(this.dayDetails);
+    //   console.log(this.weatherIcon);
+    // } else {
+    this.route.params.subscribe(params => {
+      this.index = params['id'];
+    });
+    this.detailedInformation();
+    this.temperatureUnit();
+    // }
 
   }
   ngAfterContentChecked() {
     this.setWeatherIcon();
 
-    if (this.locationTime && this.weatherIcon) {
-      console.log(this.dayDetails);
-      console.log(this.weatherIcon);
+    // if (this.locationTime && this.weatherIcon) {
+    //   console.log(this.dayDetails);
+    //   console.log(this.weatherIcon);
 
-      WeatherUtilities.setSessionStorageData(environement.sessionDayDetails, this.dayDetails);
-      WeatherUtilities.setSessionStorageData(environement.sessionDayWeatherIcon, this.weatherIcon);
-    }
+    //   WeatherUtilities.setSessionStorageData(environement.sessionDayDetails, this.dayDetails);
+    //   WeatherUtilities.setSessionStorageData(environement.sessionDayWeatherIcon, this.weatherIcon);
+    // }
   }
 
   detailedInformation() {
