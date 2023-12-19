@@ -7,16 +7,15 @@
   width: 100%;
 }
 .formField {
+  border: none;
   border-radius: 15px;
-  border: 1px black solid;
-  background-color: white;
   color: black;
   opacity: 0.8;
-  border-radius: 15px;
-
+  width: 60%;
+  box-shadow: inset 2px 2px 5px #a19696, inset 2px 2px 80px #f1eaea;
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
   margin: 1% 0%;
   padding: 1%;
-  width: 60%;
   flex-grow: 0.5;
 }
 .searchButton,

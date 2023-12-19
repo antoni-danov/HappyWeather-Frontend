@@ -30,6 +30,12 @@ mat-slide-toggle {
   width: 53px;
   height: 25px;
   margin: 0% 5% 0% 4%;
+  border: none;
+  border-radius: 30px;
+  font-size: 16px;
+  background-color: #f0f0f0;
+  box-shadow: 5px 5px 10px #bcbcbc, -5px -5px 10px #ffffff;
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
 }
 
 .switch input {
@@ -90,12 +96,9 @@ input:checked + .slider:before {
   color: black;
 }
 .btn {
-  /* background-color: rgba(29, 150, 299, 1);
-  color: white; */
-
   border: none;
   border-radius: 30px;
-  padding: 15px 25px;
+  padding: 5px 20px;
   font-size: 16px;
   background-color: transparent;
   box-shadow: 2px 2px 5px #a59d9d, -2px -2px 5px #ffe0b1;
