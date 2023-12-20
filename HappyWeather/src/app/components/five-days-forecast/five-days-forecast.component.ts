@@ -49,6 +49,8 @@ export class FiveDaysForecastComponent implements OnInit {
   weatherIcon!: string;
 
   locationTime!: string;
+  location!: string;
+  externalLink!: string;
   showButton: boolean = false;
 
   constructor(
@@ -78,6 +80,9 @@ export class FiveDaysForecastComponent implements OnInit {
     this.service.fiveDaysForecast();
 
     this.service.fiveDaysData$.subscribe(data => {
+      this.location = this.service.location;
+      this.externalLink = environement.locationSearch + this.location;
+
       this.getLocationTime();
       this.fivedaysForecast = Object.values(data.timeLines.daily).splice(0, data.timeLines.daily.length - 1);
       this.setWeatherIcon();

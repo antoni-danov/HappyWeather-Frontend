@@ -2,6 +2,10 @@
 <div class="container">
   <div class="dayInfo">
     <div>
+      <a id="hyperlink" [href]="externalLink" target="_blank">
+        <strong>{{location}} </strong
+        ><span class="material-icons">open_in_new</span>
+      </a>
       <p><strong>{{item.time | dateFormat}}</strong></p>
 
       <p id="time">{{item.time.split('T')[1].split(':00Z')[0]}}</p>

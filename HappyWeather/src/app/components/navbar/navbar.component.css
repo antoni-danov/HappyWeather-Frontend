@@ -101,7 +101,7 @@ input:checked + .slider:before {
   padding: 5px 20px;
   font-size: 16px;
   background-color: transparent;
-  box-shadow: 2px 2px 5px #a59d9d, -2px -2px 5px #ffe0b1;
+  box-shadow: 2px 2px 5px 1px #a59d9d, -2px -2px 5px #ffe0b1;
   transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
 }
 .btn:hover {

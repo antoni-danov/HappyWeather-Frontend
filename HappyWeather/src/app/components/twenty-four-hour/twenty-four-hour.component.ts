@@ -32,6 +32,9 @@ export class TwentyFourHourComponent implements OnInit, AfterContentChecked {
   timeOfTheDay: string[] = [];
   locationHour!: string | number;
   locationTime!: string;
+  location!: string;
+  externalLink!: string;
+
   showButton: boolean = false;
 
   constructor(private service: WeatherService) {
@@ -79,6 +82,8 @@ export class TwentyFourHourComponent implements OnInit, AfterContentChecked {
       var extractedData = Object.values(data.timeLines.hourly)
         .findIndex(file => file.time.split('T')[1].split(':')[0] == this.locationHour.toString());
       this.details = Object.values(data.timeLines.hourly).splice(extractedData, 25);
+      this.location = this.service.location;
+      this.externalLink = environement.locationSearch + this.location;
 
       //Set weather icon for every record
       this.setWeatherIcon();
