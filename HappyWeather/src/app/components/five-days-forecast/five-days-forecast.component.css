@@ -17,6 +17,9 @@
   -webkit-box-shadow: 0px 5px 4px 3px rgba(0, 0, 0, 0.47);
   box-shadow: 0px 0px 4px 3px rgba(0, 0, 0, 0.47);
 }
+#hyperlink {
+  color: black;
+}
 .moveFromLeft {
   transform: translateX(-100%);
   animation: moveRight 1.6s ease-in-out forwards;

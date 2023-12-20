@@ -31,7 +31,9 @@
 .dayinfo {
   display: flex;
   flex-direction: column;
-  margin: 4% 0%;
+}
+#hyperlink {
+  color: black;
 }
 .weatherIcon p {
   font-size: x-large;

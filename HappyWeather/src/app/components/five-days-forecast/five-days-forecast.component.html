@@ -8,6 +8,10 @@
   >
     <div class="dayInfo">
       <div>
+        <a id="hyperlink" [href]="externalLink" target="_blank">
+          <strong>{{location}} </strong
+          ><span class="material-icons">open_in_new</span>
+        </a>
         <p><strong>{{day.time | dateFormat}}</strong></p>
       </div>
       <div class="weatherIcon">

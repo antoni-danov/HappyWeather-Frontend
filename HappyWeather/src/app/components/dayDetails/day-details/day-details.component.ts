@@ -28,6 +28,8 @@ export class DayDetailsComponent implements OnInit, AfterContentChecked {
   day!: string;
   weatherIcon!: string;
   locationTime!: string;
+  location!: string;
+  externalLink!: string;
   unit!: string;
   converted: boolean = false;
   windDirection!: string;
@@ -71,7 +73,9 @@ export class DayDetailsComponent implements OnInit, AfterContentChecked {
   detailedInformation() {
     this.service.fiveDaysData$.subscribe(data => {
       if (data) {
-        WeatherUtilities.clearSessionStorage(environement.sessionDayDetails, environement.sessionDayWeatherIcon);
+        // WeatherUtilities.clearSessionStorage(environement.sessionDayDetails, environement.sessionDayWeatherIcon);
+        this.location = this.service.location;
+        this.externalLink = environement.locationSearch + this.location;
 
         this.getLocationTime();
         this.dayDetails = Object.values(data.timeLines.daily).splice(this.index, 1)[0];
