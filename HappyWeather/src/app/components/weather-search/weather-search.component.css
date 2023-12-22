@@ -2,8 +2,6 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-right: 2%;
-  margin-left: -4%;
   width: 100%;
 }
 .formField {
@@ -11,7 +9,7 @@
   border-radius: 15px;
   color: black;
   opacity: 0.8;
-  width: 60%;
+  width: 100%;
   box-shadow: inset 2px 2px 5px #a19696, inset 2px 2px 80px #f1eaea;
   transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
   margin: 1% 0%;
@@ -31,6 +29,11 @@
   display: flex;
   flex-direction: row;
   margin-top: 2px;
+}
+#inputField {
+  width: calc(100% - 20px);
+  padding: 10px;
+  box-sizing: border-box;
 }
 .verticalLine {
   width: 1px;
