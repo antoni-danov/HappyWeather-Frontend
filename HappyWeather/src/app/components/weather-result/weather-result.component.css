@@ -66,32 +66,66 @@ img {
     border-radius: 0px;
     margin: 0;
     box-shadow: none;
+    flex-direction: column;
   }
   .weather-container section {
-    margin: 5% 2%;
+    margin: 4% 2%;
+  }
+  .material-icons {
+    font-size: 27px;
+    vertical-align: text-top;
   }
   .location {
-    font-size: 15px;
-    display: flex;
-    justify-content: space-between;
+    font-size: 22px;
   }
   .location strong {
     font-weight: 500;
   }
-  #locationName,
   #localTime {
     align-self: center;
+  }
+  #locationName {
+    align-self: baseline;
+    font-size: larger;
+    box-sizing: border-box;
+    margin-top: 5%;
   }
   .weatherState {
     margin-top: 10%;
   }
   .mainInfo {
     display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+  }
+  .icon_temperature {
+    display: flex;
     flex-direction: row;
     flex-wrap: wrap;
+    justify-content: space-between;
+    padding: 0% 10%;
   }
-  .mainInfo div {
-    margin: 3% 2% 0% 2%;
+  img {
+    margin: 0% 10%;
+  }
+  #temperature {
+    margin: 3%;
+  }
+  #temperature p {
+    font-size: xxx-large;
+    font-weight: 400;
+    margin-left: -10%;
+  }
+  #feelsLike {
+    font-weight: 600;
+    margin: 0% 14%;
+  }
+  .weatherForecast p {
+    font-size: larger;
+  }
+  .windIcon {
+    font-size: 40px;
+    margin-top: 8px;
   }
 }
 @media screen and (min-width: 1024px) {
