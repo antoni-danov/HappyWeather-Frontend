@@ -199,33 +199,39 @@
       </div>
       <hr />
       <div class="clouds">
-        <p>
+        <span>
           <strong>Cloud coverage:</strong>
           {{sharedData.data.values.cloudCover}}%
-        </p>
+        </span>
+        <br />
+        <span
+          ><strong>UV Index:</strong> {{sharedData.data.values.uvIndex}}</span
+        >
+        <span>
+          <br />
+          <strong>Visibility:</strong> {{sharedData.data.values.visibility}} km
+        </span>
       </div>
       <hr />
       <div class="precipittions">
-        <p><strong>Humidity:</strong> {{sharedData.data.values.humidity}}%</p>
-        <p>
+        <span
+          ><strong>Humidity:</strong> {{sharedData.data.values.humidity}}%</span
+        >
+        <span>
+          <br />
           <strong>Precipitation probability:</strong>
           {{sharedData.data.values.precipitationProbability}}%
-        </p>
-        <p>
+        </span>
+        <br />
+        <span>
           <strong>Rain intensity:</strong>
           {{sharedData.data.values.rainIntensity}}%
-        </p>
-        <p>
+        </span>
+        <br />
+        <span>
           <strong>Snow intensity:</strong>
           {{sharedData.data.values.snowIntensity}}%
-        </p>
-      </div>
-      <hr />
-      <div class="visibility">
-        <p><strong>UV Index:</strong> {{sharedData.data.values.uvIndex}}</p>
-        <p>
-          <strong>Visibility:</strong> {{sharedData.data.values.visibility}} km
-        </p>
+        </span>
       </div>
     </section>
   </section>
