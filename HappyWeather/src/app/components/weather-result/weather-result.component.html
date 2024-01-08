@@ -150,16 +150,16 @@
 <div class="weather-container">
   <section class="mainInfo">
     <section id="locationName">
-      <mat-icon>place</mat-icon
-      ><a id="hyperlink" [href]="sessionData.externalLink" target="_blank">
-        <strong>{{sessionData.location}} </strong
-        ><span class="material-icons">open_in_new</span>
-      </a>
-    </section>
-    <section class="location">
       <div id="dateFormat">
         <strong>{{this.sharedData.data.time | dateFormat}}</strong>
       </div>
+      <mat-icon>place</mat-icon
+      ><a id="hyperlink" [href]="sessionData.externalLink" target="_blank">
+        <strong>{{sessionData.location}} </strong
+        ><!--<span class="material-icons">open_in_new</span> -->
+      </a>
+    </section>
+    <section class="location">
       <div id="localTime">
         <app-local-time [localTime]="sessionData.locationTime"></app-local-time>
       </div>
@@ -204,7 +204,7 @@
     </section>
     <section class="weatherDetails">
       <div class="weatherForecast">
-        <p><strong>Description:</strong> {{sessionData.weatherDescription}}</p>
+        <p>{{sessionData.weatherDescription}}</p>
       </div>
       <hr />
       <div class="windInformation">

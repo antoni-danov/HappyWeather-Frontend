@@ -68,6 +68,7 @@ export class WeatherResultComponent implements OnInit, AfterContentChecked {
     //   this.sessionData = JSON.parse(sessionStorage.getItem(environement.sessionStorageSessionData)!);
     // } else {
     this.smallScreenSize = WeatherUtilities.checkScreenSize();
+
     this.timeCityWeatherData();
     this.temperatureUnit();
     this.route.paramMap.subscribe(params => {
