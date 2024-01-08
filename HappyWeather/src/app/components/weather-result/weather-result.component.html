@@ -187,10 +187,11 @@
       <div id="feelsLike">
         <div>
           <span
-            >Feels like: {{this.sharedData.data.values.temperatureApparent|
-            tempConversion: sessionData.unit : converted | roundNumber }}&deg;
-            @if (sessionData.unit === undefined || sessionData.unit === 'metric'
-            || sessionData.unit === null || sessionData.unit === 'Nan' ||
+            ><strong>Feels like:</strong>
+            {{this.sharedData.data.values.temperatureApparent| tempConversion:
+            sessionData.unit : converted | roundNumber }}&deg; @if
+            (sessionData.unit === undefined || sessionData.unit === 'metric' ||
+            sessionData.unit === null || sessionData.unit === 'Nan' ||
             sessionData.unit.length === 0) {
             <span>C</span>
             } @if (sessionData.unit === 'imperial') {
