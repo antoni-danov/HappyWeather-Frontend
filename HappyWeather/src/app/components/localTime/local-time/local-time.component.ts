@@ -12,6 +12,6 @@ export class LocalTimeComponent implements AfterViewInit {
   hour!: string;
 
   ngAfterViewInit() {
-    this.hour = this.localTime.split(':')[0];
+    this.hour = parseInt(this.localTime.split(':')[0]) > 12 ? (parseInt(this.localTime.split(':')[0]) - 12).toString() : this.localTime.split(':')[0];
   }
 }
