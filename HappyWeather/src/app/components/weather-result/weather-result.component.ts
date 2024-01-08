@@ -57,7 +57,7 @@ export class WeatherResultComponent implements OnInit, AfterContentChecked {
 
   @HostListener('window:resize', ['$event'])
   onResize(event: Event) {
-    this.screenSize();
+    this.smallScreenSize = WeatherUtilities.checkScreenSize();
   }
 
   ngOnInit() {
@@ -67,7 +67,7 @@ export class WeatherResultComponent implements OnInit, AfterContentChecked {
     //   this.sharedData = JSON.parse(existingData!);
     //   this.sessionData = JSON.parse(sessionStorage.getItem(environement.sessionStorageSessionData)!);
     // } else {
-    this.screenSize();
+    this.smallScreenSize = WeatherUtilities.checkScreenSize();
     this.timeCityWeatherData();
     this.temperatureUnit();
     this.route.paramMap.subscribe(params => {
@@ -83,10 +83,6 @@ export class WeatherResultComponent implements OnInit, AfterContentChecked {
     //   WeatherUtilities.setSessionStorageData(environement.sessionStorageMainData, this.sharedData);
     //   WeatherUtilities.setSessionStorageData(environement.sessionStorageSessionData, this.sessionData);
     // }
-  }
-
-  screenSize() {
-    this.smallScreenSize = window.innerWidth >= 320 && window.innerWidth < 480;
   }
 
   //Recieve and extract weather data

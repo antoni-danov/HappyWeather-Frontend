@@ -7,6 +7,7 @@ import { NumberPipe } from 'src/app/pipes/roundNumber/number.pipe';
 import { DateFormatPipe } from 'src/app/pipes/stringSplit/date-format.pipe';
 import { WeatherUtilities } from 'src/app/shared/weatherUtilities';
 import { environement } from 'src/app/environements/environement';
+import { ModalTwentyFourHoursComponent } from '../modalTwentyFourHours/modal-twenty-four-hours/modal-twenty-four-hours.component';
 
 
 @Component({
@@ -16,6 +17,7 @@ import { environement } from 'src/app/environements/environement';
   styleUrl: './twenty-four-hour.component.css',
   imports: [
     CommonModule,
+    ModalTwentyFourHoursComponent,
     TemperatureConversionPipe,
     NumberPipe,
     DateFormatPipe,
@@ -36,10 +38,22 @@ export class TwentyFourHourComponent implements OnInit, AfterContentChecked {
   externalLink!: string;
 
   showButton: boolean = false;
+  smallScreenSize: boolean | number = false;
+  modalOpen: boolean = false;
 
   constructor(private service: WeatherService) {
   }
 
+  @HostListener('window:resize', ['$event'])
+  onResize(event: Event) {
+    this.smallScreenSize = WeatherUtilities.checkScreenSize();
+  }
+  @HostListener('window:scroll', [])
+
+  onWindowScroll() {
+    const scrollPosition = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+    this.showButton = scrollPosition > 100;
+  }
   ngOnInit() {
     // var hourForecast = sessionStorage.getItem(environement.sessionHourForecastDetails);
 
@@ -49,6 +63,8 @@ export class TwentyFourHourComponent implements OnInit, AfterContentChecked {
 
 
     // } else {
+    this.smallScreenSize = WeatherUtilities.checkScreenSize();
+
     this.detailedWeatherForecast();
     this.temperatureUnit();
     // }
@@ -60,15 +76,15 @@ export class TwentyFourHourComponent implements OnInit, AfterContentChecked {
     //   WeatherUtilities.setSessionStorageData(environement.sessionHourIconPaths, this.iconPaths);
     // }
   }
-  @HostListener('window:scroll', [])
-
-  onWindowScroll() {
-    const scrollPosition = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
-    this.showButton = scrollPosition > 100;
-  }
 
   scrollToTop() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+  test() {
+    var dialog = document.querySelector('dialog');
+
+    document.querySelector('#openButton')!.addEventListener('click', () => dialog?.showModal());
+    document.querySelector('#closeButton')!.addEventListener('click', () => dialog?.close());
   }
 
   detailedWeatherForecast() {
@@ -103,6 +119,12 @@ export class TwentyFourHourComponent implements OnInit, AfterContentChecked {
     }
     console.log(this.iconPaths);
 
+  }
+  toggleModal() {
+    this.modalOpen = !this.modalOpen;
+  }
+  onModalClose() {
+    this.modalOpen = false;
   }
   //Set weather temperature in celsius or farenheit
   private temperatureUnit() {
