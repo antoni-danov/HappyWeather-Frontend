@@ -3,70 +3,77 @@
 } @else if(sharedData){ @if (!smallScreenSize) {
 <div class="weather-container">
   <section class="mainInfo">
-    <div id="dateFormat">
-      <strong>{{this.sharedData.data.time | dateFormat}}</strong>
-    </div>
-    @if (sessionData.weatherIndex) {
-    <p id="weatherIcon">
-      <img [src]="sessionData.weatherIcon" alt="weather icon" />
-    </p>
-    }
-    <div id="temperature">
-      <span
-        >{{this.sharedData.data.values.temperature | tempConversion:
-        sessionData.unit : converted | roundNumber }}&deg;
+    <section class="dateInfos">
+      <div id="dateFormat">
+        <strong>{{this.sharedData.data.time | dateFormat}}</strong>
+      </div>
+      @if (sessionData.weatherIndex) {
+      <span id="weatherIcon">
+        <img [src]="sessionData.weatherIcon" alt="weather icon" />
       </span>
-      @if (sessionData.unit === undefined || sessionData.unit === 'metric' ||
-      sessionData.unit === null || sessionData.unit === 'Nan' ||
-      sessionData.unit.length === 0) {
-      <span>C</span>
-      } @if (sessionData.unit === 'imperial') {
-      <span>F</span>
       }
-    </div>
-    <div id="feelsLike">
-      <span
-        ><strong>Feels like:</strong>
-        {{this.sharedData.data.values.temperatureApparent| tempConversion:
-        sessionData.unit : converted | roundNumber }}&deg; @if (sessionData.unit
-        === undefined || sessionData.unit === 'metric' || sessionData.unit ===
-        null || sessionData.unit === 'Nan' || sessionData.unit.length === 0) {
+    </section>
+    <section class="temperature">
+      <div id="temperature">
+        <span
+          >{{this.sharedData.data.values.temperature | tempConversion:
+          sessionData.unit : converted | roundNumber }}&deg;
+        </span>
+        @if (sessionData.unit === undefined || sessionData.unit === 'metric' ||
+        sessionData.unit === null || sessionData.unit === 'Nan' ||
+        sessionData.unit.length === 0) {
         <span>C</span>
         } @if (sessionData.unit === 'imperial') {
         <span>F</span>
         }
-      </span>
-    </div>
-    <hr />
-    <div class="windInformation">
-      <div>
-        <i class="wi wi-strong-wind"></i>
-        <br />
-        <br />
+      </div>
+      <div id="feelsLike">
         <span
-          ><strong>Wind speed: </strong>
-          <span
-            >{{sharedData.data.values.windSpeed | roundNumber}} m/s</span
-          ></span
-        >
-        <br />
-        <span
-          ><strong>Wind gust:</strong> {{sharedData.data.values.windGust |
-          roundNumber}} m/s</span
-        >
-        <br />
-        @if (sharedData.data.values.windSpeed > 0) {
-        <span>
-          <strong>Wind direction:</strong> {{sessionData.windDirection}}
+          ><strong>Feels like:</strong>
+          {{this.sharedData.data.values.temperatureApparent| tempConversion:
+          sessionData.unit : converted | roundNumber }}&deg; @if
+          (sessionData.unit === undefined || sessionData.unit === 'metric' ||
+          sessionData.unit === null || sessionData.unit === 'Nan' ||
+          sessionData.unit.length === 0) {
+          <span>C</span>
+          } @if (sessionData.unit === 'imperial') {
+          <span>F</span>
+          }
         </span>
-        }
       </div>
-      <div class="windIcon">
-        <i
-          class="wi wi-wind towards-{{sessionData.windDegree | roundNumber}}-deg"
-        ></i>
+    </section>
+    <hr />
+    <section class="windsection">
+      <div class="windInformation">
+        <div>
+          <i class="wi wi-strong-wind"></i>
+          <br />
+          <br />
+          <span
+            ><strong>Wind speed: </strong>
+            <span
+              >{{sharedData.data.values.windSpeed | roundNumber}} m/s</span
+            ></span
+          >
+          <br />
+          <span
+            ><strong>Wind gust:</strong> {{sharedData.data.values.windGust |
+            roundNumber}} m/s</span
+          >
+          <br />
+          @if (sharedData.data.values.windSpeed > 0) {
+          <span>
+            <strong>Wind direction:</strong> {{sessionData.windDirection}}
+          </span>
+          }
+        </div>
+        <div class="windIcon">
+          <i
+            class="wi wi-wind towards-{{sessionData.windDegree | roundNumber}}-deg"
+          ></i>
+        </div>
       </div>
-    </div>
+    </section>
   </section>
   <div class="vertical-line"></div>
   <section class="weatherDetails">
@@ -95,37 +102,47 @@
         </div>
       </section>
     </section>
+    <hr />
     <section class="otherInfos">
-      <span>
-        <strong>Cloud coverage:</strong>
-        {{sharedData.data.values.cloudCover}}%
-      </span>
-      <br />
-      <span>
-        <strong>Visibility:</strong> {{sharedData.data.values.visibility}} km
-      </span>
-      <br />
-      <span><strong>UV Index:</strong> {{sharedData.data.values.uvIndex}}</span>
-
-      <hr />
-      <span
-        ><strong>Humidity:</strong> {{sharedData.data.values.humidity}}%</span
-      >
-      <span>
+      <div class="leftPanel">
+        <i class="wi wi-cloud"></i>
         <br />
-        <strong>Precipitation probability:</strong>
-        {{sharedData.data.values.precipitationProbability}}%
-      </span>
-      <br />
-      <span>
-        <strong>Rain intensity:</strong>
-        {{sharedData.data.values.rainIntensity}}%
-      </span>
-      <br />
-      <span>
-        <strong>Snow intensity:</strong>
-        {{sharedData.data.values.snowIntensity}}%
-      </span>
+
+        <span>
+          <strong>Cloud coverage:</strong>
+          {{sharedData.data.values.cloudCover}}%
+        </span>
+        <br />
+        <span>
+          <strong>Visibility:</strong> {{sharedData.data.values.visibility}} km
+        </span>
+        <br />
+        <span
+          ><strong>UV Index:</strong> {{sharedData.data.values.uvIndex}}</span
+        >
+      </div>
+      <div class="rightPanel">
+        <i></i>
+        <br />
+        <span
+          ><strong>Humidity:</strong> {{sharedData.data.values.humidity}}%</span
+        >
+        <span>
+          <br />
+          <strong>Precipitation probability:</strong>
+          {{sharedData.data.values.precipitationProbability}}%
+        </span>
+        <br />
+        <span>
+          <strong>Rain intensity:</strong>
+          {{sharedData.data.values.rainIntensity}}%
+        </span>
+        <br />
+        <span>
+          <strong>Snow intensity:</strong>
+          {{sharedData.data.values.snowIntensity}}%
+        </span>
+      </div>
     </section>
   </section>
 </div>

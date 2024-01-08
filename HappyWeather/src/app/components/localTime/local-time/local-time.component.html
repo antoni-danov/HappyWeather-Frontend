@@ -1,3 +1,6 @@
 <div class="localTime">
-  <span>Local time: {{localTime}}</span>
+  @if(hour){
+  <i [class]="'wi wi-time-' + hour"></i>
+  }
+  <span><strong>Local time: {{localTime}}</strong></span>
 </div>
