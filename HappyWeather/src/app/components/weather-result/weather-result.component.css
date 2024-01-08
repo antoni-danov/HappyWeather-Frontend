@@ -68,6 +68,9 @@ img {
     box-shadow: none;
     flex-direction: column;
   }
+  .wi {
+    margin: 3% 5% 3% 0%;
+  }
   .weather-container section {
     margin: 4% 2%;
   }
@@ -108,8 +111,8 @@ img {
   img {
     margin: 0% 10%;
   }
-  #temperature {
-    margin: 3%;
+  #temperature div {
+    font-variant-numeric: tabular-nums;
   }
   #temperature p {
     font-size: xxx-large;
@@ -118,7 +121,8 @@ img {
   }
   #feelsLike {
     font-weight: 600;
-    margin: 0% 14%;
+    text-align: center;
+    font-size: xx-large;
   }
   .weatherForecast p {
     font-size: larger;
