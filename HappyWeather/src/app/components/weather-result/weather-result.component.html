@@ -96,15 +96,36 @@
       </section>
     </section>
     <section class="otherInfos">
+      <span>
+        <strong>Cloud coverage:</strong>
+        {{sharedData.data.values.cloudCover}}%
+      </span>
+      <br />
+      <span>
+        <strong>Visibility:</strong> {{sharedData.data.values.visibility}} km
+      </span>
+      <br />
+      <span><strong>UV Index:</strong> {{sharedData.data.values.uvIndex}}</span>
+
       <hr />
-      <!--  <div>{{sharedData.current.windSpeed}}</div>
-      <div>{{sharedData.current.windDirection}}</div>
-       <div>{{sharedData.current.pressure}}</div>
-    <div>{{sharedData.current.precipitations}}</div>
-    <div>{{sharedData.current.humidity}}</div>
-    <div>{{sharedData.current.cloudCover}}</div>
-    <div>{{sharedData.current.uvIndex}}</div>
-    <div>{{sharedData.current.visibility}}</div>-->
+      <span
+        ><strong>Humidity:</strong> {{sharedData.data.values.humidity}}%</span
+      >
+      <span>
+        <br />
+        <strong>Precipitation probability:</strong>
+        {{sharedData.data.values.precipitationProbability}}%
+      </span>
+      <br />
+      <span>
+        <strong>Rain intensity:</strong>
+        {{sharedData.data.values.rainIntensity}}%
+      </span>
+      <br />
+      <span>
+        <strong>Snow intensity:</strong>
+        {{sharedData.data.values.snowIntensity}}%
+      </span>
     </section>
   </section>
 </div>
@@ -204,13 +225,14 @@
           {{sharedData.data.values.cloudCover}}%
         </span>
         <br />
+        <span>
+          <strong>Visibility:</strong> {{sharedData.data.values.visibility |
+          roundNumber}} km
+        </span>
+        <br />
         <span
           ><strong>UV Index:</strong> {{sharedData.data.values.uvIndex}}</span
         >
-        <span>
-          <br />
-          <strong>Visibility:</strong> {{sharedData.data.values.visibility}} km
-        </span>
       </div>
       <hr />
       <div class="precipittions">
