@@ -21,6 +21,7 @@ import { NumberPipe } from './pipes/roundNumber/number.pipe';
 import { TemperatureConversionPipe } from './pipes/temperature/temperature-conversion.pipe';
 import { LoadingSpinnerComponent } from './components/loading-spinner/loading-spinner.component';
 import { CountdownTimerComponent } from './components/countdown-timer/countdown-timer.component';
+import { WeatherResultComponent } from "./components/weather-result/weather-result.component";
 
 @NgModule({
   declarations: [
@@ -30,16 +31,6 @@ import { CountdownTimerComponent } from './components/countdown-timer/countdown-
     PageNotFoundComponent,
     TechincalErrorComponent,
     CountdownTimerComponent
-  ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    HttpClientModule,
-    MaterialModule,
-    FormsModule,
-    ReactiveFormsModule,
-    BrowserAnimationsModule,
-    LoadingSpinnerComponent,
   ],
   providers: [
     DatePipe,
@@ -58,8 +49,20 @@ import { CountdownTimerComponent } from './components/countdown-timer/countdown-
     {
       provide: MAT_FORM_FIELD_DEFAULT_OPTIONS,
       useValue: { floatLabel: 'always' },
-    }],
-  bootstrap: [AppComponent]
+    }
+  ],
+  bootstrap: [AppComponent],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    HttpClientModule,
+    MaterialModule,
+    FormsModule,
+    ReactiveFormsModule,
+    BrowserAnimationsModule,
+    LoadingSpinnerComponent,
+    WeatherResultComponent
+  ]
 })
 export class AppModule {
   constructor(matIconRegistry: MatIconRegistry) {

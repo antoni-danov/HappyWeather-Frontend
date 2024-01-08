@@ -1,0 +1,16 @@
+dialog {
+  width: 85%;
+  height: auto;
+  border: 1px solid gray;
+  border-radius: 15px;
+  animation: move-in 0.3s;
+  background: linear-gradient(
+    360deg,
+    rgba(255, 255, 255, 1) 35%,
+    rgba(29, 150, 299, 1) 89%
+  );
+}
+dialog::backdrop {
+  background-color: hsl(233deg 28% 25% / 70%);
+  animation: fade-in 0.3s;
+}

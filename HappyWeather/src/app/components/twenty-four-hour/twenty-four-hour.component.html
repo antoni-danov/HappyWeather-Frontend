@@ -1,4 +1,4 @@
-@if(details){ @for (item of details; track $index) {
+@if(details){ @if (!smallScreenSize) {@for (item of details; track $index) {
 <div class="container">
   <div class="dayInfo">
     <div>
@@ -78,11 +78,18 @@
     <hr />
   </div>
 </div>
-}
+} } @else if (smallScreenSize) { @for (item of details; track $index) {
+<div class="container">
+  <button (click)="toggleModal()">ToggleModal</button>
+  <app-modal-twenty-four-hours
+    (closeModal)="onModalClose()"
+  ></app-modal-twenty-four-hours>
+</div>
+} }}
 <button
   (click)="scrollToTop()"
   class="btn btn-light scroll-top-btn"
   [class.show]="showButton"
 >
-  <i class="fa fa-angle-up" style="color: #5d6269;"></i></button
->}
+  <i class="fa fa-angle-up" style="color: #5d6269;"></i>
+</button>

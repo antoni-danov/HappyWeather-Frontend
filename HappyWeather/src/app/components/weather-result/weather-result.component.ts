@@ -1,4 +1,4 @@
-import { AfterContentChecked, Component, OnInit } from '@angular/core';
+import { AfterContentChecked, Component, HostListener, OnInit } from '@angular/core';
 import { environement } from 'src/app/environements/environement';
 import { WeatherResult } from 'src/app/interfaces/weatherResult';
 import { WeatherService } from 'src/app/services/weatherService/weather.service';
@@ -48,10 +48,16 @@ export class WeatherResultComponent implements OnInit, AfterContentChecked {
 
   backgroundImage: string = '../../../assets/images/';
   searchString!: string | null;
+  smallScreenSize: boolean | number = false;
 
   constructor(
     private weatherService: WeatherService,
     private route: ActivatedRoute) {
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event: Event) {
+    this.smallScreenSize = WeatherUtilities.checkScreenSize();
   }
 
   ngOnInit() {
@@ -61,6 +67,7 @@ export class WeatherResultComponent implements OnInit, AfterContentChecked {
     //   this.sharedData = JSON.parse(existingData!);
     //   this.sessionData = JSON.parse(sessionStorage.getItem(environement.sessionStorageSessionData)!);
     // } else {
+    this.smallScreenSize = WeatherUtilities.checkScreenSize();
     this.timeCityWeatherData();
     this.temperatureUnit();
     this.route.paramMap.subscribe(params => {

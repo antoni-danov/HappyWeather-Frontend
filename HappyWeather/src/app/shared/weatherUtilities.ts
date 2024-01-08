@@ -95,4 +95,7 @@ export class WeatherUtilities {
         sessionStorage.removeItem(mainData);
         sessionStorage.removeItem(sessionData);
     }
+    static checkScreenSize() {
+        return window.innerWidth >= 320 && window.innerWidth < 480 ? true : false;
+    }
 }
