@@ -33,13 +33,16 @@ export class WeatherSearchComponent implements OnInit, AfterViewInit {
     this.renderer2.selectRootElement(this.inputField.nativeElement).focus();
     this.autocomplete = new google.maps.places.Autocomplete(this.inputField.nativeElement, this.options);
 
-    this.autocomplete.addListener('place_changed', () => {
-      const place = this.autocomplete?.getPlace().formatted_address;
+    if (this.smallScreenSize) {
+      this.autocomplete.addListener('place_changed', () => {
+        const place = this.autocomplete?.getPlace().formatted_address;
 
-      if (place) {
-        this.currentCityOnChoose(place);
-      }
-    });
+        if (place) {
+          this.currentCityOnChoose(place);
+        }
+      });
+    }
+
     this.cdref.detectChanges();
   }
 
