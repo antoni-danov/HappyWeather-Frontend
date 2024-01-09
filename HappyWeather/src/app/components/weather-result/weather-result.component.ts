@@ -68,8 +68,7 @@ export class WeatherResultComponent implements OnInit, AfterContentChecked {
     //   this.sessionData = JSON.parse(sessionStorage.getItem(environement.sessionStorageSessionData)!);
     // } else {
     this.smallScreenSize = WeatherUtilities.checkScreenSize();
-    this.timeCityWeatherData();
-    this.temperatureUnit();
+
     this.route.paramMap.subscribe(params => {
       this.searchString = params.get('searchString');
     });
@@ -77,6 +76,8 @@ export class WeatherResultComponent implements OnInit, AfterContentChecked {
 
   }
   ngAfterContentChecked() {
+    this.timeCityWeatherData();
+    this.temperatureUnit();
     this.setWeatherIcon();
 
     // if (this.sessionData.locationTime && this.sessionData.weatherIcon) {

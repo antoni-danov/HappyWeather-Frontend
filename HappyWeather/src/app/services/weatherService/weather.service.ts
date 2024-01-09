@@ -1,5 +1,5 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, NgZone } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable, Subject } from 'rxjs';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
@@ -9,7 +9,6 @@ import { HourlyUnit } from 'src/app/interfaces/HourlyForecast/hourlyUnit';
 import { WeatherForecast } from 'src/app/interfaces/WeatherForecast/weatherForecast';
 import { WeatherLocation } from 'src/app/interfaces/weatherLocation';
 import { WeatherResult } from 'src/app/interfaces/weatherResult';
-import { WeatherUtilities } from 'src/app/shared/weatherUtilities';
 
 @Injectable({
   providedIn: 'root'
@@ -39,7 +38,8 @@ export class WeatherService {
 
   constructor(
     private http: HttpClient,
-    private router: Router) {
+    private router: Router,
+    private ngZone: NgZone) {
   }
 
   realTimeCurrentCity(cityName: string, units: string) {
@@ -55,11 +55,15 @@ export class WeatherService {
         // WeatherUtilities.clearSessionStorage(environement.sessionStorageMainData, environement.sessionStorageSessionData);
 
         this.weatherData = data;
+
         this.getLocationTime(data.location);
 
-        this.router.navigate(['/result', cityName.split(', ')[0].toLowerCase()]);
+        this.ngZone.run(() => {
+          this.router.navigate(['/result', cityName.split(', ')[0].toLowerCase()]);
+          this.dataBehaviorSubject.next(data);
+        });
 
-        this.dataBehaviorSubject.next(data);
+
       }
     });
   }

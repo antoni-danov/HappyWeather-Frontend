@@ -3,7 +3,6 @@ import * as fourCode from '../enums/weatherCode';
 import * as fiveDayCode from '../enums/weatherCodeFullDay';
 import * as fiveNightCode from '../enums/weatherCodeFullNight';
 import * as iconList from '../../assets/iconsList.json';
-import { environement } from 'src/app/environements/environement';
 
 export class WeatherUtilities {
 
@@ -70,7 +69,6 @@ export class WeatherUtilities {
         return { weatherDescription, iconPath };
     }
     static getLocationTime(data: any): { locationTime: string, dateFormat: string } {
-
         //Get time zone
         const timeZoneId = data.timeZoneId;
         const currentUTC = new Date();
