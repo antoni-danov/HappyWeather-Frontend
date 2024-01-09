@@ -49,14 +49,20 @@ export class WeatherSearchComponent implements OnInit, AfterViewInit {
   }
   currentCityOnEnter(event: any) {
     this.service.realTimeCurrentCity(this.inputField.nativeElement.value, this.units);
+    this.renderer2.selectRootElement(this.inputField.nativeElement).blur();
+
     this.clearCityOnClick();
   }
   currentCityOnClick() {
     this.service.realTimeCurrentCity(this.inputField.nativeElement.value, this.units);
+    this.renderer2.selectRootElement(this.inputField.nativeElement).blur();
+
     this.clearCityOnClick();
   }
   currentCityOnChoose(data: string) {
     this.service.realTimeCurrentCity(data, this.units);
+    this.renderer2.selectRootElement(this.inputField.nativeElement).blur();
+
     this.clearCityOnClick();
   }
   clearCityOnClick() {
