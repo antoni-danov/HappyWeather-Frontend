@@ -26,23 +26,21 @@ export class WeatherSearchComponent implements OnInit, AfterViewInit {
   onResize(event: Event) {
     this.smallScreenSize = WeatherUtilities.checkScreenSize();
   }
-  ngOnInit(): void {
-    this.smallScreenSize = WeatherUtilities.checkScreenSize();
+  ngOnInit() {
+    // this.smallScreenSize = WeatherUtilities.checkScreenSize();
   }
   ngAfterViewInit() {
     this.renderer2.selectRootElement(this.inputField.nativeElement).focus();
+
     this.autocomplete = new google.maps.places.Autocomplete(this.inputField.nativeElement, this.options);
 
-    if (this.smallScreenSize) {
-      this.autocomplete.addListener('place_changed', () => {
-        const place = this.autocomplete?.getPlace().formatted_address;
+    this.autocomplete?.addListener('place_changed', () => {
 
-        if (place) {
-          this.currentCityOnChoose(place);
-        }
-      });
-    }
-
+      const place = this.autocomplete?.getPlace().formatted_address;
+      if (place) {
+        this.currentCityOnChoose(place);
+      }
+    });
     this.cdref.detectChanges();
   }
 
