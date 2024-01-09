@@ -21,17 +21,7 @@ import { query, stagger, style, transition, trigger } from '@angular/animations'
     DateFormatPipe,
     CommonModule
   ],
-  animations: [
-    trigger('fadeInAnimation', [
-      transition('* => *', [
-        query(':enter', [
-          style({ opacity: 0, transform: 'translateY(20px)' }),
-          stagger('100ms', [
-          ])
-        ], { optional: true })
-      ])
-    ])
-  ]
+  animations: []
 })
 export class FiveDaysForecastComponent implements OnInit {
 
@@ -57,6 +47,12 @@ export class FiveDaysForecastComponent implements OnInit {
     private service: WeatherService,
     private router: Router) {
 
+  }
+  @HostListener('window:scroll', [])
+
+  onWindowScroll() {
+    const scrollPosition = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+    this.showButton = scrollPosition > 100;
   }
   ngOnInit() {
     // var fiveDaysForecastSession = sessionStorage.getItem(environement.sessionFiveDaysForecast);
@@ -119,12 +115,7 @@ export class FiveDaysForecastComponent implements OnInit {
         this.locationTime = WeatherUtilities.getLocationTime(timezoneData).locationTime;
       });
   }
-  @HostListener('window:scroll', [])
 
-  onWindowScroll() {
-    const scrollPosition = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
-    this.showButton = scrollPosition > 100;
-  }
 
   scrollToTop() {
     window.scrollTo({ top: 0, behavior: 'smooth' });

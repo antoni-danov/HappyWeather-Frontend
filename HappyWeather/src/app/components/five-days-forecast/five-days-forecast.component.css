@@ -20,16 +20,6 @@
 #hyperlink {
   color: black;
 }
-.moveFromLeft {
-  transform: translateX(-100%);
-  animation: moveRight 1.6s ease-in-out forwards;
-}
-@keyframes moveRight {
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
 .daysContainer:hover {
   background-color: #286090;
   border-color: #204d74;
