@@ -25,28 +25,32 @@
     <div class="vertical-line"></div>
     <div class="temperature">
       <div>
+        @if(converted === false){
         <span><strong>Min temp: </strong></span>
         <span>
           {{day.values.minTemperature | tempConversion: unit : converted |
-          roundNumber}}&deg;
-        </span>
-        @if (unit === undefined || unit === 'metric' || unit === null || unit
-        === 'Nan') {
-        <span>C</span>
-        } @if (unit === 'imperial') {
-        <span>F</span>
+          roundNumber}}&deg; C</span
+        >
+        } @else {
+        <span><strong>Min temp: </strong></span>
+        <span>
+          {{day.values.minTemperature | tempConversion: unit : converted |
+          roundNumber}}&deg; F</span
+        >
         }
         <br />
+        @if(converted === false){
         <span><strong>Max temp: </strong></span>
         <span>
           {{day.values.maxTemperature | tempConversion: unit : converted |
-          roundNumber }}&deg;
-        </span>
-        @if (unit === undefined || unit === 'metric' || unit === null || unit
-        === 'Nan') {
-        <span>C</span>
-        } @if (unit === 'imperial') {
-        <span>F</span>
+          roundNumber }}&deg; C</span
+        >
+        } @else{
+        <span><strong>Max temp: </strong></span>
+        <span>
+          {{day.values.maxTemperature | tempConversion: unit : converted |
+          roundNumber }}&deg; F</span
+        >
         }
       </div>
     </div>

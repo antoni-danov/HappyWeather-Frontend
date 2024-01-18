@@ -27,10 +27,9 @@
 }
 #shadow {
   margin-left: 20%;
-  margin-top: -15%;
-  border-radius: 50%;
   width: 60%;
   height: 100px;
+  border-radius: 50%;
   background: rgb(212, 209, 209);
   -webkit-filter: blur(10px);
   -webkit-transform: scale(1, 0.2);
@@ -89,7 +88,7 @@
   }
   .weatherIcon {
     text-align: center;
-    margin: 17% 0%;
+    margin: 17% 5%;
   }
   .vertical-line {
     border-left: 1px solid grey;

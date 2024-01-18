@@ -15,31 +15,34 @@
     </section>
     <section class="temperature">
       <div id="temperature">
+        @if(converted === false){
+        <span
+          >{{this.sharedData.data.values.temperature | roundNumber}}&deg;
+        </span>
+        <span>C</span>
+        } @else{
         <span
           >{{this.sharedData.data.values.temperature | tempConversion:
           sessionData.unit : converted | roundNumber }}&deg;
         </span>
-        @if (sessionData.unit === undefined || sessionData.unit === 'metric' ||
-        sessionData.unit === null || sessionData.unit === 'Nan' ||
-        sessionData.unit.length === 0) {
-        <span>C</span>
-        } @if (sessionData.unit === 'imperial') {
         <span>F</span>
         }
       </div>
       <div id="feelsLike">
+        @if(converted === false){
         <span
           ><strong>Feels like:</strong>
-          {{this.sharedData.data.values.temperatureApparent| tempConversion:
-          sessionData.unit : converted | roundNumber }}&deg; @if
-          (sessionData.unit === undefined || sessionData.unit === 'metric' ||
-          sessionData.unit === null || sessionData.unit === 'Nan' ||
-          sessionData.unit.length === 0) {
-          <span>C</span>
-          } @if (sessionData.unit === 'imperial') {
-          <span>F</span>
-          }
+          {{this.sharedData.data.values.temperatureApparent | roundNumber}}&deg;
         </span>
+        <span>C</span>
+        } @else{
+        <span
+          ><strong>Feels like:</strong
+          >{{this.sharedData.data.values.temperatureApparent | tempConversion:
+          sessionData.unit : converted | roundNumber }}&deg;
+        </span>
+        <span>F</span>
+        }
       </div>
     </section>
     <hr />

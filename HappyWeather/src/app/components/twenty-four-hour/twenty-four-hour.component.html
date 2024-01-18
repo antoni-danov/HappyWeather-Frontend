@@ -19,25 +19,29 @@
     </div>
   </div>
   <div class="temperature">
+    @if(unit === initialUnit){
+    <span
+      ><strong>Temperature: </strong>{{item.values.temperature |
+      roundNumber}}&deg;
+    </span>
+    }@else {
     <span
       ><strong>Temperature: </strong>{{item.values.temperature | tempConversion:
-      unit : converted | roundNumber}}&deg; @if (unit === undefined || unit ===
-      'metric' || unit === null || unit === 'Nan') {
-      <span>C</span>
-      } @if (unit === 'imperial') {
-      <span>F</span>
-      }</span
+      unit : converted | roundNumber }}&deg; F</span
     >
+    }
     <hr />
+    @if(converted === false){
     <span
-      ><strong>Fells like: </strong> {{item.values.apparentTemperature |
-      tempConversion: unit : converted | roundNumber }}&deg; @if (unit ===
-      undefined || unit === 'metric' || unit === null || unit === 'Nan') {
-      <span>C</span>
-      } @if (unit === 'imperial') {
-      <span>F</span>
-      }</span
+      ><strong>Feels like: </strong>{{item.values.temperature |
+      roundNumber}}&deg; C
+    </span>
+    }@else {
+    <span
+      ><strong>Feels like: </strong>{{item.values.temperature | tempConversion:
+      unit : converted | roundNumber }}&deg; F</span
     >
+    }
     <hr />
   </div>
   <div class="additionalInformation">

@@ -35,6 +35,7 @@ export class WeatherService {
 
   location!: string;
   units!: string;
+  convert: boolean = false;
 
   constructor(
     private http: HttpClient,
@@ -44,16 +45,14 @@ export class WeatherService {
 
   realTimeCurrentCity(cityName: string, units: string) {
     this.location = cityName.replaceAll(',', '');
-    this.units = units;
-    var params = new HttpParams().set('unit', units);
+    this.units = this.units != undefined ? this.units : units;
+
+    var params = new HttpParams().set('unit', this.units);
     this.setSpinner(true);
 
     return this.http.get<WeatherResult>(environement.localhost + `${this.location}`, { params }).subscribe(data => {
       if (data) {
         this.setSpinner(false);
-        // sessionStorage.clear();
-        // WeatherUtilities.clearSessionStorage(environement.sessionStorageMainData, environement.sessionStorageSessionData);
-
         this.weatherData = data;
 
         this.getLocationTime(data.location);
@@ -68,25 +67,26 @@ export class WeatherService {
     });
   }
   fiveDaysForecast() {
+    console.log('From five days: ', this.units);
+
     var params = new HttpParams().set('unit', this.units).set('timeStep', '1d');
     return this.http.get<WeatherForecast<DayUnit>>(environement.localhost + `${this.location}/dailyforecast`, { params })
       .subscribe(data => {
         if (data) {
-          // WeatherUtilities.clearSessionStorage(environement.sessionFiveDaysForecast, environement.sessionFiveDaysIconPaths);
           this.fiveDaysSubject.next(data);
         }
       });
   }
   hourlyWeatherForecast(): Observable<WeatherForecast<HourlyUnit>> {
     var params = new HttpParams().set('unit', this.units).set('timeStep', '1h');
-    // WeatherUtilities.clearSessionStorage(environement.sessionHourForecastDetails, environement.sessionHourIconPaths);
     return this.http.get<WeatherForecast<HourlyUnit>>(environement.localhost + `${this.location}/hourlyforecast`, { params });
   }
   getIconFileNames() {
     return this.http.get<string[]>(environement.jsonIconsList);
   }
-  setUnitChoice(value: string) {
-    this.unitChoice.next(value);
+  setUnitChoice(value: string, isChoosed: boolean) {
+    this.units = value;
+    this.convert = isChoosed;
   }
   getLocationTime(coordinates: WeatherLocation) {
     return this.http.get(environement.googleTimeZone + `${coordinates.latitude}%2C${coordinates.longitude}&timestamp=0&key=${environement.googleMapsApiKey}`)

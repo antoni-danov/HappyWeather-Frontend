@@ -30,8 +30,6 @@ export class WeatherSearchComponent implements OnInit, AfterViewInit {
 
   }
   ngAfterViewInit() {
-    console.log(this.autocomplete);
-
     if (!this.autocomplete) {
       this.renderer2.selectRootElement(this.inputField.nativeElement).focus();
     }
