@@ -26,7 +26,7 @@ import { ModalTwentyFourHoursComponent } from '../modalTwentyFourHours/modal-twe
 export class TwentyFourHourComponent implements OnInit, AfterContentChecked {
   details!: HourlyUnit[];
 
-  converted: boolean = false;
+  hourUnit!: string;
   unit!: string;
   iconPath!: string | undefined;
   realTimeDescription: string[] = [];
@@ -61,7 +61,6 @@ export class TwentyFourHourComponent implements OnInit, AfterContentChecked {
     this.detailedWeatherForecast();
     this.temperatureUnit();
   }
-
   ngAfterContentChecked() {
     this.temperatureUnit();
   }
@@ -81,7 +80,6 @@ export class TwentyFourHourComponent implements OnInit, AfterContentChecked {
       this.details = Object.values(data.timeLines.hourly).splice(extractedData, 25);
       this.location = this.service.location;
       this.externalLink = environement.locationSearch + this.location;
-      this.initialUnit = this.unit;
       //Set weather icon for every record
       this.setWeatherIcon();
     });
@@ -108,8 +106,8 @@ export class TwentyFourHourComponent implements OnInit, AfterContentChecked {
   }
   //Set weather temperature in celsius or farenheit
   private temperatureUnit() {
-    this.converted = this.service.convert;
     this.unit = this.service.units;
+    this.hourUnit = this.service.hourUnit;
   }
   //Get location time
   private getLocationTime() {

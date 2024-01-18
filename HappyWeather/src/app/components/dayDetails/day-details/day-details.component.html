@@ -7,10 +7,10 @@
     <div id="shadow"></div>
     <div>
       <span><strong>Min temp: </strong></span>
-      <span>
+      <!-- <span>
         {{dayDetails.values.minTemperature | tempConversion: unit : converted |
         roundNumber}}&deg;
-      </span>
+      </span> -->
       @if (unit === undefined || unit === 'metric' || unit === null || unit ===
       'Nan' || unit.length === 0) {
       <span>C</span>
@@ -19,10 +19,10 @@
       }
       <br />
       <span><strong>Max temp: </strong></span>
-      <span>
+      <!-- <span>
         {{dayDetails.values.maxTemperature | tempConversion: unit : converted |
         roundNumber }}&deg;
-      </span>
+      </span> -->
       @if (unit === undefined || unit === 'metric' || unit === null || unit ===
       'Nan') {
       <span>C</span>
@@ -45,8 +45,7 @@
   <section class="mainContainer">
     <div class="title">
       <a id="hyperlink" [href]="externalLink" target="_blank">
-        <strong>{{location}} </strong
-        ><span class="material-icons">open_in_new</span>
+        <strong>{{location}} </strong><span class="material-icons">open_in_new</span>
       </a>
       <strong>{{ dayDetails.time| dateFormat}}</strong>
     </div>
@@ -54,13 +53,11 @@
       <section class="mainInfo">
         <div>
           <div class="infoUnit">
-            <span><strong> Sunrise:</strong></span
-            ><span class="infoData">{{dayDetails.values.sunrise}}</span>
+            <span><strong> Sunrise:</strong></span><span class="infoData">{{dayDetails.values.sunrise}}</span>
           </div>
           <hr />
           <div class="infoUnit">
-            <span><strong>Sunset:</strong></span
-            ><span class="infoData">{{dayDetails.values.sunset}} </span>
+            <span><strong>Sunset:</strong></span><span class="infoData">{{dayDetails.values.sunset}} </span>
           </div>
           <hr />
           <div class="infoUnit">
@@ -74,10 +71,8 @@
           </div>
           <hr />
           <div class="infoUnit">
-            <span><strong>Visibility:</strong></span
-            ><span class="infoData"
-              >{{dayDetails.values.visibility | roundNumber}} km</span
-            >
+            <span><strong>Visibility:</strong></span><span class="infoData">{{dayDetails.values.visibility |
+              roundNumber}} km</span>
           </div>
           <hr />
           <div class="infoUnit">
@@ -90,24 +85,18 @@
         <div>
           <div class="infoUnit">
             <span><strong>Cloud coverage:</strong> </span>
-            <span class="infoData"
-              >{{dayDetails.values.cloudCoverAverage | roundNumber}}%</span
-            >
+            <span class="infoData">{{dayDetails.values.cloudCoverAverage | roundNumber}}%</span>
           </div>
           <hr />
           <div class="infoUnit">
             <span><strong>Precipitations probability:</strong></span>
-            <span class="infoData"
-              >{{dayDetails.values.precipitationProbability |
-              roundNumber}}%</span
-            >
+            <span class="infoData">{{dayDetails.values.precipitationProbability |
+              roundNumber}}%</span>
           </div>
           <hr />
           <div class="infoUnit">
             <span><strong>Average humidity:</strong> </span>
-            <span class="infoData"
-              >{{dayDetails.values.averageHumidity | roundNumber}}%</span
-            >
+            <span class="infoData">{{dayDetails.values.averageHumidity | roundNumber}}%</span>
           </div>
           <hr />
           @if (dayDetails.values.windSpeed > 0) {
@@ -119,16 +108,13 @@
           <hr />
           <div class="infoUnit">
             <span><strong>Wind Gust:</strong> </span>
-            <span class="infoData"
-              >{{dayDetails.values.maxWindGust | roundNumber}} m/s</span
-            >
+            <span class="infoData">{{dayDetails.values.maxWindGust | roundNumber}} m/s</span>
           </div>
           <hr />
           <div class="infoUnit">
             <span><strong>Wind speed:</strong></span>
             <span class="infoData">
-              {{dayDetails.values.windSpeed | roundNumber}} m/s</span
-            >
+              {{dayDetails.values.windSpeed | roundNumber}} m/s</span>
           </div>
         </div>
       </section>

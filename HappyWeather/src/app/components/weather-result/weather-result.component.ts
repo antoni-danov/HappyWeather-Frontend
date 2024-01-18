@@ -41,7 +41,7 @@ export class WeatherResultComponent implements OnInit, AfterContentChecked {
     weatherIcon: '',
     unit: ''
   };
-  converted: boolean = false;
+  currentUnit!: string;
   loadingSpinner!: boolean;
 
   dateFormat!: string;
@@ -97,7 +97,6 @@ export class WeatherResultComponent implements OnInit, AfterContentChecked {
 
       }
     });
-
   }
   //Set weather icon
   private setWeatherIcon() {
@@ -109,8 +108,8 @@ export class WeatherResultComponent implements OnInit, AfterContentChecked {
   }
   //Set weather temperature in celsius or farenheit
   private temperatureUnit() {
-    this.converted = this.weatherService.convert;
-    this.sessionData.unit = this.weatherService.units;
+    this.currentUnit = this.weatherService.units;
+    this.sessionData.unit = this.weatherService.realtimeUnit;
   }
   //Get location real time
   private getLocationTime() {

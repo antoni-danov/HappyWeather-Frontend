@@ -26,7 +26,7 @@ export class FiveDaysForecastComponent implements OnInit {
 
   fivedaysForecast!: DayUnit[];
   unit!: string;
-  converted: boolean = false;
+  dayUnit!: string;
   dayTimeDescription: string[] = [];
   iconPath!: string | undefined;
   iconPaths: string[] = [];
@@ -89,8 +89,8 @@ export class FiveDaysForecastComponent implements OnInit {
     this.router.navigate(['/details', index]);
   }
   private temperatureUnit() {
-    this.converted = this.service.convert;
     this.unit = this.service.units;
+    this.dayUnit = this.service.dayUnit;
   }
   //Get location real time
   private getLocationTime() {

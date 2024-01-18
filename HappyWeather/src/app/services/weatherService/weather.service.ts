@@ -35,7 +35,9 @@ export class WeatherService {
 
   location!: string;
   units!: string;
-  convert: boolean = false;
+  realtimeUnit!: string;
+  dayUnit!: string;
+  hourUnit!: string;
 
   constructor(
     private http: HttpClient,
@@ -46,6 +48,7 @@ export class WeatherService {
   realTimeCurrentCity(cityName: string, units: string) {
     this.location = cityName.replaceAll(',', '');
     this.units = this.units != undefined ? this.units : units;
+    this.realtimeUnit = this.units;
 
     var params = new HttpParams().set('unit', this.units);
     this.setSpinner(true);
@@ -67,7 +70,7 @@ export class WeatherService {
     });
   }
   fiveDaysForecast() {
-    console.log('From five days: ', this.units);
+    this.dayUnit = this.units;
 
     var params = new HttpParams().set('unit', this.units).set('timeStep', '1d');
     return this.http.get<WeatherForecast<DayUnit>>(environement.localhost + `${this.location}/dailyforecast`, { params })
@@ -78,6 +81,9 @@ export class WeatherService {
       });
   }
   hourlyWeatherForecast(): Observable<WeatherForecast<HourlyUnit>> {
+    this.hourUnit = this.units;
+    console.log("hour unit: ", this.units);
+
     var params = new HttpParams().set('unit', this.units).set('timeStep', '1h');
     return this.http.get<WeatherForecast<HourlyUnit>>(environement.localhost + `${this.location}/hourlyforecast`, { params });
   }
@@ -86,7 +92,6 @@ export class WeatherService {
   }
   setUnitChoice(value: string, isChoosed: boolean) {
     this.units = value;
-    this.convert = isChoosed;
   }
   getLocationTime(coordinates: WeatherLocation) {
     return this.http.get(environement.googleTimeZone + `${coordinates.latitude}%2C${coordinates.longitude}&timestamp=0&key=${environement.googleMapsApiKey}`)
