@@ -30,7 +30,9 @@
   width: 60%;
   height: 80px;
   border-radius: 50%;
-  background: rgb(212, 209, 209);
+  background: rgb(224, 222, 222);
+  opacity: 0.9;
+
   -webkit-filter: blur(10px);
   -webkit-transform: scale(1, 0.2);
 }
