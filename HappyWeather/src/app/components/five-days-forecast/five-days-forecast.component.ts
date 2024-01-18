@@ -8,7 +8,6 @@ import { TemperatureConversionPipe } from 'src/app/pipes/temperature/temperature
 import { WeatherUtilities } from 'src/app/shared/weatherUtilities';
 import { environement } from 'src/app/environements/environement';
 import { Router } from '@angular/router';
-import { query, stagger, style, transition, trigger } from '@angular/animations';
 
 @Component({
   selector: 'app-five-days-forecast',
@@ -27,7 +26,7 @@ export class FiveDaysForecastComponent implements OnInit {
 
   fivedaysForecast!: DayUnit[];
   unit!: string;
-  converted: boolean = false;
+  dayUnit!: string;
   dayTimeDescription: string[] = [];
   iconPath!: string | undefined;
   iconPaths: string[] = [];
@@ -55,21 +54,11 @@ export class FiveDaysForecastComponent implements OnInit {
     this.showButton = scrollPosition > 100;
   }
   ngOnInit() {
-    // var fiveDaysForecastSession = sessionStorage.getItem(environement.sessionFiveDaysForecast);
-
-    // if (fiveDaysForecastSession) {
-    //   this.fivedaysForecast = JSON.parse(fiveDaysForecastSession!);
-    //   this.iconPaths = JSON.parse(sessionStorage.getItem(environement.sessionFiveDaysIconPaths)!);
-    // } else {
     this.fiveDaysWeatherForecast();
     this.temperatureUnit();
-    // }
   }
   ngAfterContentChecked() {
-    // if (this.fivedaysForecast && this.iconPaths) {
-    //   WeatherUtilities.setSessionStorageData(environement.sessionFiveDaysForecast, this.fivedaysForecast);
-    //   WeatherUtilities.setSessionStorageData(environement.sessionFiveDaysIconPaths, this.iconPaths);
-    // }
+    this.temperatureUnit();
   }
 
   fiveDaysWeatherForecast() {
@@ -100,12 +89,8 @@ export class FiveDaysForecastComponent implements OnInit {
     this.router.navigate(['/details', index]);
   }
   private temperatureUnit() {
-    this.service.unitChoice$.subscribe(data => {
-      if (data) {
-        this.converted = !this.converted;
-        this.unit = data;
-      }
-    });
+    this.unit = this.service.units;
+    this.dayUnit = this.service.dayUnit;
   }
   //Get location real time
   private getLocationTime() {
@@ -115,8 +100,6 @@ export class FiveDaysForecastComponent implements OnInit {
         this.locationTime = WeatherUtilities.getLocationTime(timezoneData).locationTime;
       });
   }
-
-
   scrollToTop() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }

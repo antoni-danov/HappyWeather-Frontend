@@ -41,7 +41,7 @@ export class WeatherResultComponent implements OnInit, AfterContentChecked {
     weatherIcon: '',
     unit: ''
   };
-  converted: boolean = false;
+  currentUnit!: string;
   loadingSpinner!: boolean;
 
   dateFormat!: string;
@@ -61,29 +61,17 @@ export class WeatherResultComponent implements OnInit, AfterContentChecked {
   }
 
   ngOnInit() {
-    // var existingData = sessionStorage.getItem(environement.sessionStorageMainData);
 
-    // if (existingData) {
-    //   this.sharedData = JSON.parse(existingData!);
-    //   this.sessionData = JSON.parse(sessionStorage.getItem(environement.sessionStorageSessionData)!);
-    // } else {
     this.smallScreenSize = WeatherUtilities.checkScreenSize();
 
     this.route.paramMap.subscribe(params => {
       this.searchString = params.get('searchString');
     });
-    // }
-
   }
   ngAfterContentChecked() {
     this.timeCityWeatherData();
     this.temperatureUnit();
     this.setWeatherIcon();
-
-    // if (this.sessionData.locationTime && this.sessionData.weatherIcon) {
-    //   WeatherUtilities.setSessionStorageData(environement.sessionStorageMainData, this.sharedData);
-    //   WeatherUtilities.setSessionStorageData(environement.sessionStorageSessionData, this.sessionData);
-    // }
   }
 
   //Recieve and extract weather data
@@ -109,7 +97,6 @@ export class WeatherResultComponent implements OnInit, AfterContentChecked {
 
       }
     });
-
   }
   //Set weather icon
   private setWeatherIcon() {
@@ -121,13 +108,8 @@ export class WeatherResultComponent implements OnInit, AfterContentChecked {
   }
   //Set weather temperature in celsius or farenheit
   private temperatureUnit() {
-    this.weatherService.unitChoice$.subscribe(data => {
-      if (data) {
-        this.converted = !this.converted;
-        this.sessionData.unit = data;
-      }
-    });
-
+    this.currentUnit = this.weatherService.units;
+    this.sessionData.unit = this.weatherService.realtimeUnit;
   }
   //Get location real time
   private getLocationTime() {

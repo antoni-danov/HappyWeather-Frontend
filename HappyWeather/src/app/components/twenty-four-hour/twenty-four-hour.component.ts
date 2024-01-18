@@ -26,7 +26,7 @@ import { ModalTwentyFourHoursComponent } from '../modalTwentyFourHours/modal-twe
 export class TwentyFourHourComponent implements OnInit, AfterContentChecked {
   details!: HourlyUnit[];
 
-  converted: boolean = false;
+  hourUnit!: string;
   unit!: string;
   iconPath!: string | undefined;
   realTimeDescription: string[] = [];
@@ -39,6 +39,7 @@ export class TwentyFourHourComponent implements OnInit, AfterContentChecked {
 
   showButton: boolean = false;
   smallScreenSize: boolean | number = false;
+  initialUnit!: string;
   modalOpen: boolean = false;
 
   constructor(private service: WeatherService) {
@@ -55,52 +56,30 @@ export class TwentyFourHourComponent implements OnInit, AfterContentChecked {
     this.showButton = scrollPosition > 100;
   }
   ngOnInit() {
-    // var hourForecast = sessionStorage.getItem(environement.sessionHourForecastDetails);
 
-    // if (hourForecast) {
-    //   this.details = JSON.parse(hourForecast!);
-    //   this.iconPaths = JSON.parse(sessionStorage.getItem(environement.sessionHourIconPaths)!);
-
-
-    // } else {
     this.smallScreenSize = WeatherUtilities.checkScreenSize();
-
     this.detailedWeatherForecast();
     this.temperatureUnit();
-    // }
   }
-
   ngAfterContentChecked() {
-    // if (this.details && this.iconPaths) {
-    //   WeatherUtilities.setSessionStorageData(environement.sessionHourForecastDetails, this.details);
-    //   WeatherUtilities.setSessionStorageData(environement.sessionHourIconPaths, this.iconPaths);
-    // }
+    this.temperatureUnit();
   }
 
   scrollToTop() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
-  test() {
-    var dialog = document.querySelector('dialog');
-
-    document.querySelector('#openButton')!.addEventListener('click', () => dialog?.showModal());
-    document.querySelector('#closeButton')!.addEventListener('click', () => dialog?.close());
-  }
-
   detailedWeatherForecast() {
     //Get location current time
     this.getLocationTime();
 
     //Get 24 hours data for the location
     this.service.hourlyWeatherForecast().subscribe(data => {
-
       //Extract only 24 hours records starting from the location current time
       var extractedData = Object.values(data.timeLines.hourly)
         .findIndex(file => file.time.split('T')[1].split(':')[0] == this.locationHour.toString());
       this.details = Object.values(data.timeLines.hourly).splice(extractedData, 25);
       this.location = this.service.location;
       this.externalLink = environement.locationSearch + this.location;
-
       //Set weather icon for every record
       this.setWeatherIcon();
     });
@@ -117,7 +96,6 @@ export class TwentyFourHourComponent implements OnInit, AfterContentChecked {
       this.realTimeDescription.push(iconInfo.weatherDescription.replaceAll('_', ' '));
       this.iconPaths.push(environement.weatherIconPath + iconInfo.iconPath);
     }
-    console.log(this.iconPaths);
 
   }
   toggleModal() {
@@ -128,13 +106,8 @@ export class TwentyFourHourComponent implements OnInit, AfterContentChecked {
   }
   //Set weather temperature in celsius or farenheit
   private temperatureUnit() {
-    this.service.unitChoice$.subscribe(data => {
-      if (data) {
-        this.converted = !this.converted;
-        this.unit = data;
-      }
-    });
-
+    this.unit = this.service.units;
+    this.hourUnit = this.service.hourUnit;
   }
   //Get location time
   private getLocationTime() {

@@ -17,26 +17,21 @@
       <div id="temperature">
         <span
           >{{this.sharedData.data.values.temperature | tempConversion:
-          sessionData.unit : converted | roundNumber }}&deg;
+          sessionData.unit : currentUnit | roundNumber }}&deg; 
+          @if(currentUnit === 'metric') { 
+            <span>C</span>
+          } @else{
+          <span>F</span>
+          }
         </span>
-        @if (sessionData.unit === undefined || sessionData.unit === 'metric' ||
-        sessionData.unit === null || sessionData.unit === 'Nan' ||
-        sessionData.unit.length === 0) {
-        <span>C</span>
-        } @if (sessionData.unit === 'imperial') {
-        <span>F</span>
-        }
       </div>
       <div id="feelsLike">
         <span
-          ><strong>Feels like:</strong>
-          {{this.sharedData.data.values.temperatureApparent| tempConversion:
-          sessionData.unit : converted | roundNumber }}&deg; @if
-          (sessionData.unit === undefined || sessionData.unit === 'metric' ||
-          sessionData.unit === null || sessionData.unit === 'Nan' ||
-          sessionData.unit.length === 0) {
-          <span>C</span>
-          } @if (sessionData.unit === 'imperial') {
+          >Feels like: {{this.sharedData.data.values.temperature | tempConversion:
+          sessionData.unit : currentUnit | roundNumber }}&deg; 
+          @if(currentUnit === 'metric') { 
+            <span>C</span>
+          } @else{
           <span>F</span>
           }
         </span>
@@ -155,8 +150,7 @@
       </div>
       <mat-icon>place</mat-icon
       ><a id="hyperlink" [href]="sessionData.externalLink" target="_blank">
-        <strong>{{sessionData.location}} </strong
-        ><!--<span class="material-icons">open_in_new</span> -->
+        <strong>{{sessionData.location}} </strong>
       </a>
     </section>
     <section class="location">
@@ -174,30 +168,28 @@
       </div>
       <div class="temperatureContainer">
         <div id="temperature">
-          <p>
-            {{this.sharedData.data.values.temperature | tempConversion:
-            sessionData.unit : converted | roundNumber }}&deg; @if
-            (sessionData.unit === undefined || sessionData.unit === 'metric' ||
-            sessionData.unit === null || sessionData.unit === 'Nan' ||
-            sessionData.unit.length === 0) { C } @if (sessionData.unit ===
-            'imperial') { F }
-          </p>
+          <span
+          >{{this.sharedData.data.values.temperature | tempConversion:
+          sessionData.unit : currentUnit | roundNumber }}&deg; 
+          @if(currentUnit === 'metric') { 
+            <span>C</span>
+          } @else{
+          <span>F</span>
+          }
+        </span>
         </div>
       </div>
       <div id="feelsLike">
         <div>
           <span
-            ><strong>Feels like:</strong>
-            {{this.sharedData.data.values.temperatureApparent| tempConversion:
-            sessionData.unit : converted | roundNumber }}&deg; @if
-            (sessionData.unit === undefined || sessionData.unit === 'metric' ||
-            sessionData.unit === null || sessionData.unit === 'Nan' ||
-            sessionData.unit.length === 0) {
+          >{{this.sharedData.data.values.temperature | tempConversion:
+          sessionData.unit : currentUnit | roundNumber }}&deg; 
+          @if(currentUnit === 'metric') { 
             <span>C</span>
-            } @if (sessionData.unit === 'imperial') {
-            <span>F</span>
-            }
-          </span>
+          } @else{
+          <span>F</span>
+          }
+        </span>
         </div>
       </div>
       <hr />
@@ -244,8 +236,7 @@
         </span>
         <br />
         <span>
-          <strong>Visibility:</strong> {{sharedData.data.values.visibility |
-          roundNumber}} km
+          <strong>Visibility:</strong> {{sharedData.data.values.visibility | roundNumber}} km
         </span>
         <br />
         <span

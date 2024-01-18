@@ -27,11 +27,12 @@
 }
 #shadow {
   margin-left: 20%;
-  margin-top: -15%;
-  border-radius: 50%;
   width: 60%;
-  height: 100px;
-  background: rgb(212, 209, 209);
+  height: 80px;
+  border-radius: 50%;
+  background: rgb(224, 222, 222);
+  opacity: 0.9;
+
   -webkit-filter: blur(10px);
   -webkit-transform: scale(1, 0.2);
 }
@@ -75,6 +76,7 @@
     margin: 1% 5%;
     padding: 2% 5%;
     justify-content: space-between;
+    height: 300px;
   }
   .dayInfo {
     flex-grow: 0.1;
@@ -89,7 +91,7 @@
   }
   .weatherIcon {
     text-align: center;
-    margin: 17% 0%;
+    margin: 3%;
   }
   .vertical-line {
     border-left: 1px solid grey;

@@ -3,93 +3,73 @@
   <div class="dayInfo">
     <div>
       <a id="hyperlink" [href]="externalLink" target="_blank">
-        <strong>{{location}} </strong
-        ><span class="material-icons">open_in_new</span>
+        <strong>{{ location }} </strong><span class="material-icons">open_in_new</span>
       </a>
-      <p><strong>{{item.time | dateFormat}}</strong></p>
+      <p>
+        <strong>{{ item.time | dateFormat }}</strong>
+      </p>
 
-      <p id="time">{{item.time.split('T')[1].split(':00Z')[0]}}</p>
+      <p id="time">{{ item.time.split("T")[1].split(":00Z")[0] }}</p>
     </div>
     <div class="weatherIcon">
       <img [src]="iconPaths[$index]" alt="" />
       <div id="shadow"></div>
       <p>
-        {{realTimeDescription[$index]}}
+        {{ realTimeDescription[$index] }}
       </p>
     </div>
   </div>
   <div class="temperature">
-    <span
-      ><strong>Temperature: </strong>{{item.values.temperature | tempConversion:
-      unit : converted | roundNumber}}&deg; @if (unit === undefined || unit ===
-      'metric' || unit === null || unit === 'Nan') {
+    <span>Temperature:
+      {{
+      this.item.values.temperature
+      | tempConversion :hourUnit :unit
+      | roundNumber
+      }}&deg; @if(unit === 'metric') {
       <span>C</span>
-      } @if (unit === 'imperial') {
+      } @else{
       <span>F</span>
-      }</span
-    >
+      }
+    </span>
     <hr />
-    <span
-      ><strong>Fells like: </strong> {{item.values.apparentTemperature |
-      tempConversion: unit : converted | roundNumber }}&deg; @if (unit ===
-      undefined || unit === 'metric' || unit === null || unit === 'Nan') {
+    <span>Feels like:
+      {{this.item.values.temperature | tempConversion :hourUnit :unit | roundNumber}}&deg;
+      @if(unit === 'metric') {
       <span>C</span>
-      } @if (unit === 'imperial') {
+      } @else{
       <span>F</span>
-      }</span
-    >
+      }
+    </span>
     <hr />
   </div>
   <div class="additionalInformation">
-    <span
-      ><strong>Cloud coverage: </strong> {{item.values.cloudCoverage |
-      roundNumber}}%</span
-    >
+    <span><strong>Cloud coverage: </strong>
+      {{ item.values.cloudCoverage | roundNumber }}%</span>
     <hr />
-    <span
-      ><strong>Humidity: </strong>{{item.values.humidity | roundNumber}}%</span
-    >
+    <span><strong>Humidity: </strong>{{ item.values.humidity | roundNumber }}%</span>
     <hr />
-    <span
-      ><strong>Precipitation: </strong>{{item.values.precipitationProbability |
-      roundNumber}} mm</span
-    >
+    <span><strong>Precipitation: </strong>{{ item.values.precipitationProbability | roundNumber }} mm</span>
     <hr />
-    <span><strong>Index UV: </strong>{{item.values.uvIndex}}</span>
+    <span><strong>Index UV: </strong>{{ item.values.uvIndex }}</span>
     <hr />
   </div>
   <div class="windInformation">
-    <span
-      ><strong>Visibility: </strong>{{item.values.visibility | roundNumber}}
-      km</span
-    >
+    <span><strong>Visibility: </strong>{{ item.values.visibility | roundNumber }} km</span>
     <hr />
-    <span><strong>Wind direction: </strong>{{item.values.windDirection}}</span>
+    <span><strong>Wind direction: </strong>{{ item.values.windDirection }}</span>
     <hr />
-    <span
-      ><strong>Wind speed: </strong>{{item.values.windSpeed | roundNumber}}
-      m/s</span
-    >
+    <span><strong>Wind speed: </strong>{{ item.values.windSpeed | roundNumber }} m/s</span>
     <hr />
-    <span
-      ><strong>Maximal wind gust: </strong>{{item.values.maxWindGust |
-      roundNumber}} m/s</span
-    >
+    <span><strong>Maximal wind gust: </strong>{{ item.values.maxWindGust | roundNumber }} m/s</span>
     <hr />
   </div>
 </div>
 } } @else if (smallScreenSize) { @for (item of details; track $index) {
 <div class="container">
   <button (click)="toggleModal()">ToggleModal</button>
-  <app-modal-twenty-four-hours
-    (closeModal)="onModalClose()"
-  ></app-modal-twenty-four-hours>
+  <app-modal-twenty-four-hours (closeModal)="onModalClose()"></app-modal-twenty-four-hours>
 </div>
 } }}
-<button
-  (click)="scrollToTop()"
-  class="btn btn-light scroll-top-btn"
-  [class.show]="showButton"
->
-  <i class="fa fa-angle-up" style="color: #5d6269;"></i>
+<button (click)="scrollToTop()" class="btn btn-light scroll-top-btn" [class.show]="showButton">
+  <i class="fa fa-angle-up" style="color: #5d6269"></i>
 </button>
