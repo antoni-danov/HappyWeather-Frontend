@@ -8,58 +8,72 @@
 
   color: black;
   background: rgb(255, 255, 255);
-  background: linear-gradient(
-    360deg,
-    rgba(255, 255, 255, 1) 16%,
-    rgba(29, 150, 299, 1) 89%
-  );
+  background: linear-gradient(360deg,
+      rgba(255, 255, 255, 1) 16%,
+      rgba(29, 150, 299, 1) 89%);
   box-sizing: border-box;
   box-shadow: 0px 1.5px 10px 6px rgba(0, 0, 0, 0.72);
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
 }
+
 .wi {
   color: black;
   font-size: 48px;
 }
+
 .wi-strong-wind {
   font-size: 25px;
 }
+
 .wi-wind {
   font-size: 25px;
   margin-left: 20px;
 }
+
 #time {
   vertical-align: 5px;
 }
+
 #wi-time {
   font-size: 35px;
   margin-right: 15px;
 }
+
 #feelsLike {
   text-align: center;
 
   font-size: x-large;
   margin-bottom: 5%;
 }
+
 .windInformation {
   margin: 5% 0%;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
 }
+
 .windIcon i {
   font-size: 50px;
   margin-top: 58px;
   margin-left: 45px;
 }
+
 #hyperlink {
   color: black;
 }
+
 img {
   margin: 5% 5% 1% 5%;
 }
+
+.weatherForecast p {
+  font-size: xx-large;
+  text-align: center;
+}
+
 @media screen and (min-width: 320px) and (max-width: 480px) {
   .weather-container {
     display: flex;
@@ -68,26 +82,33 @@ img {
     box-shadow: none;
     flex-direction: column;
   }
+
   .wi {
     margin: 3% 5% 3% 0%;
   }
+
   .weather-container section {
     margin: 0% 2%;
     margin-bottom: 5%;
   }
+
   .material-icons {
     font-size: 27px;
     vertical-align: text-top;
   }
+
   .location {
     font-size: 22px;
   }
+
   .location strong {
     font-weight: 500;
   }
+
   #localTime {
     align-self: center;
   }
+
   #locationName {
     align-self: baseline;
     font-size: larger;
@@ -96,52 +117,70 @@ img {
     width: 100%;
     text-align: center;
   }
+
   #locationName a {
     margin: 2%;
   }
+
   .weatherState {
     margin-top: 10%;
   }
+
   .mainInfo {
     display: flex;
     flex-wrap: wrap;
     flex-direction: column;
   }
+
   .icon_temperature {
     display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: space-between;
+    flex-direction: column;
+    flex-wrap: initial;
+    align-items: center;
+    justify-content: space-around;
     padding: 0% 10%;
   }
+
   img {
     margin: 0% 10%;
   }
+
+  #feelsLike {
+    margin-bottom: 0;
+  }
+
   #temperature div {
     font-variant-numeric: tabular-nums;
   }
+
   #temperature p {
     font-size: xxx-large;
     font-weight: 400;
     margin-left: -10%;
   }
-  #feelsLike {
+
+  .temperatureContainer {
     font-weight: 400;
     text-align: center;
     font-size: xx-large;
   }
+
+  .weatherForecast {
+    font-size: xx-large;
+    font-weight: 500;
+    text-align: center;
+  }
+
   .weatherForecast p {
     font-size: larger;
   }
+
   .windIcon {
     font-size: 40px;
     margin-top: 8px;
   }
 }
-.weatherForecast p {
-  font-size: xx-large;
-  text-align: center;
-}
+
 @media screen and (min-width: 1024px) {
   .weatherDetails {
     box-sizing: border-box;
@@ -152,12 +191,14 @@ img {
     width: -webkit-fill-available;
     overflow: hidden;
   }
+
   .mainInfo {
     width: 35%;
     padding: 0% 1%;
     border-top-right-radius: 10px;
     border-bottom-right-radius: 10px;
   }
+
   .weatherDescription {
     margin-bottom: 9%;
     border-radius: 5px;
@@ -166,26 +207,32 @@ img {
     background-repeat: no-repeat;
     background-position: center;
   }
+
   .location {
     margin: 3% 1% 3% 5%;
     font-size: 25px;
     display: flex;
     justify-content: space-between;
   }
+
   .location strong {
     font-weight: 500;
   }
+
   #locationName,
   #localTime {
     align-self: baseline;
   }
+
   #weatherStateTitle {
     font-size: large;
     font-weight: 500;
   }
+
   #localTime {
     margin-right: 6%;
   }
+
   .weatherState {
     position: absolute;
     bottom: 32%;
@@ -195,42 +242,52 @@ img {
     font-weight: 500;
     width: -webkit-fill-available;
   }
+
   .weatherForecast {
     display: flex;
     flex-direction: row;
     align-items: flex-end;
   }
+
   .localTime {
     margin-left: 5%;
   }
+
   #weatherIcon {
     padding-left: 33%;
   }
+
   .otherInfos {
     border-radius: 5px;
     height: 100px;
     box-sizing: border-box;
   }
+
   #temperature {
     font-size: 57px;
     margin: 0% 25%;
   }
+
   #dateFormat,
   #timeFormat {
     font-size: x-large;
   }
+
   .fiveDaysForecast {
     text-align: center;
   }
+
   #dateFormat {
     text-align: center;
     margin-top: 8%;
   }
+
   .vertical-line {
     border-left: 1px solid grey;
     height: 445px;
     margin-top: 1%;
   }
+
   .otherInfos {
     display: flex;
     flex-direction: row;

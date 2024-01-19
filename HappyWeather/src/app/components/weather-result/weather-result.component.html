@@ -15,22 +15,20 @@
     </section>
     <section class="temperature">
       <div id="temperature">
-        <span
-          >{{this.sharedData.data.values.temperature | tempConversion:
-          sessionData.unit : currentUnit | roundNumber }}&deg; 
-          @if(currentUnit === 'metric') { 
-            <span>C</span>
+        <span>{{this.sharedData.data.values.temperature | tempConversion:
+          sessionData.unit : currentUnit | roundNumber }}&deg;
+          @if(currentUnit === 'metric') {
+          <span>C</span>
           } @else{
           <span>F</span>
           }
         </span>
       </div>
       <div id="feelsLike">
-        <span
-          >Feels like: {{this.sharedData.data.values.temperature | tempConversion:
-          sessionData.unit : currentUnit | roundNumber }}&deg; 
-          @if(currentUnit === 'metric') { 
-            <span>C</span>
+        <span>Feels like: {{this.sharedData.data.values.temperature | tempConversion:
+          sessionData.unit : currentUnit | roundNumber }}&deg;
+          @if(currentUnit === 'metric') {
+          <span>C</span>
           } @else{
           <span>F</span>
           }
@@ -44,17 +42,11 @@
           <i class="wi wi-strong-wind"></i>
           <br />
           <br />
-          <span
-            ><strong>Wind speed: </strong>
-            <span
-              >{{sharedData.data.values.windSpeed | roundNumber}} m/s</span
-            ></span
-          >
+          <span><strong>Wind speed: </strong>
+            <span>{{sharedData.data.values.windSpeed | roundNumber}} m/s</span></span>
           <br />
-          <span
-            ><strong>Wind gust:</strong> {{sharedData.data.values.windGust |
-            roundNumber}} m/s</span
-          >
+          <span><strong>Wind gust:</strong> {{sharedData.data.values.windGust |
+            roundNumber}} m/s</span>
           <br />
           @if (sharedData.data.values.windSpeed > 0) {
           <span>
@@ -63,9 +55,7 @@
           }
         </div>
         <div class="windIcon">
-          <i
-            class="wi wi-wind towards-{{sessionData.windDegree | roundNumber}}-deg"
-          ></i>
+          <i class="wi wi-wind towards-{{sessionData.windDegree | roundNumber}}-deg"></i>
         </div>
       </div>
     </section>
@@ -75,16 +65,12 @@
     <section class="weatherDescription">
       <section class="location">
         <div id="locationName">
-          <mat-icon>place</mat-icon
-          ><a id="hyperlink" [href]="sessionData.externalLink" target="_blank">
-            <strong>{{sessionData.location}} </strong
-            ><span class="material-icons">open_in_new</span>
+          <mat-icon>place</mat-icon><a id="hyperlink" [href]="sessionData.externalLink" target="_blank">
+            <strong>{{sessionData.location}} </strong><span class="material-icons">open_in_new</span>
           </a>
         </div>
         <div id="localTime">
-          <app-local-time
-            [localTime]="sessionData.locationTime"
-          ></app-local-time>
+          <app-local-time [localTime]="sessionData.locationTime"></app-local-time>
         </div>
       </section>
       <section class="weatherState">
@@ -112,16 +98,12 @@
           <strong>Visibility:</strong> {{sharedData.data.values.visibility}} km
         </span>
         <br />
-        <span
-          ><strong>UV Index:</strong> {{sharedData.data.values.uvIndex}}</span
-        >
+        <span><strong>UV Index:</strong> {{sharedData.data.values.uvIndex}}</span>
       </div>
       <div class="rightPanel">
         <i></i>
         <br />
-        <span
-          ><strong>Humidity:</strong> {{sharedData.data.values.humidity}}%</span
-        >
+        <span><strong>Humidity:</strong> {{sharedData.data.values.humidity}}%</span>
         <span>
           <br />
           <strong>Precipitation probability:</strong>
@@ -148,8 +130,7 @@
       <div id="dateFormat">
         <strong>{{this.sharedData.data.time | dateFormat}}</strong>
       </div>
-      <mat-icon>place</mat-icon
-      ><a id="hyperlink" [href]="sessionData.externalLink" target="_blank">
+      <mat-icon>place</mat-icon><a id="hyperlink" [href]="sessionData.externalLink" target="_blank">
         <strong>{{sessionData.location}} </strong>
       </a>
     </section>
@@ -159,44 +140,44 @@
       </div>
     </section>
     <section class="icon_temperature">
-      <div class="icon">
-        @if (sessionData.weatherIndex) {
-        <div id="weatherIcon">
-          <img [src]="sessionData.weatherIcon" alt="weather icon" />
-        </div>
-        }
-      </div>
-      <div class="temperatureContainer">
-        <div id="temperature">
-          <span
-          >{{this.sharedData.data.values.temperature | tempConversion:
-          sessionData.unit : currentUnit | roundNumber }}&deg; 
-          @if(currentUnit === 'metric') { 
-            <span>C</span>
-          } @else{
-          <span>F</span>
+      <div>
+        <div class="icon">
+          @if (sessionData.weatherIndex) {
+          <div id="weatherIcon">
+            <img [src]="sessionData.weatherIcon" alt="weather icon" />
+          </div>
           }
-        </span>
+        </div>
+        <div class="temperatureContainer">
+          <div id="temperature">
+            <span>{{this.sharedData.data.values.temperature | tempConversion:
+              sessionData.unit : currentUnit | roundNumber }}&deg;
+              @if(currentUnit === 'metric') {
+              <span>C</span>
+              } @else{
+              <span>F</span>
+              }
+            </span>
+          </div>
         </div>
       </div>
       <div id="feelsLike">
         <div>
-          <span
-          >{{this.sharedData.data.values.temperature | tempConversion:
-          sessionData.unit : currentUnit | roundNumber }}&deg; 
-          @if(currentUnit === 'metric') { 
+          <span> Feels like: {{this.sharedData.data.values.temperature | tempConversion:
+            sessionData.unit : currentUnit | roundNumber }}&deg;
+            @if(currentUnit === 'metric') {
             <span>C</span>
-          } @else{
-          <span>F</span>
-          }
-        </span>
+            } @else{
+            <span>F</span>
+            }
+          </span>
         </div>
       </div>
       <hr />
     </section>
     <section class="weatherDetails">
       <div class="weatherForecast">
-        <p>{{sessionData.weatherDescription}}</p>
+        <span>{{sessionData.weatherDescription}}</span>
       </div>
       <hr />
       <div class="windInformation">
@@ -204,17 +185,11 @@
           <i class="wi wi-strong-wind"></i>
           <br />
           <br />
-          <span
-            ><strong>Wind speed: </strong>
-            <span
-              >{{sharedData.data.values.windSpeed | roundNumber}} m/s</span
-            ></span
-          >
+          <span><strong>Wind speed: </strong>
+            <span>{{sharedData.data.values.windSpeed | roundNumber}} m/s</span></span>
           <br />
-          <span
-            ><strong>Wind gust:</strong> {{sharedData.data.values.windGust |
-            roundNumber}} m/s</span
-          >
+          <span><strong>Wind gust:</strong> {{sharedData.data.values.windGust |
+            roundNumber}} m/s</span>
           <br />
           @if (sharedData.data.values.windSpeed > 0) {
           <span>
@@ -222,14 +197,14 @@
           </span>
           }
         </div>
-        <div class="windIcon">
-          <i
-            class="wi wi-wind towards-{{sessionData.windDegree | roundNumber}}-deg"
-          ></i>
-        </div>
+        <!-- <div class="windIcon">
+          <i class="wi wi-wind towards-{{sessionData.windDegree | roundNumber}}-deg"></i>
+        </div> -->
       </div>
       <hr />
       <div class="clouds">
+        <i class="wi wi-cloud"></i>
+        <br>
         <span>
           <strong>Cloud coverage:</strong>
           {{sharedData.data.values.cloudCover}}%
@@ -239,15 +214,11 @@
           <strong>Visibility:</strong> {{sharedData.data.values.visibility | roundNumber}} km
         </span>
         <br />
-        <span
-          ><strong>UV Index:</strong> {{sharedData.data.values.uvIndex}}</span
-        >
+        <span><strong>UV Index:</strong> {{sharedData.data.values.uvIndex}}</span>
       </div>
       <hr />
       <div class="precipittions">
-        <span
-          ><strong>Humidity:</strong> {{sharedData.data.values.humidity}}%</span
-        >
+        <span><strong>Humidity:</strong> {{sharedData.data.values.humidity}}%</span>
         <span>
           <br />
           <strong>Precipitation probability:</strong>
