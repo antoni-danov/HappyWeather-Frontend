@@ -31,7 +31,7 @@ export class DayDetailsComponent implements OnInit, AfterContentChecked {
   location!: string;
   externalLink!: string;
   unit!: string;
-  converted: boolean = false;
+  dayUnit!: string;
   windDirection!: string;
 
   constructor(
@@ -40,40 +40,20 @@ export class DayDetailsComponent implements OnInit, AfterContentChecked {
   }
 
   ngOnInit() {
-    // var daySessionStorage = sessionStorage.getItem(environement.sessionDayDetails);
-
-    // if (daySessionStorage) {
-
-    //   this.dayDetails = JSON.parse(daySessionStorage!);
-    //   this.weatherIcon = JSON.parse(sessionStorage.getItem(environement.sessionDayWeatherIcon)!);
-
-    //   console.log(this.dayDetails);
-    //   console.log(this.weatherIcon);
-    // } else {
     this.route.params.subscribe(params => {
       this.index = params['id'];
     });
     this.detailedInformation();
     this.temperatureUnit();
-    // }
-
   }
   ngAfterContentChecked() {
+    this.temperatureUnit();
     this.setWeatherIcon();
-
-    // if (this.locationTime && this.weatherIcon) {
-    //   console.log(this.dayDetails);
-    //   console.log(this.weatherIcon);
-
-    //   WeatherUtilities.setSessionStorageData(environement.sessionDayDetails, this.dayDetails);
-    //   WeatherUtilities.setSessionStorageData(environement.sessionDayWeatherIcon, this.weatherIcon);
-    // }
   }
 
   detailedInformation() {
     this.service.fiveDaysData$.subscribe(data => {
       if (data) {
-        // WeatherUtilities.clearSessionStorage(environement.sessionDayDetails, environement.sessionDayWeatherIcon);
         this.location = this.service.location;
         this.externalLink = environement.locationSearch + this.location;
 
@@ -108,13 +88,8 @@ export class DayDetailsComponent implements OnInit, AfterContentChecked {
   }
   //Set weather temperature in celsius or farenheit
   private temperatureUnit() {
-    this.service.unitChoice$.subscribe(data => {
-      if (data) {
-        this.converted = !this.converted;
-        this.unit = data;
-      }
-    });
-
+    this.unit = this.service.units;
+    this.dayUnit = this.service.dayUnit;
   }
   //Get location real time
   private getLocationTime() {

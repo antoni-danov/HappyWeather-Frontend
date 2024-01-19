@@ -65,6 +65,8 @@ export class FiveDaysForecastComponent implements OnInit {
     this.service.fiveDaysForecast();
 
     this.service.fiveDaysData$.subscribe(data => {
+      console.log(data);
+
       this.location = this.service.location;
       this.externalLink = environement.locationSearch + this.location;
 
@@ -91,6 +93,9 @@ export class FiveDaysForecastComponent implements OnInit {
   private temperatureUnit() {
     this.unit = this.service.units;
     this.dayUnit = this.service.dayUnit;
+    console.log(this.unit);
+    console.log(this.dayUnit);
+
   }
   //Get location real time
   private getLocationTime() {

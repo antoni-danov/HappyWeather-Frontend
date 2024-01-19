@@ -40,6 +40,6 @@ export class NavbarComponent implements OnInit, DoCheck {
   unitChoice() {
     this.isChoosed = !this.isChoosed;
     this.units = this.isChoosed === false ? "metric" : "imperial";
-    this.service.setUnitChoice(this.units, this.isChoosed);
+    this.service.setUnitChoice(this.units);
   }
 }
