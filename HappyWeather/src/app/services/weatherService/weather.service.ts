@@ -71,7 +71,6 @@ export class WeatherService {
   }
   fiveDaysForecast() {
     this.dayUnit = this.units;
-
     var params = new HttpParams().set('unit', this.units).set('timeStep', '1d');
     return this.http.get<WeatherForecast<DayUnit>>(environement.localhost + `${this.location}/dailyforecast`, { params })
       .subscribe(data => {
@@ -82,15 +81,13 @@ export class WeatherService {
   }
   hourlyWeatherForecast(): Observable<WeatherForecast<HourlyUnit>> {
     this.hourUnit = this.units;
-    console.log("hour unit: ", this.units);
-
     var params = new HttpParams().set('unit', this.units).set('timeStep', '1h');
     return this.http.get<WeatherForecast<HourlyUnit>>(environement.localhost + `${this.location}/hourlyforecast`, { params });
   }
   getIconFileNames() {
     return this.http.get<string[]>(environement.jsonIconsList);
   }
-  setUnitChoice(value: string, isChoosed: boolean) {
+  setUnitChoice(value: string) {
     this.units = value;
   }
   getLocationTime(coordinates: WeatherLocation) {

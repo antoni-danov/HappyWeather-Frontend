@@ -7,28 +7,24 @@
     <div id="shadow"></div>
     <div>
       <span><strong>Min temp: </strong></span>
-      <!-- <span>
-        {{dayDetails.values.minTemperature | tempConversion: unit : converted |
-        roundNumber}}&deg;
-      </span> -->
-      @if (unit === undefined || unit === 'metric' || unit === null || unit ===
-      'Nan' || unit.length === 0) {
-      <span>C</span>
-      } @if (unit === 'imperial') {
-      <span>F</span>
-      }
+      <span>
+        {{dayDetails.values.minTemperature | tempConversion: dayUnit : unit | roundNumber }}&deg;
+        @if(unit === 'metric') {
+        <span>C</span>
+        } @else{
+        <span>F</span>
+        }
+      </span>
       <br />
       <span><strong>Max temp: </strong></span>
-      <!-- <span>
-        {{dayDetails.values.maxTemperature | tempConversion: unit : converted |
-        roundNumber }}&deg;
-      </span> -->
-      @if (unit === undefined || unit === 'metric' || unit === null || unit ===
-      'Nan') {
-      <span>C</span>
-      } @if (unit === 'imperial') {
-      <span>F</span>
-      }
+      <span>
+        {{dayDetails.values.maxTemperature | tempConversion: dayUnit : unit | roundNumber }}&deg;
+        @if(unit === 'metric') {
+        <span>C</span>
+        } @else{
+        <span>F</span>
+        }
+      </span>
       <!-- <br />
       <span
         ><strong>Feels like:</strong> {{dayDetails.values.apparentTemperature |
