@@ -41,11 +41,16 @@ export class FiveDaysForecastComponent implements OnInit {
   location!: string;
   externalLink!: string;
   showButton: boolean = false;
+  smallScreenSize: boolean | number = false;
 
   constructor(
     private service: WeatherService,
     private router: Router) {
 
+  }
+  @HostListener('window:resize', ['$event'])
+  onResize(event: Event) {
+    this.smallScreenSize = WeatherUtilities.checkScreenSize();
   }
   @HostListener('window:scroll', [])
 
@@ -54,6 +59,8 @@ export class FiveDaysForecastComponent implements OnInit {
     this.showButton = scrollPosition > 100;
   }
   ngOnInit() {
+    this.smallScreenSize = WeatherUtilities.checkScreenSize();
+
     this.fiveDaysWeatherForecast();
     this.temperatureUnit();
   }
@@ -65,7 +72,6 @@ export class FiveDaysForecastComponent implements OnInit {
     this.service.fiveDaysForecast();
 
     this.service.fiveDaysData$.subscribe(data => {
-      console.log(data);
 
       this.location = this.service.location;
       this.externalLink = environement.locationSearch + this.location;
@@ -93,9 +99,6 @@ export class FiveDaysForecastComponent implements OnInit {
   private temperatureUnit() {
     this.unit = this.service.units;
     this.dayUnit = this.service.dayUnit;
-    console.log(this.unit);
-    console.log(this.dayUnit);
-
   }
   //Get location real time
   private getLocationTime() {
