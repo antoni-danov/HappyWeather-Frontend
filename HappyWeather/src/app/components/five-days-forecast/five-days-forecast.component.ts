@@ -52,6 +52,8 @@ export class FiveDaysForecastComponent implements OnInit {
   onResize(event: Event) {
     this.smallScreenSize = WeatherUtilities.checkScreenSize();
   }
+  @HostListener('window:scroll', [])
+
   onWindowScroll() {
     const scrollPosition = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
     this.showButton = scrollPosition > 100;
