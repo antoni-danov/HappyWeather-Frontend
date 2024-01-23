@@ -1,12 +1,62 @@
 <div class="modal">
   <div class="modal-content">
     <span class="close" (click)="hideModal()">&times;</span>
-    <h2>Header</h2>
-    <p>
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Sapiente, rem at
-      dicta consequatur nam debitis quasi. Quod, praesentium! Deleniti sint
-      laudantium recusandae ex impedit consectetur in reiciendis sit quas
-      corporis.
-    </p>
+    <div class="container">
+      <div class="dayInfo">
+        <div>
+          <a id="hyperlink" [href]="externalLink" target="_blank">
+            <strong>{{ location }} </strong><span class="material-icons">open_in_new</span>
+          </a>
+          <p>
+            <strong>{{ modalContent.time | dateFormat }}</strong>
+          </p>
+          <p id="time">{{ modalContent.time.split("T")[1].split(":00Z")[0] }}</p>
+        </div>
+      </div>
+      <div class="temperature">
+        <span><strong>Temperature: </strong>
+          {{
+          modalContent.values.temperature
+          | tempConversion :hourUnit :unit
+          | roundNumber
+          }}&deg; @if(unit === 'metric') {
+          <span>C</span>
+          } @else{
+          <span>F</span>
+          }
+        </span>
+        <hr />
+        <span><strong>Feels like: </strong>
+          {{modalContent.values.temperature | tempConversion :hourUnit :unit | roundNumber}}&deg;
+          @if(unit === 'metric') {
+          <span>C</span>
+          } @else{
+          <span>F</span>
+          }
+        </span>
+        <hr />
+      </div>
+      <div class="additionalInformation">
+        <span><strong>Cloud coverage: </strong>
+          {{ modalContent.values.cloudCoverage | roundNumber }}%</span>
+        <hr />
+        <span><strong>Humidity: </strong>{{ modalContent.values.humidity | roundNumber }}%</span>
+        <hr />
+        <span><strong>Precipitation: </strong>{{ modalContent.values.precipitationProbability | roundNumber }} mm</span>
+        <hr />
+        <span><strong>Index UV: </strong>{{ modalContent.values.uvIndex }}</span>
+        <hr />
+      </div>
+      <div class="windInformation">
+        <span><strong>Visibility: </strong>{{ modalContent.values.visibility | roundNumber }} km</span>
+        <hr />
+        <span><strong>Wind direction: </strong>{{ modalContent.values.windDirection }}</span>
+        <hr />
+        <span><strong>Wind speed: </strong>{{ modalContent.values.windSpeed | roundNumber }} m/s</span>
+        <hr />
+        <span><strong>Maximal wind gust: </strong>{{ modalContent.values.maxWindGust | roundNumber }} m/s</span>
+        <hr />
+      </div>
+    </div>
   </div>
 </div>

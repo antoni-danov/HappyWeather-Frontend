@@ -101,9 +101,6 @@ export class TwentyFourHourComponent implements OnInit, AfterContentChecked {
   toggleModal() {
     this.modalOpen = !this.modalOpen;
   }
-  onModalClose() {
-    this.modalOpen = false;
-  }
   //Set weather temperature in celsius or farenheit
   private temperatureUnit() {
     this.unit = this.service.units;
