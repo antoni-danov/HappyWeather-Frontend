@@ -101,15 +101,16 @@
 
 @media screen and (min-width: 320px) and (max-width: 480px) {
   .container {
-    margin: 1% 0;
+    margin: 4% 1%;
     display: flex;
     flex-direction: column;
+    justify-content: unset;
 
     border-radius: 15px;
     border: none;
 
-    width: 100%;
-    height: 425px;
+    width: 98%;
+    height: 295px;
 
     background: linear-gradient(360deg,
         rgba(255, 255, 255, 1) 35%,
@@ -122,14 +123,13 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh
   }
 
   .pulse {
-    width: 97%;
     height: 50px;
-    background-color: #10a710;
-    border-radius: 15px;
+    background: radial-gradient(circle, rgba(244, 172, 43, 1) 37%, rgba(230, 93, 11, 1) 98%);
+    border: none;
+    border-radius: 50%;
     position: relative;
     animation: animate 3s linear infinite
   }
@@ -143,24 +143,6 @@
     color: #fff;
     height: 100%;
     cursor: pointer
-  }
-
-  @keyframes animate {
-    0% {
-      box-shadow: 0 0 0 0 rgb(200, 255, 193), 0 0 0 0 rgb(95, 248, 65)
-    }
-
-    40% {
-      box-shadow: 0 0 0 50px rgba(89, 255, 74, 0), 0 0 0 0 rgb(104, 255, 74)
-    }
-
-    80% {
-      box-shadow: 0 0 0 50px rgba(74, 255, 83, 0), 0 0 0 30px rgba(85, 252, 43, 0)
-    }
-
-    100% {
-      box-shadow: 0 0 0 0 rgba(131, 255, 74, 0), 0 0 0 30px rgba(81, 253, 66, 0)
-    }
   }
 
   .scroll-top-btn {
@@ -192,7 +174,7 @@
     flex-direction: row;
     justify-content: space-around;
     align-items: center;
-
+    margin: 5% 0%;
     font-size: x-large;
   }
 
@@ -200,6 +182,7 @@
     display: flex;
     flex-direction: row;
     justify-content: space-around;
+    padding-top: 5%;
   }
 
   #time {
@@ -208,6 +191,11 @@
 
   .temperature {
     text-align: center;
+  }
+
+  hr {
+    width: 50%;
+    margin: 0% 25%;
   }
 }
 
