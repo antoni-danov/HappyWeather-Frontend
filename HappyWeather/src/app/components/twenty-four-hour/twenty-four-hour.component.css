@@ -196,6 +196,7 @@
   .temperature {
     text-align: center;
     font-size: larger;
+    margin: 8% 0%;
   }
 
   hr {
