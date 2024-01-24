@@ -21,8 +21,8 @@ import { environement } from 'src/app/environements/environement';
 })
 export class ModalTwentyFourHoursComponent implements OnInit {
   @Input() modalContent!: HourlyUnit;
+  @Input() modalHourUnit!: string;
   @Output() closeModal: EventEmitter<any> = new EventEmitter();
-  hourUnit!: string;
   unit!: string;
   location!: string;
   externalLink!: string;
@@ -41,6 +41,6 @@ export class ModalTwentyFourHoursComponent implements OnInit {
   }
   private temperatureUnit() {
     this.unit = this.service.units;
-    this.hourUnit = this.service.hourUnit;
+    // this.hourUnit = this.service.hourUnit;
   }
 }

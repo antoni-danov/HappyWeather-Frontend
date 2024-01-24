@@ -111,7 +111,8 @@
     </button>
   </div>
   @if(modalOpen){
-  <app-modal-twenty-four-hours [modalContent]="item" (closeModal)="toggleModal()"></app-modal-twenty-four-hours>
+  <app-modal-twenty-four-hours [modalHourUnit]="item.time" [modalContent]="item"
+    (closeModal)="toggleModal()"></app-modal-twenty-four-hours>
   }
 </div>
 } }}

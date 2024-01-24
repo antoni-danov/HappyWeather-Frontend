@@ -14,7 +14,7 @@
         <span><strong>Temperature: </strong>
           {{
           modalContent.values.temperature
-          | tempConversion :hourUnit :unit
+          | tempConversion :modalHourUnit :unit
           | roundNumber
           }}&deg; @if(unit === 'metric') {
           <span>C</span>
@@ -24,7 +24,7 @@
         </span>
         <hr />
         <span><strong>Feels like: </strong>
-          {{modalContent.values.temperature | tempConversion :hourUnit :unit | roundNumber}}&deg;
+          {{modalContent.values.temperature | tempConversion :modalHourUnit :unit | roundNumber}}&deg;
           @if(unit === 'metric') {
           <span>C</span>
           } @else{
@@ -52,7 +52,6 @@
         <span><strong>Wind speed: </strong>{{ modalContent.values.windSpeed | roundNumber }} m/s</span>
         <hr />
         <span><strong>Maximal wind gust: </strong>{{ modalContent.values.maxWindGust | roundNumber }} m/s</span>
-        <hr />
       </div>
     </div>
   </div>
