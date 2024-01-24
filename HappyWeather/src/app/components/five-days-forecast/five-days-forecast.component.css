@@ -86,8 +86,8 @@
 
     border: none;
 
-    width: 100%;
-    margin: 2% 0%;
+    width: 98%;
+    margin: 1%;
 
     background: rgb(255, 255, 255);
     background: linear-gradient(360deg,
@@ -131,6 +131,9 @@
 
   .scroll-top-btn i {
     font-size: xx-large;
+    position: inherit;
+    margin-left: -3%;
+    margin-top: -5.5%;
   }
 }
 

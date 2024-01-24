@@ -23,7 +23,7 @@ export class ErrorInterceptor implements HttpInterceptor {
           console.error('An error occured: ', error.error.message);
           this.router.navigate(['/connectionerror']);
         } else {
-          if (error.status == 0) {
+          if (error.status == 0 || (error.status == 500 && error.statusText == 'OK')) {
             this.router.navigate(['/connectionerror']);
           }
           else if (error.status === 400 || error.status === 404) {

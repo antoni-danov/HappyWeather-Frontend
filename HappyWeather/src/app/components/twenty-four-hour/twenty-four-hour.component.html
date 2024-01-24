@@ -20,7 +20,7 @@
     </div>
   </div>
   <div class="temperature">
-    <span>Temperature:
+    <span><strong>Temperature:</strong>
       {{
       this.item.values.temperature
       | tempConversion :hourUnit :unit
@@ -32,7 +32,7 @@
       }
     </span>
     <hr />
-    <span>Feels like:
+    <span><strong>Feels like:</strong>
       {{this.item.values.temperature | tempConversion :hourUnit :unit | roundNumber}}&deg;
       @if(unit === 'metric') {
       <span>C</span>
@@ -64,10 +64,56 @@
     <hr />
   </div>
 </div>
-} } @else if (smallScreenSize) { @for (item of details; track $index) {
+} } @else if (smallScreenSize) {
+@for (item of details; track $index) {
 <div class="container">
-  <button (click)="toggleModal()">ToggleModal</button>
-  <app-modal-twenty-four-hours (closeModal)="onModalClose()"></app-modal-twenty-four-hours>
+  <div class="dayInfo">
+    <div>
+      <div class="timeUnit">
+        <span>
+          <strong>{{ item.time | dateFormat }} </strong>
+        </span>
+        <span id="time"><strong>{{ item.time.split("T")[1].split(":00Z")[0] }}</strong></span>
+      </div>
+    </div>
+    <div class="weatherIcon">
+      <img [src]="iconPaths[$index]" alt="" />
+      <span>
+        {{ realTimeDescription[$index] }}
+      </span>
+    </div>
+    <div class="temperature">
+      <span><strong>Temperature:</strong>
+        {{
+        this.item.values.temperature
+        | tempConversion :hourUnit :unit
+        | roundNumber
+        }}&deg; @if(unit === 'metric') {
+        <span>C</span>
+        } @else{
+        <span>F</span>
+        }
+      </span>
+      <hr />
+      <span><strong>Feels like:</strong>
+        {{this.item.values.temperature | tempConversion :hourUnit :unit | roundNumber}}&deg;
+        @if(unit === 'metric') {
+        <span>C</span>
+        } @else{
+        <span>F</span>
+        }
+      </span>
+    </div>
+  </div>
+  <div class="wrapper">
+    <button class="btn btn-success pulse" type="button" (click)="toggleModal()">
+      <!-- <i class="fa-solid fa-plus"></i> -->
+      <span>More</span>
+    </button>
+  </div>
+  @if(modalOpen){
+  <app-modal-twenty-four-hours [modalContent]="item" (closeModal)="toggleModal()"></app-modal-twenty-four-hours>
+  }
 </div>
 } }}
 <button (click)="scrollToTop()" class="btn btn-light scroll-top-btn" [class.show]="showButton">

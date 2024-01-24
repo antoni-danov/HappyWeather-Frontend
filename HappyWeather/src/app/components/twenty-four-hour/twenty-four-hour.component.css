@@ -8,39 +8,44 @@
   border: none;
 
   width: auto;
-  background: linear-gradient(
-    360deg,
-    rgba(255, 255, 255, 1) 35%,
-    rgba(29, 150, 299, 1) 89%
-  );
+  background: linear-gradient(360deg,
+      rgba(255, 255, 255, 1) 35%,
+      rgba(29, 150, 299, 1) 89%);
   -webkit-box-shadow: 0px 5px 4px 3px rgba(0, 0, 0, 0.47);
   box-shadow: 0px 0px 4px 3px rgba(0, 0, 0, 0.47);
 }
+
 .weatherInfo {
   display: flex;
   justify-content: space-evenly;
   flex-direction: row;
   flex-wrap: nowrap;
 }
+
 .separator {
   border-left: 2px solid gray;
   height: 285px;
   margin: 3%;
 }
+
 .dayinfo {
   display: flex;
   flex-direction: column;
 }
+
 #hyperlink {
   color: black;
 }
+
 .weatherIcon p {
   font-size: x-large;
 }
+
 .weatherIcon {
   text-align: center;
   margin: 12% 0%;
 }
+
 #shadow {
   margin-left: 20%;
   margin-top: -15%;
@@ -52,9 +57,11 @@
   -webkit-filter: blur(10px);
   -webkit-transform: scale(1, 0.2);
 }
+
 #time {
   text-align: center;
 }
+
 .scroll-top-btn {
   position: fixed;
   bottom: 3%;
@@ -71,12 +78,15 @@
   border: 1px solid gainsboro;
   background-color: white;
 }
+
 .scroll-top-btn i {
   font-size: xx-large;
 }
+
 .scroll-top-btn.show {
   opacity: 1;
 }
+
 .temperature,
 .additionalInformation,
 .windInformation {
@@ -84,11 +94,117 @@
   flex-direction: column;
   margin: 5% 0%;
 }
+
 .temperature {
   margin: 10% 0%;
 }
+
 @media screen and (min-width: 320px) and (max-width: 480px) {
+  .container {
+    margin: 4% 1%;
+    display: flex;
+    flex-direction: column;
+    justify-content: unset;
+
+    border-radius: 15px;
+    border: none;
+
+    width: 98%;
+    height: 295px;
+
+    background: linear-gradient(360deg,
+        rgba(255, 255, 255, 1) 35%,
+        rgba(29, 150, 299, 1) 89%);
+    -webkit-box-shadow: 0px 5px 4px 3px rgba(0, 0, 0, 0.47);
+    box-shadow: 0px 0px 4px 3px rgba(0, 0, 0, 0.47);
+  }
+
+  .wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .pulse {
+    height: 40px;
+    width: 35%;
+    background: radial-gradient(circle, rgba(244, 172, 43, 1) 37%, rgba(230, 93, 11, 1) 98%);
+    border: none;
+    border-radius: 15px;
+    position: relative;
+  }
+
+  .pulse i {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 30px;
+    color: #fff;
+    height: 100%;
+    cursor: pointer
+  }
+
+  .scroll-top-btn {
+    position: fixed;
+    bottom: 3%;
+    right: 5%;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    border-width: thick;
+    width: 40px;
+    height: 40px;
+    padding: 13px 18px;
+    border-radius: 60px;
+    font-size: 15px;
+    text-align: center;
+    border: 1px solid gainsboro;
+    background-color: white;
+  }
+
+  .scroll-top-btn i {
+    font-size: xx-large;
+    position: inherit;
+    margin-left: -3%;
+    margin-top: -5.5%;
+  }
+
+  .weatherIcon {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    margin: 5% 0%;
+    font-size: xx-large;
+  }
+
+  .timeUnit {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    padding-top: 5%;
+  }
+
+  .timeUnit {
+    font-size: larger;
+  }
+
+  #time {
+    text-decoration: underline;
+  }
+
+  .temperature {
+    text-align: center;
+    font-size: larger;
+    margin: 8% 0%;
+  }
+
+  hr {
+    width: 50%;
+    margin: 0% 25%;
+  }
 }
+
 @media screen and (min-width: 1024) {
   .container {
     display: flex;
@@ -100,11 +216,9 @@
     border: none;
 
     width: 98%;
-    background: linear-gradient(
-      360deg,
-      rgba(255, 255, 255, 1) 35%,
-      rgba(29, 150, 299, 1) 89%
-    );
+    background: linear-gradient(360deg,
+        rgba(255, 255, 255, 1) 35%,
+        rgba(29, 150, 299, 1) 89%);
     -webkit-box-shadow: 0px 5px 4px 3px rgba(0, 0, 0, 0.47);
     box-shadow: 0px 0px 4px 3px rgba(0, 0, 0, 0.47);
   }

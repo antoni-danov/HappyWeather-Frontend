@@ -1,16 +1,37 @@
-dialog {
-  width: 85%;
-  height: auto;
-  border: 1px solid gray;
-  border-radius: 15px;
-  animation: move-in 0.3s;
-  background: linear-gradient(
-    360deg,
-    rgba(255, 255, 255, 1) 35%,
-    rgba(29, 150, 299, 1) 89%
-  );
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgb(187 179 179 / 50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
-dialog::backdrop {
-  background-color: hsl(233deg 28% 25% / 70%);
-  animation: fade-in 0.3s;
+
+.modal-content {
+  background: #fff;
+  padding: 20px;
+  height: 100%;
+  overflow: scroll;
+}
+
+.close {
+  font-size: xx-large;
+}
+
+#time {
+  font-weight: bold;
+}
+
+.dayInfo div {
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 10%;
+
+}
+
+hr {
+  margin: 5% 0%;
 }
