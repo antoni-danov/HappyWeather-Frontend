@@ -4,13 +4,10 @@
     <div class="container">
       <div class="dayInfo">
         <div>
-          <a id="hyperlink" [href]="externalLink" target="_blank">
-            <strong>{{ location }} </strong><span class="material-icons">open_in_new</span>
-          </a>
-          <p>
+          <span>
             <strong>{{ modalContent.time | dateFormat }}</strong>
-          </p>
-          <p id="time">{{ modalContent.time.split("T")[1].split(":00Z")[0] }}</p>
+          </span>
+          <span id="time"><strong>{{ modalContent.time.split("T")[1].split(":00Z")[0] }}</strong></span>
         </div>
       </div>
       <div class="temperature">

@@ -105,8 +105,10 @@
     </div>
   </div>
   <div class="wrapper">
-    <button class="btn btn-success pulse" type="button" (click)="toggleModal()"><i
-        class="fa-solid fa-plus"></i></button>
+    <button class="btn btn-success pulse" type="button" (click)="toggleModal()">
+      <!-- <i class="fa-solid fa-plus"></i> -->
+      <span>More</span>
+    </button>
   </div>
   @if(modalOpen){
   <app-modal-twenty-four-hours [modalContent]="item" (closeModal)="toggleModal()"></app-modal-twenty-four-hours>
