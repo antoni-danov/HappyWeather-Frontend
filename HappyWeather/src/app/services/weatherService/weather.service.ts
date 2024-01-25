@@ -45,9 +45,10 @@ export class WeatherService {
     private ngZone: NgZone) {
   }
 
-  realTimeCurrentCity(cityName: string, units: string) {
+  realTimeCurrentCity(cityName: string, unitChoice: string) {
     this.location = cityName.replaceAll(',', '');
-    this.units = this.units != undefined ? this.units : units;
+    this.units = this.units != undefined ? this.units : unitChoice;
+
     this.realtimeUnit = this.units;
 
     var params = new HttpParams().set('unit', this.units);
