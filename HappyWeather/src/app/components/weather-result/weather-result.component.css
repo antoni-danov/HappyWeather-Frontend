@@ -2,9 +2,9 @@
   display: flex;
 
   border-radius: 15px;
-  margin: 1% 1%;
-  width: auto;
-  height: auto;
+  margin: 1% 0.5%;
+  width: 99%;
+  height: 77vh;
 
   color: black;
   background: rgb(255, 255, 255);

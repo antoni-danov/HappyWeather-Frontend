@@ -8,7 +8,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppComponent } from './app.component';
 import { MatIconRegistry } from '@angular/material/icon';
-import { WeatherSearchComponent } from './components/weather-search/weather-search.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { DatePipe } from '@angular/common';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
@@ -26,7 +25,6 @@ import { WeatherResultComponent } from "./components/weather-result/weather-resu
 @NgModule({
   declarations: [
     AppComponent,
-    WeatherSearchComponent,
     NavbarComponent,
     PageNotFoundComponent,
     TechincalErrorComponent,
