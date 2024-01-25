@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { WeatherSearchComponent } from '../../weather-search/weather-search.component';
 
@@ -14,14 +14,28 @@ import { WeatherSearchComponent } from '../../weather-search/weather-search.comp
 })
 export class VideoCarouselComponent {
   videos: string[] = [
-    '../../../../assets/videos/pexels_videos_4100 (720p).mp4',
-    '../../../../assets/videos/pexels_videos_1409899 (720p).mp4',
-    '../../../../assets/videos/pexels-dc-productions-11266561 (720p).mp4',
-    '../../../../assets/videos/pexels-german-korb-5644053 (720p).mp4',
+    '../../../../assets/videos/pexels_videos_4100 (720p) (online-video-cutter.com).mp4',
+    '../../../../assets/videos/pexels_videos_1409899 (720p) (online-video-cutter.com).mp4',
+    '../../../../assets/videos/pexels-fearless-dreams-5598973 (540p) (online-video-cutter.com).mp4',
+    '../../../../assets/videos/pexels-german-korb-5644053 (720p) (online-video-cutter.com).mp4',
   ];
 
+  @ViewChild('videoPlayer') videoPlayer!: ElementRef;
   currentIndex = 0;
+
+  ngAfterViewInit(): void {
+    this.videoPlayer.nativeElement.addEventListener('ended', () => this.nextVideo());
+    this.playCurrentVideo();
+  }
+
   nextVideo(): void {
     this.currentIndex = (this.currentIndex + 1) % this.videos.length;
+    this.playCurrentVideo();
+  }
+
+  playCurrentVideo(): void {
+    this.videoPlayer.nativeElement.src = this.videos[this.currentIndex];
+    this.videoPlayer.nativeElement.load();
+    this.videoPlayer.nativeElement.play();
   }
 }

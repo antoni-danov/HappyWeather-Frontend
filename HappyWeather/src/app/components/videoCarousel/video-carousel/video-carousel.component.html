@@ -1,7 +1,7 @@
 <div class="video-container">
     <div class="overlay"></div>
     @for (video of videos; track $index) {
-    <video [src]="video" [hidden]="currentIndex !== $index" autoplay muted playsinline (ended)="nextVideo()">
+    <video #videoPlayer autoplay muted playsinline>
     </video>
 
     }
