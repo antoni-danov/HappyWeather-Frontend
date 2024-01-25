@@ -41,6 +41,7 @@ export class TwentyFourHourComponent implements OnInit, AfterContentChecked {
   smallScreenSize: boolean | number = false;
   initialUnit!: string;
   modalOpen: boolean = false;
+  currentIndex!: number;
 
   constructor(private service: WeatherService) {
   }
@@ -98,7 +99,8 @@ export class TwentyFourHourComponent implements OnInit, AfterContentChecked {
     }
 
   }
-  toggleModal() {
+  toggleModal(index: number) {
+    this.currentIndex = index;
     this.modalOpen = !this.modalOpen;
   }
   //Set weather temperature in celsius or farenheit

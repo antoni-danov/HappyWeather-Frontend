@@ -21,19 +21,15 @@ import { environement } from 'src/app/environements/environement';
 })
 export class ModalTwentyFourHoursComponent implements OnInit {
   @Input() modalContent!: HourlyUnit;
+  @Input() currentIndex!: number;
   @Output() closeModal: EventEmitter<any> = new EventEmitter();
   hourUnit!: string;
   unit!: string;
-  location!: string;
-  externalLink!: string;
 
   constructor(private service: WeatherService) {
   }
-  ngOnInit(): void {
+  ngOnInit() {
     this.temperatureUnit();
-    this.location = this.service.location;
-    this.externalLink = environement.locationSearch + this.location;
-
   }
 
   hideModal() {

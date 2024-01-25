@@ -1,18 +1,23 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { WeatherSearchComponent } from '../../weather-search/weather-search.component';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { animate, style, transition, trigger } from '@angular/animations';
 
 @Component({
   selector: 'app-video-carousel',
-  standalone: true,
-  imports: [
-    CommonModule,
-    WeatherSearchComponent
-  ],
   templateUrl: './video-carousel.component.html',
-  styleUrl: './video-carousel.component.css'
+  styleUrl: './video-carousel.component.css',
+  animations: [
+    trigger('fade', [
+      transition('void => *', [
+        style({ opacity: 0 }),
+        animate(1000, style({ opacity: 1 })),
+      ]),
+      transition('* => void', [
+        animate(1000, style({ opacity: 0 })),
+      ]),
+    ])
+  ]
 })
-export class VideoCarouselComponent {
+export class VideoCarouselComponent implements OnInit {
   videos: string[] = [
     '../../../../assets/videos/pexels_videos_4100 (720p) (online-video-cutter.com).mp4',
     '../../../../assets/videos/pexels_videos_1409899 (720p) (online-video-cutter.com).mp4',
@@ -23,17 +28,19 @@ export class VideoCarouselComponent {
   @ViewChild('videoPlayer') videoPlayer!: ElementRef;
   currentIndex = 0;
 
-  ngAfterViewInit(): void {
-    this.videoPlayer.nativeElement.addEventListener('ended', () => this.nextVideo());
-    this.playCurrentVideo();
+  ngOnInit() {
+    window.addEventListener('load', () => {
+      this.playCurrentVideo();
+      this.videoPlayer.nativeElement.addEventListener('ended', () => this.nextVideo());
+    });
   }
 
-  nextVideo(): void {
+  nextVideo() {
     this.currentIndex = (this.currentIndex + 1) % this.videos.length;
     this.playCurrentVideo();
   }
 
-  playCurrentVideo(): void {
+  playCurrentVideo() {
     this.videoPlayer.nativeElement.src = this.videos[this.currentIndex];
     this.videoPlayer.nativeElement.load();
     this.videoPlayer.nativeElement.play();

@@ -5,12 +5,9 @@ import { WeatherUtilities } from 'src/app/shared/weatherUtilities';
 
 @Component({
   selector: 'app-weather-search',
-  standalone: true,
   templateUrl: './weather-search.component.html',
   styleUrls: ['./weather-search.component.css'],
-  imports: [
-    MaterialModule
-  ]
+
 })
 export class WeatherSearchComponent implements OnInit, AfterViewInit {
   @Input() units: string = 'metric';
