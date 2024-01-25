@@ -106,14 +106,14 @@
     </div>
   </div>
   <div class="wrapper">
-    <button class="btn btn-success pulse" type="button" (click)="toggleModal()">
-      <!-- <i class="fa-solid fa-plus"></i> -->
+    <button class="btn btn-success pulse" type="button" (click)="toggleModal($index)">
       <span>More</span>
     </button>
+    @if(modalOpen && currentIndex === $index){
+    <app-modal-twenty-four-hours [currentIndex]="$index" [modalContent]="details[$index]"
+      (closeModal)="toggleModal($index)"></app-modal-twenty-four-hours>
+    }
   </div>
-  @if(modalOpen){
-  <app-modal-twenty-four-hours [modalContent]="item" (closeModal)="toggleModal()"></app-modal-twenty-four-hours>
-  }
 </div>
 } }}
 <button (click)="scrollToTop()" class="btn btn-light scroll-top-btn" [class.show]="showButton">
