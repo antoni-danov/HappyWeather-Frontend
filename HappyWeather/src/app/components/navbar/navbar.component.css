@@ -227,11 +227,6 @@ input:checked+.slider:before {
     text-align: center;
   }
 
-  .centralSection a {
-    display: flex;
-    align-items: center;
-  }
-
   .leftSection span {
     color: rgba(126, 214, 238, 255);
     flex-grow: 0.4;
@@ -243,6 +238,12 @@ input:checked+.slider:before {
     font-variant: all-petite-caps;
   }
 
+  .centralSection a {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+  }
+
   .centralSection span {
     color: rgba(126, 214, 238, 255);
     flex-grow: 0.4;
@@ -251,6 +252,8 @@ input:checked+.slider:before {
     font-size: xx-large;
     font-weight: 500;
     font-variant: all-petite-caps;
+    text-decoration: none;
+
   }
 
   #logoIcon {
@@ -262,7 +265,8 @@ input:checked+.slider:before {
   }
 
   .search {
-    flex-grow: 5;
+    width: 50%;
+
   }
 
   a {

@@ -21,6 +21,9 @@ import { TemperatureConversionPipe } from './pipes/temperature/temperature-conve
 import { LoadingSpinnerComponent } from './components/loading-spinner/loading-spinner.component';
 import { CountdownTimerComponent } from './components/countdown-timer/countdown-timer.component';
 import { WeatherResultComponent } from "./components/weather-result/weather-result.component";
+import { WeatherSearchComponent } from './components/weather-search/weather-search.component';
+import { VideoCarouselComponent } from './components/videoCarousel/video-carousel/video-carousel.component';
+import { HomeComponent } from './components/home/home.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +31,10 @@ import { WeatherResultComponent } from "./components/weather-result/weather-resu
     NavbarComponent,
     PageNotFoundComponent,
     TechincalErrorComponent,
-    CountdownTimerComponent
+    CountdownTimerComponent,
+    HomeComponent,
+    WeatherSearchComponent,
+    VideoCarouselComponent
   ],
   providers: [
     DatePipe,
@@ -49,7 +55,9 @@ import { WeatherResultComponent } from "./components/weather-result/weather-resu
       useValue: { floatLabel: 'always' },
     }
   ],
-  bootstrap: [AppComponent],
+  bootstrap: [
+    AppComponent
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
