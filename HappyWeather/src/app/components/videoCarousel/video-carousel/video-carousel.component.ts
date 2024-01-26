@@ -4,18 +4,7 @@ import { animate, style, transition, trigger } from '@angular/animations';
 @Component({
   selector: 'app-video-carousel',
   templateUrl: './video-carousel.component.html',
-  styleUrl: './video-carousel.component.css',
-  animations: [
-    trigger('fade', [
-      transition('void => *', [
-        style({ opacity: 0 }),
-        animate(1000, style({ opacity: 1 })),
-      ]),
-      transition('* => void', [
-        animate(1000, style({ opacity: 0 })),
-      ]),
-    ])
-  ]
+  styleUrl: './video-carousel.component.css'
 })
 export class VideoCarouselComponent implements OnInit {
   videos: string[] = [
