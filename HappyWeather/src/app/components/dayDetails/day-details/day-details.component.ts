@@ -1,4 +1,4 @@
-import { AfterContentChecked, Component, OnInit } from '@angular/core';
+import { AfterContentChecked, Component, HostListener, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { WeatherService } from 'src/app/services/weatherService/weather.service';
 import { DayUnit } from 'src/app/interfaces/DailyForecast/dayUnit';
@@ -33,13 +33,19 @@ export class DayDetailsComponent implements OnInit, AfterContentChecked {
   unit!: string;
   dayUnit!: string;
   windDirection!: string;
+  smallScreenSize: boolean | number = false;
 
   constructor(
     private service: WeatherService,
     private route: ActivatedRoute) {
   }
+  @HostListener('window:resize', ['$event'])
+  onResize(event: Event) {
+    this.smallScreenSize = WeatherUtilities.checkScreenSize();
+  }
 
   ngOnInit() {
+    this.smallScreenSize = WeatherUtilities.checkScreenSize();
     this.route.params.subscribe(params => {
       this.index = params['id'];
     });

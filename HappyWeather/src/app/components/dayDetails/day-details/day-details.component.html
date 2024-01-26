@@ -1,5 +1,5 @@
 @if (dayDetails) {
-<div class="container">
+@if(!smallScreenSize){<div class="container">
   <section class="temperature">
     <p id="weatherIcon">
       <img [src]="weatherIcon" alt="weather icon" />
@@ -25,17 +25,6 @@
         <span>F</span>
         }
       </span>
-      <!-- <br />
-      <span
-        ><strong>Feels like:</strong> {{dayDetails.values.apparentTemperature |
-        tempConversion: unit : converted | roundNumber}}&deg;</span
-      >
-      @if (unit === undefined || unit === 'metric' || unit === null || unit ===
-      'Nan') {
-      <span>C</span>
-      } @if (unit === 'imperial') {
-      <span>F</span>
-      } -->
     </div>
   </section>
   <section class="mainContainer">
@@ -117,4 +106,112 @@
     </div>
   </section>
 </div>
+}@else if(smallScreenSize){
+<div class="flex-container">
+  <section class="mainInfo">
+    <section class="flex-locationName">
+      <div class="title">
+        <a id="hyperlink" [href]="externalLink" target="_blank">
+          <strong>{{location}} </strong><span class="material-icons">open_in_new</span>
+        </a>
+
+      </div>
+      <div class="localTime">
+        <strong>{{ dayDetails.time| dateFormat}}</strong>
+      </div>
+      <div id="weatherIcon">
+        <img [src]="weatherIcon" alt="weather icon" />
+      </div>
+    </section>
+    <br>
+    <section class="temperature">
+      <div>
+        <span><strong>Min temp: </strong></span>
+        <span>
+          {{dayDetails.values.minTemperature | tempConversion: dayUnit : unit | roundNumber }}&deg;
+          @if(unit === 'metric') {
+          <span>C</span>
+          } @else{
+          <span>F</span>
+          }
+        </span>
+        <hr id="hrTemperature" />
+        <span><strong>Max temp: </strong></span>
+        <span>
+          {{dayDetails.values.maxTemperature | tempConversion: dayUnit : unit | roundNumber }}&deg;
+          @if(unit === 'metric') {
+          <span>C</span>
+          } @else{
+          <span>F</span>
+          }
+        </span>
+      </div>
+    </section>
+    <section class="weatherDetails">
+      <hr class="separator" />
+      <div class="sunMoonInformations">
+        <div class="infoUnit">
+          <span><strong> Sunrise: </strong></span><span class="infoData">{{dayDetails.values.sunrise}}</span>
+        </div>
+        <div class="infoUnit">
+          <span><strong>Sunset: </strong></span><span class="infoData">{{dayDetails.values.sunset}} </span>
+        </div>
+        <div class="infoUnit">
+          <span><strong>Moonrise: </strong> </span>
+          <span class="infoData">{{dayDetails.values.moonRise}}</span>
+        </div>
+        <div class="infoUnit">
+          <span><strong>Moonset: </strong></span>
+          <span class="infoData">{{dayDetails.values.moonSet}}</span>
+        </div>
+      </div>
+      <hr class="separator" />
+      <div class="visibility">
+        <div class="infoUnit">
+          <span><strong>Visibility: </strong></span><span class="infoData">{{dayDetails.values.visibility |
+            roundNumber}} km</span>
+        </div>
+        <div class="infoUnit">
+          <span><strong>UV Index: </strong></span>
+          <span class="infoData">{{dayDetails.values.averageUVIndex}}</span>
+        </div>
+        <div class="infoUnit">
+          <span><strong>Cloud coverage: </strong> </span>
+          <span class="infoData">{{dayDetails.values.cloudCoverAverage | roundNumber}}%</span>
+        </div>
+      </div>
+      <hr class="separator" />
+      <div class="precipittions">
+        <div class="infoUnit">
+          <span><strong>Precipitations probability: </strong></span>
+          <span class="infoData">{{dayDetails.values.precipitationProbability |
+            roundNumber}}%</span>
+        </div>
+        <div class="infoUnit">
+          <span><strong>Average humidity: </strong> </span>
+          <span class="infoData">{{dayDetails.values.averageHumidity | roundNumber}}%</span>
+        </div>
+      </div>
+      <hr class="separator" />
+      <div class="wind">
+        @if (dayDetails.values.windSpeed > 0) {
+        <div class="infoUnit">
+          <span><strong>Wind direction: </strong></span>
+          <span class="infoData">{{windDirection}} </span>
+        </div>
+        }
+        <div class="infoUnit">
+          <span><strong>Wind Gust: </strong> </span>
+          <span class="infoData">{{dayDetails.values.maxWindGust | roundNumber}} m/s</span>
+        </div>
+        <div class="infoUnit">
+          <span><strong>Wind speed: </strong></span>
+          <span class="infoData">
+            {{dayDetails.values.windSpeed | roundNumber}} m/s</span>
+        </div>
+      </div>
+    </section>
+  </section>
+</div>
+}
 }
