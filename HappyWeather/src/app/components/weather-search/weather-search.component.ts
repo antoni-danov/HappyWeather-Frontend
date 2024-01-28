@@ -1,4 +1,5 @@
 import { AfterViewInit, Component, ElementRef, ViewChild, Renderer2, Input, ChangeDetectorRef, HostListener, OnInit } from '@angular/core';
+import { MaterialModule } from 'src/app/modules/material.module';
 import { WeatherService } from 'src/app/services/weatherService/weather.service';
 import { WeatherUtilities } from 'src/app/shared/weatherUtilities';
 
