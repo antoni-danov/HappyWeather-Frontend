@@ -1,5 +1,5 @@
 <div class="container">
-  <mat-form-field class="formField">
+  <!-- <mat-form-field class="formField">
     <section class="inputContainer">
       <input type="text" #inputField (input)="onInputChange($event)" matInput placeholder="Search city"
         (keyup.enter)="currentCityOnEnter($event)" />
@@ -15,5 +15,22 @@
       </div>
       }
     </section>
-  </mat-form-field>
+  </mat-form-field> -->
+  <section class="inputContainer">
+    <form [formGroup]="locationForm">
+      <section class="inputSection">
+        <input type="text" #inputField (keyup.enter)="currentCityOnEnter($event)" (input)="onInputChange($event)"
+          placeholder="Search city" />
+        @if (showClearButton == true) {
+        <button class="clearButton" (click)="clearCityOnClick()">
+          <i class="fa-solid fa-x"></i>
+        </button>
+        <div class="verticalLine"></div>
+        }
+        <button class="searchButton" (click)="currentCityOnClick()">
+          <i class="fa-solid fa-magnifying-glass"></i>
+        </button>
+      </section>
+    </form>
+  </section>
 </div>

@@ -1,4 +1,5 @@
 import { AfterViewInit, Component, ElementRef, ViewChild, Renderer2, Input, ChangeDetectorRef, HostListener, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MaterialModule } from 'src/app/modules/material.module';
 import { WeatherService } from 'src/app/services/weatherService/weather.service';
 import { WeatherUtilities } from 'src/app/shared/weatherUtilities';
@@ -13,6 +14,7 @@ export class WeatherSearchComponent implements OnInit, AfterViewInit {
   @Input() units: string = 'metric';
 
   @ViewChild('inputField') inputField!: ElementRef;
+  locationForm!: FormGroup;
   showClearButton: boolean = false;
   autocomplete: google.maps.places.Autocomplete | undefined;
   options = {
@@ -23,6 +25,9 @@ export class WeatherSearchComponent implements OnInit, AfterViewInit {
   constructor(private service: WeatherService,
     private renderer2: Renderer2,
     private cdref: ChangeDetectorRef) {
+    this.locationForm = new FormGroup({
+      location: new FormControl('', Validators.required)
+    });
   }
   @HostListener('window:resize', ['$event'])
   onResize(event: Event) {
@@ -52,16 +57,21 @@ export class WeatherSearchComponent implements OnInit, AfterViewInit {
     this.showClearButton = event.target.value ? true : false;
   }
   currentCityOnEnter(event: any) {
-    this.service.realTimeCurrentCity(this.inputField.nativeElement.value, this.units);
-    this.renderer2.selectRootElement(this.inputField.nativeElement).blur();
+    if (this.locationForm.valid != false) {
 
-    this.clearCityOnClick();
+      this.service.realTimeCurrentCity(this.inputField.nativeElement.value, this.units);
+      this.renderer2.selectRootElement(this.inputField.nativeElement).blur();
+
+      this.clearCityOnClick();
+    }
   }
   currentCityOnClick() {
-    this.service.realTimeCurrentCity(this.inputField.nativeElement.value, this.units);
-    this.renderer2.selectRootElement(this.inputField.nativeElement).blur();
+    if (this.locationForm.valid != false) {
+      this.service.realTimeCurrentCity(this.inputField.nativeElement.value, this.units);
+      this.renderer2.selectRootElement(this.inputField.nativeElement).blur();
 
-    this.clearCityOnClick();
+      this.clearCityOnClick();
+    }
   }
   currentCityOnChoose(data: string) {
     this.service.realTimeCurrentCity(data, this.units);
