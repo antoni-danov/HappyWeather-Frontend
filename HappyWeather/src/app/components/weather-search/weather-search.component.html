@@ -1,35 +1,36 @@
 <div class="container">
-  <mat-form-field class="formField">
+  <!-- <mat-form-field class="formField">
     <section class="inputContainer">
-      <input
-        type="text"
-        #inputField
-        (input)="onInputChange($event)"
-        matInput
-        placeholder="Search city"
-        (keyup.enter)="currentCityOnEnter($event)"
-      />
-      <button
-        class="searchButton"
-        mat-button
-        matSuffix
-        (click)="currentCityOnClick()"
-      >
+      <input type="text" #inputField (input)="onInputChange($event)" matInput placeholder="Search city"
+        (keyup.enter)="currentCityOnEnter($event)" />
+      <button class="searchButton" mat-button matSuffix (click)="currentCityOnClick()">
         <mat-icon>search</mat-icon>
       </button>
       @if (showClearButton == true) {
       <div class="clearSection">
         <div class="verticalLine"></div>
-        <button
-          class="clearButton"
-          mat-button
-          matSuffix
-          (click)="clearCityOnClick()"
-        >
+        <button class="clearButton" mat-button matSuffix (click)="clearCityOnClick()">
           <mat-icon>close</mat-icon>
         </button>
       </div>
       }
     </section>
-  </mat-form-field>
+  </mat-form-field> -->
+  <section class="inputContainer">
+    <form [formGroup]="locationForm">
+      <section class="inputSection">
+        <input type="text" #inputField (keyup.enter)="currentCityOnEnter($event)" (input)="onInputChange($event)"
+          placeholder="Search city" />
+        @if (showClearButton == true) {
+        <button class="clearButton" (click)="clearCityOnClick()">
+          <i class="fa-solid fa-x"></i>
+        </button>
+        <div class="verticalLine"></div>
+        }
+        <button class="searchButton" (click)="currentCityOnClick()">
+          <i class="fa-solid fa-magnifying-glass"></i>
+        </button>
+      </section>
+    </form>
+  </section>
 </div>
