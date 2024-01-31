@@ -222,6 +222,7 @@ img {
   #locationName,
   #localTime {
     align-self: baseline;
+    margin-top: -2%;
   }
 
   #weatherStateTitle {
@@ -247,6 +248,7 @@ img {
     display: flex;
     flex-direction: row;
     align-items: flex-end;
+    margin-bottom: 2%;
   }
 
   .localTime {
