@@ -46,7 +46,7 @@ export class WeatherSearchComponent implements OnInit, AfterViewInit {
     this.autocomplete?.addListener('place_changed', () => {
 
       const place = this.autocomplete?.getPlace().formatted_address;
-      if (place) {
+      if (place && this.showClearButton) {
         this.currentCityOnChoose(place);
       }
     });
@@ -57,8 +57,7 @@ export class WeatherSearchComponent implements OnInit, AfterViewInit {
     this.showClearButton = event.target.value ? true : false;
   }
   currentCityOnEnter(event: any) {
-    if (this.locationForm.valid != false) {
-
+    if (this.inputField.nativeElement.value != '') {
       this.service.realTimeCurrentCity(this.inputField.nativeElement.value, this.units);
       this.renderer2.selectRootElement(this.inputField.nativeElement).blur();
 
@@ -66,7 +65,7 @@ export class WeatherSearchComponent implements OnInit, AfterViewInit {
     }
   }
   currentCityOnClick() {
-    if (this.locationForm.valid != false) {
+    if (this.inputField.nativeElement.value != '') {
       this.service.realTimeCurrentCity(this.inputField.nativeElement.value, this.units);
       this.renderer2.selectRootElement(this.inputField.nativeElement).blur();
 
