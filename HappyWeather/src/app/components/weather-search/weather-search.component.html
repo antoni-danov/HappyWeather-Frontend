@@ -1,21 +1,4 @@
 <div class="container">
-  <!-- <mat-form-field class="formField">
-    <section class="inputContainer">
-      <input type="text" #inputField (input)="onInputChange($event)" matInput placeholder="Search city"
-        (keyup.enter)="currentCityOnEnter($event)" />
-      <button class="searchButton" mat-button matSuffix (click)="currentCityOnClick()">
-        <mat-icon>search</mat-icon>
-      </button>
-      @if (showClearButton == true) {
-      <div class="clearSection">
-        <div class="verticalLine"></div>
-        <button class="clearButton" mat-button matSuffix (click)="clearCityOnClick()">
-          <mat-icon>close</mat-icon>
-        </button>
-      </div>
-      }
-    </section>
-  </mat-form-field> -->
   <section class="inputContainer">
     <form [formGroup]="locationForm">
       <section class="inputSection">
